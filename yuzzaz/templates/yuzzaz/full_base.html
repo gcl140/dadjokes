@@ -1,0 +1,861 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Voima {% block title %}| Futuristic SCD Solutions{% endblock %}</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="shortcut icon" href="{% static 'images/fav.png' %}" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Engagement&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            maroon: {
+              50: '#fff8f8',
+              100: '#feecee',
+              300: '#AD2D2C',
+              500: '#AD2D2C',
+              700: '#AD2D2C',
+              900: '#AD2D2C',
+              55: '#591213',
+
+              {% comment %} 50: '#fff8f8',
+              100: '#feecee',
+              300: '#ef7979',
+              500: '#9b1f28',
+              700: '#7a1a20',
+              900: '#591213#AD2D2C' {% endcomment %}
+            },
+            voima: {
+              slate: '#0b0c0d',
+              light: '#f7f7f8',
+              gray: '#e6e6e8'
+            }
+          },
+          fontFamily: {
+            sen: ['Sen', 'sans-serif'],
+            island: ['Engagement', 'cursive']
+          },
+          keyframes: {
+            float: {
+              '0%,100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-8px)' }
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' }
+            },
+            pulseSoft: {
+              '0%': { opacity: '0.8' },
+              '50%': { opacity: '1' },
+              '100%': { opacity: '0.8' }
+            }
+          },
+          animation: {
+            float: 'float 6s ease-in-out infinite',
+            shimmer: 'shimmer 3s linear infinite',
+            pulseSoft: 'pulseSoft 3s ease-in-out infinite'
+          },
+          boxShadow: {
+            'soft-3d': '0 12px 30px rgba(15, 15, 15, 0.28), 0 2px 6px rgba(0,0,0,0.18)'
+          }
+        }
+      }
+    }
+  </script>
+
+<style>
+    a:hover{
+      text-decoration: underline;
+      text-decoration-color: transparent; /* hide default underline */
+      text-underline-offset: 4px;         /* spacing below text */
+      text-decoration: underline;
+      {% comment %} color: #9b1f28; {% endcomment %}
+    }
+
+    :root {
+      --maroon: #9b1f28;
+      --maroon-dark: #7a1a20;
+      --offwhite: #0b0c0d; /* used in light mode for text */
+    }
+
+    /* LIGHT / DARK mode defaults handled via .light and .dark on <html> */
+    html { color-scheme: dark light; }
+
+    html.dark, body.dark {
+      --bg-1: linear-gradient(180deg, #0b0c0d 0%, #0e0f10 100%);
+      --text: #fbfbfc;
+      --muted: #cfcfd2;
+      --glass: rgba(255,255,255,0.03);
+      --card-border: rgba(255,255,255,0.04);
+      --overlay: rgba(0,0,0,0.6);
+    }
+
+    html.light, body.light {
+      --bg-1: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+      --text: #0b0c0d;
+      --muted: #6b7280;
+      --glass: rgba(10,10,10,0.03);
+      --card-border: rgba(0,0,0,0.06);
+      --overlay: rgba(255,255,255,0.6);
+    }
+
+    html, body {
+      font-family: 'Sen', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background: var(--bg-1);
+      color: var(--text);
+      scroll-behavior: smooth;
+      transition: background-color 300ms ease, color 300ms ease;
+    }
+
+    .maroon-glow {
+      text-shadow: 0 6px 30px rgba(155,31,40,0.14);
+    }
+
+    .gradient-border {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+    .gradient-border::after {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(90deg, rgba(155,31,40,0.12), rgba(0,0,0,0.02), rgba(155,31,40,0.12));
+      filter: blur(12px);
+      z-index: -1;
+      animation: glow 6s linear infinite;
+    }
+    @keyframes glow {
+      0% { transform: translateX(-10%) }
+      50% { transform: translateX(10%) }
+      100% { transform: translateX(-10%) }
+    }
+
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      backdrop-filter: blur(8px) saturate(120%);
+      -webkit-backdrop-filter: blur(8px) saturate(120%);
+      border: 1px solid var(--card-border);
+    }
+
+    .shimmer {
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      background-size: 200% 100%;
+      animation: shimmer 4s linear infinite;
+    }
+
+    .focus-outline:focus {
+      outline: 3px solid rgba(155,31,40,0.18);
+      outline-offset: 2px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 700ms ease, transform 700ms ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tilt {
+      transition: transform 450ms cubic-bezier(.2,.9,.2,1), box-shadow 450ms;
+      transform-origin: center;
+    }
+    .tilt:hover {
+      transform: translateY(-6px) rotateX(0.6deg) rotateY(-0.6deg) scale(1.01);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+    }
+
+    .hero-radial {
+      background: radial-gradient(800px 300px at 10% 20%, rgba(155,31,40,0.06), transparent 10%),
+                  radial-gradient(600px 200px at 90% 80%, rgba(255,255,255,0.02), transparent 12%);
+    }
+
+    .muted { color: var(--muted); }
+    /* toggle button visuals */
+    .toggle {
+      width: 46px; height: 26px; border-radius: 999px; display:inline-flex; align-items:center; padding:3px; gap:4px;
+      background: linear-gradient(90deg, rgba(0,0,0,0.05), rgba(255,255,255,0.03));
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .toggle .knob { width:20px; height:20px; border-radius:999px; background:white; box-shadow:0 4px 10px rgba(0,0,0,0.12); transition: transform 220ms ease; }
+    html.dark .toggle { background: rgba(255,255,255,0.06); }
+    html.light .toggle { background: rgba(0,0,0,0.06); }
+    html.light .toggle .knob { transform: translateX(18px); background:white; }
+    html.dark .toggle .knob { transform: translateX(0); background:white; }
+
+    /* Preloader container */
+    #preloader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #ffffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease; /* smooth fade */
+    }
+
+    /* Prevent scroll while loading */
+    body.loading {
+      overflow: hidden;
+    }
+
+    /* New loader animation */
+    .loader {
+      width: 40px;
+      aspect-ratio: 1;
+      --c: linear-gradient(rgb(173, 45, 44) 0 0);
+      --m: radial-gradient(farthest-side, rgb(173, 45, 44) 92%, #0000);
+      background: 
+        var(--m) center               /12px 12px,
+        var(--c) left 50% top    -20px/8px 16px, 
+        var(--c) left 50% bottom -20px/8px 16px, 
+        var(--c) top  50% left   -20px/16px 8px, 
+        var(--c) top  50% right  -20px/16px 8px;
+      background-repeat: no-repeat;
+      animation: 
+        l18-1 1.5s infinite,
+        l18-2 1.5s infinite;
+    }
+    @keyframes l18-1 {
+      30%,
+      70% {background-position: 
+          center,
+          left 50% top    calc(50% - 8px),
+          left 50% bottom calc(50% - 8px),
+          top  50% left   calc(50% - 8px),
+          top  50% right  calc(50% - 8px)}
+    }
+    @keyframes l18-2 {
+      0%,40%   {transform: rotate(0)}
+      60%,100% {transform: rotate(90deg)}
+    }
+</style>
+</head>
+{% comment %} <body class="loading bg-dark text-gray-200 font-sen min-h-screen"> {% endcomment %}
+  <body class="loading" x-data="voima()" x-init="initTheme()" :class="theme" @scroll.window="scrolled = window.scrollY > 40">
+    {% comment %} <body x-data="voima()" x-init="initTheme()" :class="theme" @scroll.window="scrolled = window.scrollY > 40"> {% endcomment %}
+
+  <div id="preloader">
+    <div class="loader"></div>
+  </div>
+  <script>
+    function voima() {
+      return {
+        navOpen: false,
+        scrolled: false,
+          theme: 'light', // always light
+          initTheme() {
+            this.theme = 'light';
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+            document.body.classList.remove('dark');
+            document.body.classList.add('light');
+          },
+        toggleTheme() {
+            // No-op: always light mode
+            this.theme = 'light';
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+            document.body.classList.remove('dark');
+            document.body.classList.add('light');
+        }
+      }
+    }
+  </script>
+
+  <!-- NAV -->
+  <header class="fixed inset-x-0 top-0 z-50">
+    {% comment %} <div :class="scrolled ? 'backdrop-blur-lg bg-black/60 border-b border-white/10 text-white' : 'bg-transparent'"
+         class="transition-colors duration-400"> {% endcomment %}
+         <div :class="scrolled ? 'backdrop-blur-lg bg-white/60 border-b border-white/10 text-black' : 'bg-transparent'" class="transition-colors duration-400 text-black backdrop-blur-lg bg-white/60 border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-6">
+        <nav class="flex items-center justify-between h-16">
+          <a href="{% url 'home' %}" class="flex items-center gap-3">
+            {% comment %} <div class="w-10 h-10 rounded-md bg-white flex items-center justify-center shadow-soft-3d"> {% endcomment %}
+            <div class="w-24 h-10 rounded-md flex items-center justify-center">
+              {% comment %} <i class="fas fa-dna text-white"></i> {% endcomment %}
+              <img src="{% static 'images/fav.png' %}" alt="Voima Logo" class="w-24 h-18 filter object-contain">
+            </div>
+            <div>
+              {% comment %} <span class="text-xl font-bold maroon-glow">VOIMA</span>
+              <div class="text-base text-gray-400 -mt-0.5 font-island">Futuristic SCD Solutions</div> {% endcomment %}
+            </div>
+          </a>
+
+          <div class="hidden md:flex items-center gap-8">
+            <a class="text-sm hover:text-maroon-300 transition-colors" href="{% url 'home' %}">Home</a>
+            <a class="text-sm hover:text-maroon-300 transition-colors" href="{% url 'voima_profile' %}">About</a>
+            <a class="text-sm hover:text-maroon-300 transition-colors" href="{% url 'home' %}#mission">Mission</a>
+            <a class="text-sm hover:text-maroon-300 transition-colors" href="{% url 'home' %}#services">Services</a>
+            <a class="text-sm hover:text-maroon-300 transition-colors" href="{% url 'home' %}#stats">Statistics</a>
+            <a class="text-sm hover:text-maroon-300 transition-colors" href="{% url 'home' %}#news">News</a>
+            <a class="text-sm hover:text-maroon-300 transition-colors" href="{% url 'home' %}#contact">Contact</a>
+          </div>
+
+          <div class="hidden md:flex items-center gap-4">
+
+                        <!-- Theme toggle -->
+
+                        {% comment %} <a class="px-4 py-2 rounded-lg border border-white/8 text-sm hover:bg-white/5 transition-colors" href="{% url 'home'%}#contribute"><i class="fas fa-hand-holding-medical mr-2"></i> Contribute</a> {% endcomment %}
+                        <a class="px-4 py-2 rounded-lg bg-maroon-500 hover:bg-maroon-55 transition-colors text-white text-sm font-semibold" href="{% if user.is_staff %}{% url 'staff_dashboard' %}{% elif user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}">{% if user.is_staff %} 💼 Staff Portal {% elif user.is_authenticated %} 👋🏽 Hi, {{user.first_name}}!{% else %}Get Started{% endif %}</a>
+
+          </div>
+
+          <!-- Mobile -->
+          <div class="md:hidden flex items-center gap-2">
+
+            <button @click="navOpen = !navOpen" aria-label="Toggle menu"
+                    class="p-2 rounded-md focus-outline hover:bg-white/4 text-maroon-500 transition">
+              <i :class="navOpen ? 'fas fa-times' : 'fas fa-bars'" class="text-xl"></i>
+            </button>
+          </div> 
+        </nav>
+      </div>
+
+      <div x-show="navOpen" x-transition class="md:hidden border-t border-white/20 bg-maroon-500" style="z-index: 9990;">
+        <div class="px-6 py-4 space-y-3">
+          <a href="{% url 'home' %}" class="block py-2">Home</a>
+          <a href="{% url 'voima_profile' %}" class="block py-2">About</a>
+          <a href="{% url 'home' %}#mission" class="block py-2">Mission</a>
+          <a href="{% url 'home' %}#services" class="block py-2">Services</a>
+          <a href="{% url 'home' %}#stats" class="block py-2">Statistics</a>
+          <a href="{% url 'home' %}#news" class="block py-2">News</a>
+          <a href="{% url 'home' %}#contact" class="block py-2">Contact</a>
+
+          <div class="pt-3 flex gap-3">
+            {% comment %} <a class="px-4 py-2 rounded-lg border border-white/8 text-sm hover:bg-white/5 transition-colors" href="{% url 'home'%}#contribute"><i class="fas fa-hand-holding-medical mr-2"></i> Contribute</a> {% endcomment %}
+            <a class="flex-1 px-4 py-2 rounded-md bg-maroon-500 text-white text-center" href="{% if user.is_staff %}{% url 'staff_dashboard' %}{% elif user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}">{% if user.is_staff %} 💼 Staff Portal {% elif user.is_authenticated %} 👋🏽 Hi, {{user.first_name}}!{% else %}Get Started{% endif %}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-20">
+        <style>
+            {% comment %} .glass {
+              background: rgba(30, 30, 30, 0.7);
+              backdrop-filter: blur(10px);
+              border: 1px solid rgba(102, 28, 28, 0.2);
+            } {% endcomment %}
+
+            .text-glow {
+              text-shadow: 0 0 10px rgba(188, 42, 42, 0.7);
+            }
+
+            .animation-delay-2000 {
+              animation-delay: 2s;
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+              #testimonials .glass {
+                padding: 1.5rem;
+              }
+
+              #testimonials .relative.h-\[500px\] {
+                height: 700px;
+              }
+            }
+    </style>
+    {% block content %}{% endblock %}
+        <!-- FOOTER -->
+    <footer id="contact" class="py-4 pt-8 bg-maroon-500">
+      <div class="max-w-7xl mx-auto px-6">
+
+        <h2 class="text-white uppercase text-center text-2xl md:text-3xl font-extrabold maroon-glow">{{ content.footer_title }}</h2>
+
+
+        <!-- Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-16">
+
+          <!-- Column 1: About + Form -->
+          <div>
+            <!-- Contact Form -->
+            <div class=" rounded-xl md:shadow-lg md:p-8">
+              <div class="flex items-center mb-6">
+                <div class="bg-maroon-500 shadow-lg p-2 rounded-full mr-4 flex items-center justify-center w-10 h-10">
+                  <i class="fas fa-paper-plane text-white text-lg"></i>
+                </div>
+                <h3 class="text-lg font-bold uppercase tracking-wide">
+                  <span class="underline underline-offset-8 decoration-white text-white">Get in Touch</span>
+                </h3>
+              </div>
+              <form method="POST" action="{% url 'contact' %}" class="space-y-4 text-white">
+                {% csrf_token %}
+                <div>
+                  <label for="id_full_name" class="block mb-1 text-base font-medium">Your Name</label>
+                  <input type="text" name="full_name" id="id_full_name" placeholder="John Doe"
+                        class="w-full bg-transparent border-b border-gray-400/20  pb-2 focus:outline-none focus:border-maroon-500 placeholder-white/50"
+                        value="{{ form.full_name.value|default:'' }}">
+                  {% if form.full_name.errors %}
+                    <p class="text-red-500 text-sm">{{ form.full_name.errors.0 }}</p>
+                  {% endif %}
+                </div>
+                <div>
+                  <label for="id_email" class="block mb-1 text-base font-medium">Your Email</label>
+                  <input type="email" name="email" id="id_email" placeholder="johndoe@example.com"
+                        class="w-full bg-transparent border-b border-gray-400/20 pb-2 focus:outline-none focus:border-maroon-500 placeholder-white/50"
+                        value="{{ form.email.value|default:'' }}">
+                  {% if form.email.errors %}
+                    <p class="text-red-500 text-sm">{{ form.email.errors.0 }}</p>
+                  {% endif %}
+                </div>
+                <div>
+                  <label for="id_message" class="block mb-1 text-base font-medium">Your Message</label>
+                  <textarea name="message" id="id_message" rows="3" placeholder="Message"
+                            class="w-full bg-transparent border-b border-gray-400/20  pb-2 focus:outline-none focus:border-maroon-500 placeholder-white/50 resize-none">{{ form.message.value|default:'' }}</textarea>
+                  {% if form.message.errors %}
+                    <p class="text-red-500 text-sm">{{ form.message.errors.0 }}</p>
+                  {% endif %}
+                </div>
+                <button type="submit"
+                        class="w-full bg-white hover:bg-maroon-500 hover:text-white hover:border-white border-b text-maroon-500 font-bold py-3 px-4 rounded-lg transition flex items-center justify-center">
+                  <i class="fas fa-paper-plane mr-2"></i> Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Column 2: Quick Links -->
+          <div class="md:p-8">
+            <div class="flex items-center mb-6">
+                <div class="bg-maroon-500 shadow-lg p-2 rounded-full mr-4 flex items-center justify-center w-10 h-10">
+                  <i class="fas fa-newspaper text-white text-lg"></i>
+                </div>
+                <h3 class="text-lg font-bold uppercase tracking-wide">
+                  <span class="underline underline-offset-8 decoration-white text-white">Newsletter</span>
+                </h3>
+            </div>
+                <p class="mt-3 text-white text-base">Subscribe for research updates and events.</p>
+                  <form method="POST" action="{% url 'subscribe' %}" class="my-4 flex flex-row sm:flex-row gap-2">
+                      {% csrf_token %}
+                      <input name="email" aria-label="Email" type="email" required placeholder="Your email"
+                            class="w-full bg-transparent border-b border-gray-400/20 py-2 text-white focus:outline-none focus:border-maroon-500 placeholder-white/50" />
+                      <button class="px-4 py-3 rounded-full bg-maroon-500 text-white hover:bg-white hover:text-maroon-500 transition mt-2 w-10 h-10 flex items-center justify-center shadow" type="submit">
+                        <i class="fas fa-paper-plane"></i>
+                      </button>
+                  </form>
+
+
+
+              <div class="flex items-center mb-6">
+                <div class="bg-maroon-500 shadow-lg p-2 rounded-full mr-4 flex items-center justify-center w-10 h-10">
+                  <i class="fas fa-link text-white text-lg"></i>
+              </div>
+                <h3 class="text-lg font-bold uppercase tracking-wide">
+                  <span class="underline underline-offset-8 decoration-white text-white">Reach Us</span>
+                </h3>
+              </div>
+
+                  <!-- Short description -->
+                  <p class="mt-3 text-white text-base">
+                    {{ content.footer_caption}}
+                  </p>
+
+
+                  <!-- Contact info -->
+                  <div class="flex flex-col justify-center">
+                  <ul class="mt-4 space-y-3 text-white text-sm">
+                    <li class="flex items-start gap-3">
+                      <i class="fas fa-map-marker-alt mt-1 text-white"></i>
+                      <a href="{{ content.location_google_maps }}" target="_blank">{{ content.location_name }}</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <i class="fas fa-envelope mt-1 text-white"></i>
+                      <a href="mailto:{{ content.email_1 }}">{{ content.email_1 }}</a>
+                    </li>
+                    {% if content.email_2 %}
+                    <li class="flex items-start gap-3">
+                      <i class="fas fa-envelope mt-1 text-white"></i>
+                      <a href="mailto:{{ content.email_2 }}">{{ content.email_2 }}</a>
+                    </li>
+                    {% endif %}
+
+                    <li class="flex items-start gap-3">
+                      <i class="fas fa-phone-alt mt-1 text-white"></i>
+                      <a href="tel:{{ content.phone_1 }}">{{ content.phone_1 }}</a>
+                    </li>
+                    {% if content.phone_2 %}
+                    <li class="flex items-start gap-3">
+                      <i class="fas fa-phone-alt mt-1 text-white"></i>
+                      <a href="tel:{{ content.phone_2 }}">{{ content.phone_2 }}</a>
+                    </ul>
+                    {% endif %}
+                  </li>
+
+                <!-- Social media icons -->
+              <div class="mt-4 flex gap-3">
+                {% if content.wa_number %}
+                <a href="https://wa.me/{{ content.wa_number }}" target="_blank"
+                  class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:text-maroon-500 hover:bg-white transition shadow ">
+                  <i class="fab fa-whatsapp"></i>
+                </a>
+                {% endif %}
+                {% if content.ig_username %}
+                <a href="https://www.instagram.com/{{ content.ig_username }}/" target="_blank"
+                  class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:text-maroon-500 hover:bg-white transition shadow ">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                {% endif %}
+                {% if content.x_link %}
+                <a href="{{content.x_link}}" target="_blank"
+                  class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:text-maroon-500 hover:bg-white transition shadow ">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                {% endif %}
+                {% if content.fb_link %}
+                <a href="{{content.fb_link}}" target="_blank"
+                  class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:text-maroon-500 hover:bg-white transition shadow ">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                {% endif %}
+                {% if content.linkedin_link %}
+                <a href="{{content.linkedin_link}}" target="_blank"
+                  class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:text-maroon-500 hover:bg-white transition shadow ">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+                {% endif %}
+              </div>
+          </div>
+        </div>
+          </div>
+          <!-- Copyright -->
+          <div class="opacity-90 my-2 pt-2 text-center text-white text-sm">
+            © {{year}} Voima. All rights reserved.
+          </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top"
+        class="fixed bottom-8 left-8 w-12 h-12 bg-maroon-500 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 z-50">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <!-- Toast Messages -->
+    {% if messages %}
+    <div class="fixed top-4 right-4 space-y-3 z-50 w-full max-w-xs">
+        {% for message in messages %}
+        <div class="overflow-hidden rounded-lg shadow-lg mb-4 animate-fade-in-up">
+            <div class="{% if message.tags == 'success' %}bg-green-600
+                {% elif message.tags == 'error' %}bg-red-600
+                {% elif message.tags == 'warning' %}bg-yellow-600
+                {% elif message.tags == 'info' %}bg-blue-600
+                {% else %}bg-gray-800{% endif %}
+                px-4 py-3 text-white">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 pt-0.5">
+                        {% if message.tags == 'success' %}
+                        <i class="fas fa-check-circle"></i>
+                        {% elif message.tags == 'error' %}
+                        <i class="fas fa-exclamation-circle"></i>
+                        {% elif message.tags == 'warning' %}
+                        <i class="fas fa-exclamation-triangle"></i>
+                        {% elif message.tags == 'info' %}
+                        <i class="fas fa-info-circle"></i>
+                        {% else %}
+                        <i class="fas fa-bell"></i>
+                        {% endif %}
+                    </div>
+                    <div class="ml-3 w-0 flex-1 pt-0.5">
+                        <p class="text-sm font-medium">
+                            {{ message }}
+                        </p>
+                    </div>
+                    <div class="ml-4 flex-shrink-0 flex">
+                        <button
+                            class="bg-transparent rounded-md inline-flex text-white hover:text-white focus:outline-none"
+                            onclick="this.closest('.overflow-hidden').remove()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-black/20 h-1 w-full">
+                <div class="{% if message.tags == 'success' %}bg-green-300
+                  {% elif message.tags == 'error' %}bg-red-300
+                  {% elif message.tags == 'warning' %}bg-yellow-300
+                  {% elif message.tags == 'info' %}bg-blue-300
+                  {% else %}bg-gray-300{% endif %}
+                  h-full animate-progress"></div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toastMessages = document.querySelectorAll('.animate-fade-in-up');
+
+            toastMessages.forEach(toast => {
+                // Auto-dismiss after 5 seconds
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 300);
+                }, 10000);
+
+                // Pause animation on hover
+                toast.addEventListener('mouseenter', () => {
+                    const progressBar = toast.querySelector('.animate-progress');
+                    progressBar.style.animationPlayState = 'paused';
+                });
+
+                // Resume animation when mouse leaves
+                toast.addEventListener('mouseleave', () => {
+                    const progressBar = toast.querySelector('.animate-progress');
+                    progressBar.style.animationPlayState = 'running';
+                });
+            });
+        });
+    </script>
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes progress {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.3s ease-out forwards;
+        }
+
+        .animate-progress {
+            animation: progress 10s linear forwards;
+        }
+    </style>
+    {% endif %}
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+  <script>
+    document.addEventListener('alpine:init', () => {
+      // reveal intersection observer
+      const revealItems = document.querySelectorAll('.reveal');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach(el => obs.observe(el));
+    });
+
+    // Ensure initial theme classes on the html/body for no-FOUT
+    (function setInitialThemeFromStorage(){
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+      document.body.classList.remove('dark');
+      document.body.classList.add('light');
+    })();
+
+    window.addEventListener("load", function () {
+      const preloader = document.getElementById("preloader");
+      if (preloader) {
+        preloader.style.opacity = "0";
+        setTimeout(() => {
+          preloader.style.display = "none";
+          document.body.classList.remove("loading");
+        }, 500); // fade-out time
+      }
+    });
+  </script>
+
+  <script>
+            // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.add('opacity-0', 'invisible');
+                backToTopButton.classList.remove('opacity-100', 'visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      /* Testimonials slider: robust, accessible, touch & pause-on-hover */
+      function testimonialSlider() {
+        return {
+          currentIndex: 0,
+          intervalId: null,
+          total: 0,
+          autoplayMs: 6000,
+          isPaused: false,
+          init() {
+            const slider = document.getElementById('testimonialSlider');
+            this.total = slider ? slider.children.length : 0;
+
+            // start autoplay
+            this.startAutoplay();
+
+            // make slides full width on resize (keeps transform logic simple)
+            window.addEventListener('resize', () => {
+              // reapply transform so visual stays correct
+              slider.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+            });
+
+            // touch support (swipe)
+            let startX = 0, endX = 0;
+            slider.addEventListener('touchstart', (e) => {
+              startX = e.touches[0].clientX;
+              this.pause();
+            }, { passive: true });
+            slider.addEventListener('touchmove', (e) => {
+              endX = e.touches[0].clientX;
+            }, { passive: true });
+            slider.addEventListener('touchend', () => {
+              const dx = endX - startX;
+              if (Math.abs(dx) > 40) {
+                if (dx < 0) this.next(); else this.prev();
+              }
+              this.resume();
+            });
+          },
+          goTo(i) {
+            this.currentIndex = (i + this.total) % this.total;
+            // transform is bound via Alpine attribute; if not using Alpine, update manually:
+            const slider = document.getElementById('testimonialSlider');
+            slider.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+          },
+          next() {
+            this.goTo(this.currentIndex + 1);
+            this.resetAutoplay();
+          },
+          prev() {
+            this.goTo(this.currentIndex - 1);
+            this.resetAutoplay();
+          },
+          startAutoplay() {
+            if (this.intervalId) return;
+            this.intervalId = setInterval(() => {
+              if (!this.isPaused) this.next();
+            }, this.autoplayMs);
+          },
+          pause() {
+            this.isPaused = true;
+          },
+          resume() {
+            this.isPaused = false;
+          },
+          resetAutoplay() {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+            this.startAutoplay();
+          }
+        };
+      }
+
+      /* FAQ toggle: smooth height animation + single-open behavior + keyboard support */
+      function toggleFAQ(buttonEl) {
+        const faqList = document.getElementById('faq-list');
+        const btn = buttonEl;
+        const content = btn.nextElementSibling;
+        const icon = btn.querySelector('i');
+
+        // close any open item (single-open)
+        faqList.querySelectorAll('.faq-content').forEach(el => {
+          if (el !== content) {
+            el.style.maxHeight = '0px';
+            el.setAttribute('aria-hidden','true');
+            const b = el.previousElementSibling;
+            if (b) b.setAttribute('aria-expanded','false');
+            const ic = b.querySelector('i');
+            if (ic) ic.style.transform = 'rotate(0deg)';
+          }
+        });
+
+        const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+        if (isOpen) {
+          // close
+          content.style.maxHeight = '0px';
+          content.setAttribute('aria-hidden','true');
+          btn.setAttribute('aria-expanded','false');
+          if (icon) icon.style.transform = 'rotate(0deg)';
+        } else {
+          // open
+          content.style.maxHeight = content.scrollHeight + 'px';
+          content.setAttribute('aria-hidden','false');
+          btn.setAttribute('aria-expanded','true');
+          if (icon) icon.style.transform = 'rotate(180deg)';
+          // ensure focus for keyboard users
+          content.focus && content.focus();
+        }
+      }
+
+      /* Graceful init: ensure FAQ items have correct initial attributes */
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('#faq-list .faq-content').forEach(el => {
+          el.style.maxHeight = '0px';
+          el.setAttribute('aria-hidden','true');
+        });
+        document.querySelectorAll('#faq-list button[aria-expanded]').forEach(btn => {
+          btn.setAttribute('aria-expanded','false');
+          btn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              toggleFAQ(btn);
+            }
+          });
+        });
+      });
+
+  function highlightLastWord(selector, highlightClass = "text-maroon-500") {
+    document.querySelectorAll(selector).forEach(el => {
+      const text = el.textContent.trim();
+      const words = text.split(" ");
+      if (words.length > 1) {
+        const last = words.pop();
+        const rest = words.join(" ");
+        el.innerHTML = `${rest} <span class="${highlightClass}">${last}</span>`;
+      }
+    });
+  }
+
+  // Apply to all headings with that class
+  highlightLastWord(".title-with-highlight");
+</script>
+</body>
+</html>

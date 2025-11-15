@@ -1,0 +1,13 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% block content %}
+<body data-username="{{ request.user.username }}">     
+    <div id="scrollContainer" class="h-screen overflow-y-scroll no-scrollbar snap-y">
+        <!-- Video items will be added here dynamically -->
+    </div>
+    {% include 'partial/comments.html' %}
+    {% block scripts %}
+        <script type="module" src="{% static 'js/index.js' %}"></script>
+    {% endblock %}
+</body>
+{% endblock %}

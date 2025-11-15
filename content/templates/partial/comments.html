@@ -1,0 +1,30 @@
+<div id="comments-modal" 
+     class="fixed inset-0 bg-black bg-opacity-60 hidden justify-center items-center z-[9999] p-4 ">
+
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col">
+        <!-- Header -->
+        <div class="flex justify-between items-center p-6 border-b border-gray-200">
+            <h2 class="text-xl font-bold text-gray-800">Comments</h2>
+            <button id="close-comments-full" class="text-gray-500 hover:text-gray-700 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Comments List -->
+        <div id="comments-list" class="flex-1 overflow-y-auto p-6 space-y-4 max-h-[400px] overflow-y-auto">
+            <!-- JS will inject comments here -->
+        </div>
+
+            <!-- Footer with input and send button -->
+            <div class="p-6 border-t border-gray-200 flex md:flex-row flex-col gap-2 space-x-2">
+                <input id="comment-input" type="text" placeholder="Write a comment..."
+                    class="flex-1 border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                <button id="send-comment" 
+                        class="bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded-lg font-medium transition-colors duration-200">
+                    Send
+                </button>
+            </div>
+    </div>
+</div>

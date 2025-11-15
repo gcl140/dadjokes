@@ -1,0 +1,255 @@
+{% extends "content/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-black text-white overflow-hidden relative">
+  <!-- Background gradient for TikTok vibe -->
+  <div class="fixed inset-0 bg-gradient-to-br from-purple-900 via-pink-900 to-black z-0"></div>
+  
+  <!-- Floating particles for visual effect -->
+  <div class="fixed inset-0 overflow-hidden z-0 opacity-30">
+    <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-pink-500 rounded-full animate-pulse"></div>
+    <div class="absolute top-1/3 right-1/3 w-1 h-1 bg-purple-500 rounded-full animate-pulse" style="animation-delay: 0.5s;"></div>
+    <div class="absolute bottom-1/4 left-1/3 w-3 h-3 bg-red-500 rounded-full animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute top-2/3 right-1/4 w-1 h-1 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 1.5s;"></div>
+  </div>
+
+  <!-- Main content with scroll effect -->
+  <div class="relative z-10 h-screen overflow-y-auto snap-y snap-mandatory" id="scrollContainer">
+    
+    <!-- Profile Section (First Screen) -->
+    <section class="h-screen w-full flex flex-col items-center justify-center snap-start px-4">
+      <div class="max-w-md w-full text-center">
+        <!-- Profile image with TikTok-style ring -->
+        <div class="relative mb-6 mx-auto">
+          <div class="relative w-32 h-32 rounded-full overflow-hidden mx-auto border-4 border-black">
+            <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'images/default-profile.jpg' %}{% endif %}" 
+                 alt="Profile" 
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <!-- User info -->
+        <h1 class="text-3xl font-bold mb-2">{{ user.first_name }} <span class="text-pink-500">👋</span></h1>
+        <p class="text-gray-400 mb-6">@{{ user.username }}</p>
+        
+        <!-- Stats -->
+        <div class="flex justify-center space-x-8 mb-8">
+          <div class="text-center">
+            <p class="text-xl font-bold">142</p>
+            <p class="text-xs text-gray-400">Following</p>
+          </div>
+          <div class="text-center">
+            <p class="text-xl font-bold">1.2K</p>
+            <p class="text-xs text-gray-400">Followers</p>
+          </div>
+          <div class="text-center">
+            <p class="text-xl font-bold">24</p>
+            <p class="text-xs text-gray-400">Posts</p>
+          </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="flex space-x-3 mb-6">
+          <button id="toggleUpdate" class="flex-1 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 transition-all py-3 px-4 rounded-lg font-medium transform hover:scale-105 active:scale-95">
+            Edit Profile
+          </button>
+          <form method="POST" action="{% url 'logout' %}" class="flex-1">
+            {% csrf_token %}
+            <button type="submit" class="w-full bg-gray-800 hover:bg-gray-700 py-3 px-4 rounded-lg font-medium transform hover:scale-105 active:scale-95">
+              Log Out
+            </button>
+          </form>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="mt-12 animate-bounce">
+          <p class="text-gray-400 text-sm">Scroll down for more</p>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Update Form Section (Second Screen) -->
+    <section class="h-screen w-full flex items-center justify-center snap-start px-4">
+      <div class="max-w-md w-full bg-gray-900 bg-opacity-70 backdrop-blur-lg p-8 rounded-2xl border border-gray-800 shadow-2xl">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">Update Profile</h3>
+          <button id="closeUpdate" class="text-gray-400 hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-5" action="{% url 'profile' %}">
+          {% csrf_token %}
+
+          <!-- Profile Picture -->
+          <div class="flex flex-col items-center space-y-4">
+            <div class="relative w-24 h-24 rounded-full overflow-hidden bg-gray-800 border-2 border-gray-700">
+              <img id="previewImage" src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default-profile.jpg' %}{% endif %}" class="w-full h-full object-cover">
+            </div>
+            <div class="w-full">
+              <label for="{{ form.profile_picture.id_for_label }}" class="block text-gray-300 font-medium mb-1">Profile Picture</label>
+              {{ form.profile_picture|add_class:"w-full text-sm text-gray-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-500 file:text-white hover:file:bg-pink-600" }}
+            </div>
+          </div>
+
+          <!-- Username -->
+          <div>
+            <label for="{{ form.username.id_for_label }}" class="block text-gray-300 font-medium mb-1">Username</label>
+            {{ form.username|add_class:"w-full rounded-lg bg-gray-800 border border-gray-700 py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent" }}
+            {% if form.username.errors %}
+              <p class="text-red-400 text-sm mt-1">{{ form.username.errors.0 }}</p>
+            {% endif %}
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="{{ form.email.id_for_label }}" class="block text-gray-300 font-medium mb-1">Email</label>
+            {{ form.email|add_class:"w-full rounded-lg bg-gray-800 border border-gray-700 py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent" }}
+            {% if form.email.errors %}
+              <p class="text-red-400 text-sm mt-1">{{ form.email.errors.0 }}</p>
+            {% endif %}
+          </div>
+
+          <!-- About -->
+          <div>
+            <label for="{{ form.about.id_for_label }}" class="block text-gray-300 font-medium mb-1">About You</label>
+            {{ form.about|add_class:"w-full rounded-lg bg-gray-800 border border-gray-700 py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent resize-none" }}
+            {% if form.about.errors %}
+              <p class="text-red-400 text-sm mt-1">{{ form.about.errors.0 }}</p>
+            {% endif %}
+          </div>
+
+          <button type="submit" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 active:scale-95">
+            Save Changes
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Posts Section (Third Screen) -->
+    <section class="h-screen w-full flex flex-col items-center justify-center snap-start px-4">
+      <div class="max-w-md w-full text-center">
+        <h2 class="text-2xl font-bold mb-8 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">Your Posts</h2>
+        
+        <!-- Sample posts grid -->
+        <div class="grid grid-cols-3 gap-2 mb-8">
+          {% for i in "123456" %}
+          <div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden border border-gray-800 flex items-center justify-center">
+            <div class="text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+              <p class="text-xs text-gray-400 mt-1">Post {{ i }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        
+        <!-- Create new post button -->
+        <button class="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+          <span>Create New Post</span>
+        </button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+  // Toggle the update form and scroll to it
+  document.getElementById('toggleUpdate').addEventListener('click', () => {
+    document.getElementById('scrollContainer').scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  });
+
+  // Close update form and scroll back to profile
+  document.getElementById('closeUpdate').addEventListener('click', () => {
+    document.getElementById('scrollContainer').scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Profile picture preview
+  const profileInput = document.getElementById('id_profile_picture');
+  if (profileInput) {
+    profileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => document.getElementById('previewImage').src = reader.result;
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  // Add scroll snapping behavior
+  const scrollContainer = document.getElementById('scrollContainer');
+  let isScrolling = false;
+  
+  scrollContainer.addEventListener('scroll', () => {
+    if (isScrolling) return;
+    
+    isScrolling = true;
+    
+    // Calculate which section to snap to
+    const scrollTop = scrollContainer.scrollTop;
+    const windowHeight = window.innerHeight;
+    const currentSection = Math.round(scrollTop / windowHeight);
+    
+    // Snap to the nearest section
+    scrollContainer.scrollTo({
+      top: currentSection * windowHeight,
+      behavior: 'smooth'
+    });
+    
+    setTimeout(() => {
+      isScrolling = false;
+    }, 500);
+  });
+
+  // Add touch end handler for mobile
+  scrollContainer.addEventListener('touchend', () => {
+    setTimeout(() => {
+      const scrollTop = scrollContainer.scrollTop;
+      const windowHeight = window.innerHeight;
+      const currentSection = Math.round(scrollTop / windowHeight);
+      
+      scrollContainer.scrollTo({
+        top: currentSection * windowHeight,
+        behavior: 'smooth'
+      });
+    }, 100);
+  });
+</script>
+
+<style>
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  #scrollContainer::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  #scrollContainer {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+{% endblock %}
