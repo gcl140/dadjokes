@@ -78,10 +78,24 @@ WSGI_APPLICATION = 'dadjokes.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tansafapply$default',  # full database name from PythonAnywhere
+        'USER': 'tansafapply',          # your username
+        'PASSWORD': 'Lukoonge14@0',  # the password you set
+        'HOST': 'tansafapply.mysql.pythonanywhere-services.com',  # host from PA
+        'PORT': '3306',                  # default MySQL port
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
