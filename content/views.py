@@ -41,14 +41,17 @@ def joke_detail_api(request, joke_id):
         "font_type": joke.font_type,
         "description": joke.description,
         # "bg_music": joke.bg_music,
-        "bg_music": (
-                {
-                    "id": joke.bg_music.id,
-                    "name": joke.bg_music.name,
-                    "url": joke.bg_music.file_url.url,
-                }
-                if joke.bg_music else None
-            ),
+        # "bg_music": (
+        #         {
+        #             "id": joke.bg_music.id,
+        #             "name": joke.bg_music.name,
+        #             "url": joke.bg_music.file_url.url,
+        #         }
+        #         if joke.bg_music else None
+        #     ),
+        "bg_musicName": joke.bg_music.name if joke.bg_music else "Original Sound",
+        "bg_musicURL": joke.bg_music.file_url.url if joke.bg_music else "/static/audio/silent.mp3",  # <--- serialize the URL
+ 
         "username": joke.joke_by.username if joke.joke_by else "anonymous",
         "user_id": joke.joke_by.id if joke.joke_by else None,
         "user_profile": joke.joke_by.profile_picture.url if joke.joke_by and joke.joke_by.profile_picture else "/static/images/default-profile.jpg",
@@ -78,14 +81,17 @@ def jokes_api(request):
             "text_color": j.text_color,
             "font_type": j.font_type,
             # "bg_music": j.bg_music.id if j.bg_music else None,
-            "bg_music": (
-                {
-                    "id": j.bg_music.id,
-                    "name": j.bg_music.name,
-                    "url": j.bg_music.file_url,
-                }
-                if j.bg_music else None
-            ),
+            # "bg_music": (
+            #     {
+            #         "id": j.bg_music.id,
+            #         "name": j.bg_music.name,
+            #         "url": j.bg_music.file_url,
+            #     }
+            #     if j.bg_music else None
+            # ),
+            "bg_musicName": j.bg_music.name if j.bg_music else "Original Sound",
+            "bg_musicURL": j.bg_music.file_url.url if j.bg_music else "/static/audio/silent.mp3",  # <--- serialize the URL
+ 
 
             "description": j.description,
             "username": j.joke_by.username if j.joke_by else "anonymous",
