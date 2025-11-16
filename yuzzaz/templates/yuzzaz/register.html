@@ -74,6 +74,14 @@
                     <i class="fas fa-user-plus"></i>
                     <span>Create Account</span>
                 </button>
+
+                <a href="{% if not user.is_authenticated %}{% url 'social:begin' 'google-oauth2' %}?next={% url 'index' %}{% else %}{% url 'set_user_type_and_login' %}{% endif %}">
+                  <button
+                      type="button"
+                      class="w-full bg-white text-gray-800 py-3 rounded-lg hover:bg-gray-100 transition flex items-center justify-center my-6">
+                      <i class="fab fa-google mr-2"></i> Continue with Google
+                  </button>
+                </a>
             </form>
 
             <!-- Additional Links -->

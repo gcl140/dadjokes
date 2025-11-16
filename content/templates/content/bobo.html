@@ -12,7 +12,12 @@
         <!-- Header with Icon -->
         <div class="text-center mb-8">
             <div class="inline-flex items-center justify-center w-20 h-20 bg-gray-800 rounded-2xl mb-4 border border-gray-600">
+              {% if notifications %}
                 <i class="fas fa-bell text-white text-3xl"></i>
+              {% else %}
+                <i class="fas fa-bell-slash text-gray-500 text-3xl"></i>
+              {% endif %}
+
             </div>
             <h3 class="text-4xl text-white tracking-tight">
                 Bobo
@@ -64,11 +69,9 @@
         {% empty %}
             <!-- Empty State -->
             <div class="text-center py-12">
-                <div class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gray-600">
-                    <i class="fas fa-bell-slash text-gray-500 text-xl"></i>
-                </div>
+
                 <p class="text-gray-400 font-medium text-lg">No notifications yet</p>
-                <p class="text-gray-500 text-sm mt-2">Nothing's cooking</p>
+                <p class="text-gray-500 text-sm mt-2">Nothing's cooking, bro!</p>
             </div>
         {% endfor %}
         </div>
