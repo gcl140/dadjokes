@@ -25,7 +25,8 @@ class Joke(models.Model):
                     
                    ]
     font_type = models.CharField(max_length=20, choices=font_types, default='Arial')  # Font type (e.g., 'Arial', 'Times New Roman')
-    bg_music = models.CharField(max_length=100, blank=True, null=True)  # URL or identifier for background music
+    # bg_music = models.CharField(max_length=100, blank=True, null=True)  # URL or identifier for background music
+    bg_music = models.ForeignKey('JokeMusic', on_delete=models.SET_NULL, null=True, blank=True)  # URL or identifier for background music
     created_at = models.DateTimeField(auto_now_add=True)
     likers = models.ManyToManyField(User, related_name='liked_jokes', blank=True)
 
@@ -64,3 +65,31 @@ class JokeComment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.user.username} on Joke {self.joke.id}'
+
+
+
+class JokeMusic(models.Model):
+    name = models.CharField(max_length=100)
+    file_url = models.FileField(upload_to='music/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+    
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.CharField(max_length=255)
+    MESSAGE_TYPE_CHOICES = [
+        ('info', 'Info'),
+        ('comment', 'Comment'),
+        ('like', 'Like'),
+        ('error', 'Error'),
+        ('success', 'Success'),
+        ('other', 'Other'),
+    ]
+    message_type = models.CharField(max_length=50, default='info', choices=MESSAGE_TYPE_CHOICES)
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Notification for {self.user.username}: {self.message}'

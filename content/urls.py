@@ -12,4 +12,9 @@ urlpatterns = [
     path('fetch-comments/<int:joke_id>/', views.fetch_comments, name='fetch_comments'),
     path('post-comment/<int:joke_id>/', views.post_comment, name='post_comment'),
     path('delete-comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
+    path('inbox/', views.inbox, name='inbox'),
+    path('mark-notification-read/<int:notification_id>/', views.mark_notification_read, name='mark_notification_read'),
+    path('joke/<int:joke_id>/', views.ajoke, name='ajoke'),
+    path('api/joke/<int:joke_id>/', views.joke_detail_api, name='joke_detail_api'),
+    path('add-song/', views.add_song, name='add_song'),
     ]

@@ -12,40 +12,88 @@ function getCookie(name) {
   }
   return cookieValue;
 }
-
 let contentItems = [];
+let seen = new Set();
 
-async function loadJokes() {
-  const res = await fetch("/api/jokes/");
-  const data = await res.json();
-  contentItems = data.jokes.map((j) => ({
+// On page load
+const urlParams = new URLSearchParams(window.location.search);
+const priorityJokeId = urlParams.get("priority");
+
+if (priorityJokeId) {
+  loadPriorityJoke(priorityJokeId).then(() => {
+    loadJokes(); // load the rest normally
+  });
+} else {
+  loadJokes();
+}
+
+async function loadPriorityJoke(jokeId) {
+  const res = await fetch(`/api/joke/${jokeId}/`);
+  const joke = await res.json();
+
+  // Prepend this joke to contentItems so it shows first
+  contentItems.unshift({
     bg: "",
-    text: j.text,
-    bgColor: j.bg_color,
-    textColor: j.text_color,
-    fontType: j.font_type,
-    username: j.username,
-    userId: j.user_id,
-    bgMusic: j.bg_music || "Original Sound",
-    description: j.description || "",
-    likes_count: j.likes_count,
-    is_liked_by_user: j.is_liked_by_user,
-    id: j.id,
-  }));
+    text: joke.text,
+    bgColor: joke.bg_color,
+    textColor: joke.text_color,
+    fontType: joke.font_type,
+    username: joke.username,
+    userId: joke.user_id,
+    userProfile: joke.user_profile || '/static/images/default-profile.jpg',
+    bgMusicName: joke.bg_music?.name || "Original Sound",
+    bgMusicURL: joke.bg_music?.url || "/static/audio/silent.mp3",
+    // bgMusicURL: joke.bg_music?.url || null,
+    description: joke.description || "",
+    likes_count: joke.likes_count,
+    is_liked_by_user: joke.is_liked_by_user,
+    id: joke.id,
+  });
+
+  // Track it in `seen` to avoid fetching again
+  seen.add(joke.id);
 
   initializeContent();
 }
 
-loadJokes();
+async function loadJokes() {
+  const exclude = [...seen].join(",");
+  const res = await fetch(`/api/jokes/?size=30&exclude=${exclude}`);
+  const data = await res.json();
+
+  data.jokes.forEach((j) => seen.add(j.id));
+
+  // Append new jokes
+  contentItems.push(
+    ...data.jokes.map((j) => ({
+      bg: "",
+      text: j.text,
+      bgColor: j.bg_color,
+      textColor: j.text_color,
+      fontType: j.font_type,
+      username: j.username,
+      userId: j.user_id,
+      bgMusicName: j.bg_music?.name || "Original Sound",
+      // bgMusicURL: j.bg_music?.url || null,
+      bgMusicURL: j.bg_music?.url || 'static/audio/silent.mp3',
+      description: j.description || "",
+      likes_count: j.likes_count,
+      is_liked_by_user: j.is_liked_by_user,
+      userProfile: j.user_profile || '/static/images/default-profile.jpg',
+      id: j.id,
+    }))
+  );
+
+  initializeContent();
+}
+
+// Refresh every 3 mins
+setInterval(loadJokes, 3 * 60 * 1000);
 
 const scrollContainer = document.getElementById("scrollContainer");
 let currentIndex = 0;
 let isScrolling = false;
 let scrollTimeout;
-
-
-
-
 
 // Function to create a video item
 function createVideoItem(item, index) {
@@ -55,6 +103,7 @@ function createVideoItem(item, index) {
   videoItem.style.backgroundColor = item.bgColor;
   // videoItem.querySelector(".share-btn").onclick = () => shareJoke(item.id);
   videoItem.dataset.index = index;
+  videoItem.dataset.bgMusicUrl = item.bgMusicURL || null;
 
   videoItem.innerHTML = `
         <div class="text-white text-center">
@@ -74,17 +123,28 @@ function createVideoItem(item, index) {
 
         </div>
         <div class="absolute right-4 bottom-24 flex flex-col items-center space-y-6">
+<div class="flex flex-col items-center z-50 like-btn" 
+     id="like-btn-${item.id}" 
+     data-id="${item.id}"
+     >
 
-        <div class="flex flex-col items-center z-50 like-btn" id="like-btn-${
-          item.id
-        }" data-id="${item.id}">
-            <div class="rounded-full p-3 items-center flex bg-[${
-              item.textColor
-            }] bg-opacity-30 cursor-pointer">
-                <i class="fa fa-heart  ${
-                  item.is_liked_by_user ? "text-red-500" : "text-white"
-                }"></i>
-            </div>
+<div class="rounded-full p-3 items-center flex bg-[${
+    item.textColor
+  }] bg-opacity-30 cursor-pointer">
+  ${
+    !currentUser
+      ? `<a href="/accounts/login/">
+         <i class="fa fa-heart ${
+           item.is_liked_by_user ? "text-red-500" : "text-white"
+         }"></i>
+       </a>
+       `
+      : `<i class="fa fa-heart ${
+          item.is_liked_by_user ? "text-red-500" : "text-white"
+        }"></i>`
+  }
+</div>
+
 
             <span class="text-[${item.bgColor}] likes-count 
             ${
@@ -98,29 +158,31 @@ function createVideoItem(item, index) {
             </span>
         </div>
 
-<div id="comments-btn-${
-    item.id
-  }" class="flex flex-col items-center z-50 cursor-pointer comments-container">
-    <div class="bg-[${item.textColor}] bg-opacity-30 rounded-full p-2">
-        <svg xmlns="http://www.w3.org/2000/svg" 
-             class="h-6 w-6 text-white" 
-             fill="none" viewBox="0 0 24 24" 
-             stroke="currentColor">
-            <path stroke-linecap="round" 
-                  stroke-linejoin="round" 
-                  stroke-width="2" 
-                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-        </svg>
-    </div>
-    <span class="text-[${item.bgColor}] 
-            ${
-              item.textColor.toLowerCase() !== "#ffffff"
-                ? "bg-white"
-                : "bg-[${item.textColor}]"
-            }  
-    px-2
-    text-xs mt-1">0</span>
-</div>
+          <div id="comments-btn-${
+            item.id
+          }" class="flex flex-col items-center z-50 cursor-pointer comments-container">
+              <div class="bg-[${
+                item.textColor
+              }] bg-opacity-30 rounded-full p-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" 
+                      class="h-6 w-6 text-white" 
+                      fill="none" viewBox="0 0 24 24" 
+                      stroke="currentColor">
+                      <path stroke-linecap="round" 
+                            stroke-linejoin="round" 
+                            stroke-width="2" 
+                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+              </div>
+              <span class="text-[${item.bgColor}] 
+                      ${
+                        item.textColor.toLowerCase() !== "#ffffff"
+                          ? "bg-white"
+                          : "bg-[${item.textColor}]"
+                      }  
+              px-2
+              text-xs mt-1">0</span>
+          </div>
 
 
             <div class="flex flex-col items-center share-btn z-50" data-id="${
@@ -146,7 +208,7 @@ function createVideoItem(item, index) {
         </div>
         <div class="absolute bottom-24 left-4">
             <div class="text-[${item.textColor}]">
-                <h3 class="font-bold text-lg ${
+                <h3 class="font-bold text-base ${
                   item.textColor.toLowerCase() !== "#ffffff"
                     ? "bg-white"
                     : "bg-black"
@@ -159,6 +221,15 @@ function createVideoItem(item, index) {
                     item.userId
                   }'" 
                   style="text-decoration: none">
+
+
+                  <img 
+                    src="${item.userProfile}" 
+                    alt="${item.username}'s avatar"                         
+                    class="w-6 h-6 rounded-full object-cover border-2 border-white shadow-md inline-block mr-1"
+                  />
+
+
                   @${item.username}
                 </a>
 
@@ -184,7 +255,7 @@ function createVideoItem(item, index) {
                         : "bg-black"
                     } 
                     ">
-                        ${item.bgMusic}
+                        ${item.bgMusicName}
                     </span>
 
                     </div>
@@ -192,6 +263,8 @@ function createVideoItem(item, index) {
             </div>
         </div>
     `;
+
+
 
   // Select the comments container
   const commentsContainer = videoItem.querySelector(
@@ -208,14 +281,13 @@ function createVideoItem(item, index) {
   share.onclick = () => shareJoke(item.id, item.textColor, item.bgColor);
 
   const likeBtn = videoItem.querySelector(".like-btn");
-  const csrftoken = getCookie("csrftoken");
-
-  likeBtn.onclick = async () => {
+  // Reusable toggle-like function
+  async function toggleLike(item, likeBtn, videoItem) {
+    const csrftoken = getCookie("csrftoken");
     const res = await fetch(`/toggle-like/${item.id}/`, {
       method: "POST",
       headers: { "X-CSRFToken": csrftoken },
     });
-
     const data = await res.json();
 
     const heart = likeBtn.querySelector("i");
@@ -226,18 +298,28 @@ function createVideoItem(item, index) {
 
     // Update likes count
     videoItem.querySelector(".likes-count").textContent = data.likes_count;
-  };
+  }
+
+  // Normal click on heart
+  likeBtn.onclick = () => toggleLike(item, likeBtn, videoItem);
+
+  // Double-tap anywhere on the video item
+  videoItem.ondblclick = () => toggleLike(item, likeBtn, videoItem);
 
   return videoItem;
 }
 
-// Initialize with first few items
+
 function initializeContent() {
-  for (let i = 0; i < contentItems.length; i++) {
-    const item = contentItems[i % contentItems.length];
-    scrollContainer.appendChild(createVideoItem(item, i));
-  }
+  scrollContainer.innerHTML = ""; // clear old content if needed
+
+  contentItems.forEach((item, i) => {
+    const el = createVideoItem(item, i);
+    scrollContainer.appendChild(el);
+    observer.observe(el); // <- now each element is being observed
+  });
 }
+
 
 // Load more content when nearing the end
 function loadMoreContent() {
@@ -293,6 +375,7 @@ scrollContainer.addEventListener("touchend", function () {
 });
 
 async function shareJoke(jokeId, textColor, bgColor) {
+  // const url = `${window.location.origin}/joke/${jokeId}`;
   const url = `${window.location.origin}/joke/${jokeId}`;
 
   if (navigator.share) {
@@ -358,12 +441,14 @@ searchInput.addEventListener("input", () => {
 
   matches.forEach((item) => {
     const div = document.createElement("div");
-    div.className = "px-4 py-2 hover:bg-gray-200 cursor-pointer text-gray-900 hover:bg-gray-400";
+    div.className =
+      "px-4 py-2 hover:bg-gray-200 cursor-pointer text-gray-900 hover:bg-gray-400";
     div.textContent = item.text;
     div.onclick = () => {
       searchInput.value = item.text;
       suggestionsBox.classList.add("hidden");
       // Optionally: navigate or trigger other actions
+      window.location.href = `/joke/${item.id}`;
     };
     suggestionsBox.appendChild(div);
   });
@@ -381,9 +466,12 @@ document.addEventListener("click", (e) => {
 // ---- 1. STATIC MODAL ELEMENTS ----
 const commentsModal = document.getElementById("comments-modal");
 const commentsList = document.getElementById("comments-list");
-const closeComments = document.getElementById("close-comments-full", "close-comments-top");
+const closeComments = document.getElementById(
+  "close-comments-full",
+  "close-comments-top"
+);
 const currentUser = document.body.dataset.username;
-
+const currentUserId = document.body.dataset.id;
 
 // ---- 2. GLOBAL CLICK LISTENER FOR ALL FUTURE COMMENT BUTTONS ----
 document.addEventListener("click", (e) => {
@@ -398,14 +486,11 @@ async function fetchComments(jokeId) {
   const res = await fetch(`/fetch-comments/${jokeId}/`);
   const data = await res.json();
   return data.comments; // Assuming the API returns { comments: [...] }
-
 }
-
 
 // ---- 4. CLOSE BUTTON ----
 
 function openCommentsModal(jokeId) {
-
   commentInput.dataset.jokeId = jokeId; // attach joke ID to input
 
   commentsList.innerHTML = `<div class="p-3 bg-gray-100 rounded-lg">Loading comments...</div>`;
@@ -449,12 +534,13 @@ function openCommentsModal(jokeId) {
                             }
                         </div>
                     </div>
-                    <p class="text-gray-800 text-sm leading-relaxed pl-1">${c.text}</p>
+                    <p class="text-gray-800 text-sm leading-relaxed pl-1">${
+                      c.text
+                    }</p>
                 </div>
                 `
       )
       .join("");
-
 
     attachDeleteEvents();
   });
@@ -465,7 +551,6 @@ closeComments.addEventListener("click", () => {
   commentsModal.classList.remove("flex");
 });
 
-
 // ---- 5. CLICK OUTSIDE MODAL TO CLOSE ----
 commentsModal.addEventListener("click", (e) => {
   if (e.target === commentsModal) {
@@ -473,8 +558,6 @@ commentsModal.addEventListener("click", (e) => {
     commentsModal.classList.remove("flex");
   }
 });
-
-
 
 const commentInput = document.getElementById("comment-input");
 const sendCommentBtn = document.getElementById("send-comment");
@@ -507,7 +590,7 @@ sendCommentBtn.addEventListener("click", async () => {
                       <div class="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 group">
                     <div class="flex justify-between items-start mb-2">
                         <div class="flex items-center gap-2">
-                            <span class="font-bold text-gray-900 text-sm bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+                            <span class="font-bold  bg-clip-text text-black">
                                 @${data.user}
                             </span>
                             ${
@@ -532,7 +615,9 @@ sendCommentBtn.addEventListener("click", async () => {
                             }
                         </div>
                     </div>
-                    <p class="text-gray-800 text-sm leading-relaxed pl-1">${data.text}</p>
+                    <p class="text-gray-800 text-sm leading-relaxed pl-1">${
+                      data.text
+                    }</p>
                 </div>
                 
       ` + commentsList.innerHTML;
@@ -546,14 +631,11 @@ sendCommentBtn.addEventListener("click", async () => {
       );
       commentsContainer.textContent = commentCount;
     });
-
   } catch (err) {
     console.error(err);
     alert(err.message);
   }
 });
-
-
 
 // ---------- DELETE COMMENT ----------
 function attachDeleteEvents() {
@@ -596,9 +678,6 @@ function attachDeleteEvents() {
   });
 }
 
-
-
-
 // Listen for keyboard events
 document.addEventListener("keydown", (e) => {
   const windowHeight = window.innerHeight;
@@ -630,4 +709,46 @@ document.addEventListener("keydown", (e) => {
   scrollTimeout = setTimeout(() => {
     isScrolling = false;
   }, 200); // small debounce to prevent rapid key presses
+});
+
+let currentAudio = null;
+
+
+function playJokeMusic(url) {
+  if (!url) return;
+
+  if (!currentAudio) {
+    // Create audio element once
+    currentAudio = new Audio();
+    currentAudio.loop = true;
+    currentAudio.autoplay = true;
+    currentAudio.muted = false;
+  }
+
+  // If same URL, keep playing
+  if (currentAudio.src === url) return;
+
+  currentAudio.src = url;
+  currentAudio.play().catch(() => {
+    // Browser blocked autoplay → wait for first human interaction
+    document.addEventListener("click", () => currentAudio.play(), {
+      once: true,
+    });
+  });
+}
+
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const item = entry.target.dataset.bgMusicUrl;
+        if (item) playJokeMusic(item);
+      }
+    });
+  },
+  { threshold: 0.7 } // Adjust: 70% visible triggers playback
+);
+
+document.querySelectorAll(".snap-start").forEach((el) => {
+  observer.observe(el);
 });

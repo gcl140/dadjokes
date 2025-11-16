@@ -1,0 +1,807 @@
+User ID: 1 | Joke ID: 1 | Content: I accidentally took my cats meds last night. Donât ask meow.
+User ID: 1 | Joke ID: 2 | Content: Do you know where you can get chicken broth in bulk? The stock market.
+User ID: 1 | Joke ID: 3 | Content: Why does a chicken coop only have two doors? Because if it had four doors it would be a chicken sedan.
+User ID: 1 | Joke ID: 4 | Content: I ordered a chicken and an egg from Amazon. I'll let you know.
+User ID: 1 | Joke ID: 5 | Content: Why can't eggs have love? They will break up too soon.
+User ID: 1 | Joke ID: 6 | Content: I invented a new word! Plagiarism!
+User ID: 1 | Joke ID: 7 | Content: My boss told me to have a good day... so I went home.
+User ID: 1 | Joke ID: 8 | Content: I saw a documentary on TV last night about how they put ships together.  It was rivetting.
+User ID: 1 | Joke ID: 9 | Content: How do locomotives know where they're going? Lots of training
+User ID: 1 | Joke ID: 10 | Content: Did you hear about the bread factory burning down? They say the business is toast.
+User ID: 1 | Joke ID: 11 | Content: Why did Sweden start painting barcodes on the sides of their battleships? So they could Scandinavian.
+User ID: 1 | Joke ID: 12 | Content: A man walked in to a bar with some asphalt on his arm. He said âTwo beers please, one for me and one for the road.â
+User ID: 1 | Joke ID: 13 | Content: What do you call a cow on a trampoline? A milk shake!
+User ID: 1 | Joke ID: 14 | Content: To the person who stole my anti-depressant pills: I hope you're happy now.
+User ID: 1 | Joke ID: 15 | Content: What don't watermelons get married? Because they cantaloupe.
+User ID: 1 | Joke ID: 16 | Content: What did the grape do when he got stepped on? He let out a little wine.
+User ID: 1 | Joke ID: 17 | Content: Breaking news! Energizer Bunny arrested â charged with battery.
+User ID: 1 | Joke ID: 18 | Content: Why is it a bad idea to iron your four-leaf clover? Cause you shouldn't press your luck.
+User ID: 1 | Joke ID: 19 | Content: In the news a courtroom artist was arrested today, I'm not surprised, he always seemed sketchy.
+User ID: 1 | Joke ID: 20 | Content: Some people say that comedians who tell one too many light bulb jokes soon burn out, but they don't know watt they are talking about. They're not that bright.
+User ID: 1 | Joke ID: 21 | Content: I got fired from the transmission factor, turns out I didn't put on enough shifts...
+User ID: 1 | Joke ID: 22 | Content: Can I watch the TV? Dad: Yes, but donât turn it on.
+User ID: 1 | Joke ID: 23 | Content: Why did the teddy bear say ânoâ to dessert? Because she was stuffed.
+User ID: 1 | Joke ID: 24 | Content: What do you call an Argentinian with a rubber toe? Roberto
+User ID: 1 | Joke ID: 25 | Content: Where does Fonzie like to go for lunch? Chick-Fil-Eyyyyyyyy.
+User ID: 1 | Joke ID: 26 | Content: Pie is $2.50 in Jamaica and $3.00 in The Bahamas. These are the pie-rates of the Caribbean.
+User ID: 1 | Joke ID: 27 | Content: My friend keeps telling me "Cheer up. You aren't stuck in a deep hole in the ground, filled with water."
+I know he means well.
+User ID: 1 | Joke ID: 28 | Content: What time did the man go to the dentist? Tooth hurt-y.
+User ID: 1 | Joke ID: 29 | Content: Camping is intense.
+User ID: 1 | Joke ID: 30 | Content: What do you do when your bunny gets wet? You get your hare dryer.
+User ID: 1 | Joke ID: 31 | Content: "Dad, do you think it's going to snow this winter?" "I dont know, its all up in the air"
+User ID: 1 | Joke ID: 32 | Content: Just read a few facts about frogs. They were ribbiting.
+User ID: 1 | Joke ID: 33 | Content: What concert costs only 45 cents? 50 cent featuring Nickelback.
+User ID: 1 | Joke ID: 34 | Content: People are shocked to discover I have a police record but I love their greatest hits!
+User ID: 1 | Joke ID: 35 | Content: The great thing about stationery shops is they're always in the same place...
+User ID: 1 | Joke ID: 36 | Content: New atoms frequently lose electrons when they fail to keep an ion them.
+User ID: 1 | Joke ID: 37 | Content: It was so cold yesterday my computer froze. My own fault though, I left too many windows open.
+User ID: 1 | Joke ID: 38 | Content: Someone asked me, what's the ninth letter of the alphabet? It was a complete guess, but I was right.
+User ID: 1 | Joke ID: 39 | Content: How do robots eat guacamole? With computer chips.
+User ID: 1 | Joke ID: 40 | Content: Why are pirates called pirates? Because they arrr!
+User ID: 1 | Joke ID: 41 | Content: How many hipsters does it take to change a lightbulb? Oh, it's a really obscure number. You've probably never heard of it.
+User ID: 1 | Joke ID: 42 | Content: Did you hear about the campsite that got visited by Bigfoot? It got in tents.
+User ID: 1 | Joke ID: 43 | Content: Why did the miner get fired from his job? He took it for granite...
+User ID: 1 | Joke ID: 44 | Content: Iâve deleted the phone numbers of all the Germans I know from my mobile phone. Now itâs Hans free.
+User ID: 1 | Joke ID: 45 | Content: What do you call two barracuda fish?  A Pairacuda!
+User ID: 1 | Joke ID: 46 | Content: Cosmetic surgery used to be such a taboo subject.
+Now you can talk about Botox and nobody raises an eyebrow.
+User ID: 1 | Joke ID: 47 | Content: âPut the cat outâ â¦ âI didnât realize it was on fire
+User ID: 1 | Joke ID: 48 | Content: Why are oranges the smartest fruit? Because they are made to concentrate. 
+User ID: 1 | Joke ID: 49 | Content: I can't take my dog to the pond anymore because the ducks keep attacking him. That's what I get for buying a pure bread dog.
+User ID: 1 | Joke ID: 50 | Content: Some people say that I never got over my obsession with Phil Collins.
+But take a look at me now.
+User ID: 1 | Joke ID: 51 | Content: What do you get hanging from Apple trees? Sore arms.
+User ID: 1 | Joke ID: 52 | Content: Why do pirates not know the alphabet? They always get stuck at "C".
+User ID: 1 | Joke ID: 53 | Content: When Dad drops a pea off of his plate âoh dear Iâve peeâd on the table!
+User ID: 1 | Joke ID: 54 | Content: Whatâs the longest word in the dictionary? Smiles. Because thereâs a mile between the two Sâs.
+User ID: 1 | Joke ID: 55 | Content: Why are skeletons so calm? Because nothing gets under their skin.
+User ID: 1 | Joke ID: 56 | Content: Whoever invented the knock-knock joke should get a no bell prize.
+User ID: 1 | Joke ID: 57 | Content: I wanted to be a tailor but I didn't suit the job
+User ID: 1 | Joke ID: 58 | Content: I saw an ad in a shop window, "Television for sale, $1, volume stuck on full", I thought, "I can't turn that down".
+User ID: 1 | Joke ID: 59 | Content: What did Michael Jackson name his denim store?    Billy Jeans!
+User ID: 1 | Joke ID: 60 | Content: How do you make Lady Gaga cry? Poker face. 
+User ID: 1 | Joke ID: 61 | Content: What did one plate say to the other plate? Dinner is on me!
+User ID: 1 | Joke ID: 62 | Content: "What time is it?" I don't know... it keeps changing.
+User ID: 1 | Joke ID: 63 | Content: What do Alexander the Great and Winnie the Pooh have in common? Same middle name.
+User ID: 1 | Joke ID: 64 | Content: Why do bees hum? Because they don't know the words.
+User ID: 1 | Joke ID: 65 | Content: What did one snowman say to the other snow man? Do you smell carrot?
+User ID: 1 | Joke ID: 66 | Content: I used to work for an origami company but they folded.
+User ID: 1 | Joke ID: 67 | Content: I knew a guy who collected candy canes, they were all in mint condition
+User ID: 1 | Joke ID: 68 | Content: How do you steal a coat? You jacket.
+User ID: 1 | Joke ID: 69 | Content: I got fired from a florist, apparently I took too many leaves.
+User ID: 1 | Joke ID: 70 | Content: What's the difference between a rooster and a crow? A rooster can crow but a crow cannot rooster.
+User ID: 1 | Joke ID: 71 | Content: Why do cows not have toes? They lactose!
+User ID: 1 | Joke ID: 72 | Content: Why was the shirt happy to hang around the tank top? Because it was armless
+User ID: 1 | Joke ID: 74 | Content: I had a pair of racing snails. I removed their shells to make them more aerodynamic, but they became sluggish.
+User ID: 1 | Joke ID: 75 | Content: It's been months since I bought the book "how to scam people online". It still hasn't turned up.
+User ID: 1 | Joke ID: 76 | Content: What did the big flower say to the littler flower? Hi, bud!
+User ID: 1 | Joke ID: 77 | Content: Why did the cookie cry?
+Because his mother was a wafer so long
+User ID: 1 | Joke ID: 78 | Content: Why do cows wear bells? Because their horns don't work.
+User ID: 1 | Joke ID: 80 | Content: People who don't eat gluten are really going against the grain.
+User ID: 1 | Joke ID: 81 | Content: The shovel was a ground-breaking invention.
+User ID: 1 | Joke ID: 82 | Content: What cheese can never be yours? Nacho cheese.
+User ID: 1 | Joke ID: 84 | Content: What do you call a duck that gets all A's? A wise quacker.
+User ID: 1 | Joke ID: 85 | Content: Which side of the chicken has more feathers? The outside.
+User ID: 1 | Joke ID: 86 | Content: What is a centipedes's favorite Beatle song?  I want to hold your hand, hand, hand, hand...
+User ID: 1 | Joke ID: 87 | Content: I dreamed about drowning in an ocean made out of orange soda last night. It took me a while to work out it was just a Fanta sea.
+User ID: 1 | Joke ID: 88 | Content: A girl once asked me what my heart desired, apparently blood, oxygen and neural messages were all wrong answers
+User ID: 1 | Joke ID: 89 | Content: What do you call a bear with no teeth? A gummy bear!
+User ID: 1 | Joke ID: 91 | Content: I asked a frenchman if he played video games. He said "Wii"
+User ID: 1 | Joke ID: 92 | Content: You know what they say about cliffhangers...
+User ID: 1 | Joke ID: 93 | Content: What's a ninja's favorite type of shoes? Sneakers!
+User ID: 1 | Joke ID: 94 | Content: A boy dug three holes in the yard. When his mother saw, she exclaimed: "well, well, well"
+User ID: 1 | Joke ID: 95 | Content: Whatâs brown and sounds like a bell? Dung!
+User ID: 1 | Joke ID: 96 | Content: What did the calculator say to the student? You can count on me.
+User ID: 1 | Joke ID: 97 | Content: Iâve got this disease where I canât stop making airport puns. The doctor says it terminal.
+User ID: 1 | Joke ID: 98 | Content: Why does Norway have barcodes on their battleships? So when they get back to port, they can Scandinavian.
+User ID: 1 | Joke ID: 99 | Content: If at first you don't succeed, sky diving is not for you!
+User ID: 1 | Joke ID: 355 | Content: A panda walks into a bar and says to the bartender âIâll have a Scotch and . . . . . . . . . . . . . . Coke thank youâ. 
+
+âSure thingâ the bartender replies and asks âbut whatâs with the big pause?â 
+
+The panda holds up his hands and says âI was born with themâ
+User ID: 1 | Joke ID: 356 | Content: What do you do when you see a space man?
+Park your car, man.
+User ID: 1 | Joke ID: 357 | Content: Have you heard the story about the magic tractor? It drove down the road and turned into a field.
+User ID: 1 | Joke ID: 358 | Content: Why couldn't the kid see the pirate movie? Because it was rated arrr!
+User ID: 1 | Joke ID: 359 | Content: I was so proud when I finished the puzzle in six months, when on the side it said three to four years.
+User ID: 1 | Joke ID: 360 | Content: What kind of dog lives in a particle accelerator? A Fermilabrador Retriever.
+User ID: 1 | Joke ID: 361 | Content: I won an argument with a weather forecaster once. His logic was cloudy...
+User ID: 1 | Joke ID: 362 | Content: I used to be addicted to soap, but I'm clean now.
+User ID: 1 | Joke ID: 363 | Content: A butcher accidentally backed into his meat grinder and got a little behind in his work that day.
+User ID: 1 | Joke ID: 364 | Content: What do you call a pig that knows karate? A pork chop!
+User ID: 1 | Joke ID: 365 | Content: I used to have a job at a calendar factory but I got the sack because I took a couple of days off.
+User ID: 1 | Joke ID: 366 | Content: A police officer caught two kids playing with a firework and a car battery. He charged one and let the other one off.
+User ID: 1 | Joke ID: 367 | Content: Sometimes I tuck my knees into my chest and lean forward.  Thatâs just how I roll.
+User ID: 1 | Joke ID: 369 | Content: Animal Fact #25: Most bobcats are not named bob.
+User ID: 1 | Joke ID: 370 | Content: I asked the surgeon if I could administer my own anesthetic, they said: go ahead, knock yourself out.
+User ID: 1 | Joke ID: 371 | Content: My pet mouse 'Elvis' died last night. He was caught in a trap..
+User ID: 1 | Joke ID: 372 | Content: Where do rabbits go after they get married? On a bunny-moon.
+User ID: 1 | Joke ID: 373 | Content: I couldn't get a reservation at the library. They were completely booked.
+User ID: 1 | Joke ID: 374 | Content: *Reversing the car* "Ah, this takes me back"
+User ID: 1 | Joke ID: 375 | Content: What did the beaver say to the tree? It's been nice gnawing you.
+User ID: 1 | Joke ID: 377 | Content: Have you heard about corduroy pillows?  They're making headlines!
+User ID: 1 | Joke ID: 378 | Content: I knew I shouldn't steal a mixer from work, but it was a whisk I was willing to take.
+User ID: 1 | Joke ID: 379 | Content: For Valentine's day, I decided to get my wife some beads for an abacus.  It's the little things that count.
+User ID: 1 | Joke ID: 380 | Content: Why do birds fly south for the winter? Because it's too far to walk.
+User ID: 1 | Joke ID: 381 | Content: Why does a Moon-rock taste better than an Earth-rock? Because it's a little meteor.
+User ID: 1 | Joke ID: 382 | Content: Why did the m&m go to school? Because it wanted to be a Smartie!
+User ID: 1 | Joke ID: 383 | Content: The first time I got a universal remote control I thought to myself, "This changes everything"
+User ID: 1 | Joke ID: 384 | Content: Why do bananas have to put on sunscreen before they go to the beach? Because they might peel!
+User ID: 1 | Joke ID: 385 | Content: In my career as a lumberjack I cut down exactly 52,487 trees. I know because I kept a log.
+User ID: 1 | Joke ID: 386 | Content: When do doctors get angry? When they run out of patients.
+User ID: 1 | Joke ID: 389 | Content: A dad washes his car with his son. But after a while, the son says, "why can't you just use a sponge?"
+User ID: 1 | Joke ID: 390 | Content: What do you call a gorilla wearing headphones? Anything you'd like, it can't hear you.
+User ID: 1 | Joke ID: 391 | Content: What kind of bagel can fly? A plain bagel.
+User ID: 1 | Joke ID: 392 | Content: What do you call a cow with two legs? Lean beef.
+User ID: 1 | Joke ID: 393 | Content: When I left school, I passed every one of my exams with the exception of Greek Mythology. It always was my achilles elbow
+User ID: 1 | Joke ID: 394 | Content: How do you organize a space party? You planet.
+User ID: 1 | Joke ID: 395 | Content: Why did the octopus beat the shark in a fight? Because it was well armed.
+User ID: 1 | Joke ID: 396 | Content: Two muffins were sitting in an oven, and the first looks over to the second, and says, âman, itâs really hot in hereâ. The second looks over at the first with a surprised look, and answers, âWHOA, a talking muffin!â
+User ID: 1 | Joke ID: 397 | Content: Where do hamburgers go to dance? The meat-ball.
+User ID: 1 | Joke ID: 399 | Content: I've just written a song about a tortilla. Well, it is more of a rap really.
+User ID: 1 | Joke ID: 400 | Content: Did you hear about the cheese who saved the world? It was Legend-dairy!
+User ID: 1 | Joke ID: 401 | Content: Somebody stole my Microsoft Office and they're going to pay - you have my Word.
+User ID: 1 | Joke ID: 403 | Content: Did you hear about the submarine industry? It really took a dive...
+User ID: 1 | Joke ID: 404 | Content: I was just looking at my ceiling. Not sure if itâs the best ceiling in the world, but itâs definitely up there.
+User ID: 1 | Joke ID: 405 | Content: How does a scientist freshen their breath? With experi-mints!
+User ID: 1 | Joke ID: 406 | Content: I just broke my guitar. It's okay, I won't fret
+User ID: 1 | Joke ID: 409 | Content: Why does it take longer to get from 1st to 2nd base, than it does to get from 2nd to 3rd base? Because thereâs a Shortstop in between!
+User ID: 1 | Joke ID: 410 | Content: Why did the burglar hang his mugshot on the wall? To prove that he was framed!
+User ID: 1 | Joke ID: 411 | Content: We all know where the Big Apple is but does anyone know where the Minneapolis?
+User ID: 1 | Joke ID: 413 | Content: Bought a new jacket suit the other day and it burst into flames. Well, it was a blazer
+User ID: 1 | Joke ID: 416 | Content: What's the difference between roast beef and pea soup. Anyone can roast beef, but nobody can pee soup.
+User ID: 1 | Joke ID: 417 | Content: What did the pirate say on his 80th birthday? Aye Matey!
+User ID: 1 | Joke ID: 419 | Content: I cut my finger cutting cheese. I know it may be a cheesy story but I feel grate now.
+User ID: 1 | Joke ID: 420 | Content: Never take advice from electrons. They are always negative.
+User ID: 1 | Joke ID: 421 | Content: Did you know the first French fries weren't actually cooked in France? They were cooked in Greece.
+User ID: 1 | Joke ID: 422 | Content: Have you ever seen fruit preserves being made? It's jarring.
+User ID: 1 | Joke ID: 423 | Content: It's only a murder of crows if there's probable caws.
+User ID: 1 | Joke ID: 424 | Content: Wife told me to take the spider out instead of killing it... We had some drinks, cool guy, wants to be a web developer.
+User ID: 1 | Joke ID: 425 | Content: Hear about the new restaurant called Karma? Thereâs no menu: You get what you deserve.
+User ID: 1 | Joke ID: 426 | Content: Have you heard of the band 1023MB? They haven't got a gig yet.
+User ID: 1 | Joke ID: 427 | Content: Where does astronauts hangout after work? At the spacebar.
+User ID: 1 | Joke ID: 429 | Content: What's the difference between a poorly dressed man on a tricycle and a well dressed man on a bicycle? Attire.
+User ID: 1 | Joke ID: 431 | Content: My boss told me that he was going to fire the person with the worst posture. I have a hunch, it might be me.
+User ID: 1 | Joke ID: 433 | Content: Where do fish keep their money? In the riverbank
+User ID: 1 | Joke ID: 434 | Content: I'm practicing for a bug-eating contest and I've got butterflies in my stomach.
+User ID: 1 | Joke ID: 435 | Content: Today, my son asked "Can I have a book mark?" and I burst into tears. 11 years old and he still doesn't know my name is Brian.
+User ID: 1 | Joke ID: 436 | Content: Why was Pavlov's beard so soft?  Because he conditioned it.
+User ID: 1 | Joke ID: 437 | Content: How do the trees get on the internet? They log on.
+User ID: 1 | Joke ID: 438 | Content: A woman is on trial for beating her husband to death with his guitar collection. Judge says, âFirst offender?â She says, âNo, first a Gibson! Then a Fender!â
+User ID: 1 | Joke ID: 439 | Content: Why couldn't the lifeguard save the hippie? He was too far out, man.
+User ID: 1 | Joke ID: 440 | Content: I broke my finger at work today, on the other hand I'm completely fine.
+User ID: 1 | Joke ID: 441 | Content: I was shocked when I was diagnosed as colorblind... It came out of the purple.
+User ID: 1 | Joke ID: 443 | Content: I saw my husband trip and fall while carrying a laundry basket full of ironed clothes. I watched it all unfold.
+User ID: 1 | Joke ID: 444 | Content: Where was the Declaration of Independence signed?
+
+At the bottom! 
+User ID: 1 | Joke ID: 445 | Content: I gave all my dead batteries away today, free of charge.
+User ID: 1 | Joke ID: 449 | Content: Don't buy flowers at a monastery. Because only you can prevent florist friars.
+User ID: 1 | Joke ID: 450 | Content: What do you call a crowd of chess players bragging about their wins in a hotel lobby? Chess nuts boasting in an open foyer.
+User ID: 1 | Joke ID: 452 | Content: Why do choirs keep buckets handy? So they can carry their tune
+User ID: 1 | Joke ID: 454 | Content: How does a penguin build itâs house? Igloos it together.
+User ID: 1 | Joke ID: 473 | Content: Why do pumpkins sit on peopleâs porches?
+
+They have no hands to knock on the door.
+User ID: 1 | Joke ID: 476 | Content: What do you call a bee that lives in America? A USB.
+User ID: 1 | Joke ID: 478 | Content: What did the late tomato say to the early tomato? Iâll ketch up
+User ID: 1 | Joke ID: 482 | Content: What did the digital clock say to the grandfather clock? Look, no hands!
+User ID: 1 | Joke ID: 483 | Content: "Dad, I'm cold."
+"Go stand in the corner, I hear it's 90 degrees."
+User ID: 1 | Joke ID: 484 | Content: Don't trust atoms. They make up everything.
+User ID: 1 | Joke ID: 486 | Content: So, I heard this pun about cows, but itâs kinda offensive so I wonât say it. I donât want there to be any beef between us. 
+User ID: 1 | Joke ID: 487 | Content: Did you hear about the chameleon who couldn't change color? They had a reptile dysfunction.
+User ID: 1 | Joke ID: 488 | Content: Why did the coffee file a police report? It got mugged.
+User ID: 1 | Joke ID: 491 | Content: Sgt.: Commissar! Commissar! The troops are revolting! Commissar: Well, youâre pretty repulsive yourself.
+User ID: 1 | Joke ID: 492 | Content: Have you heard about the film "Constipation", you probably haven't because it's not out yet.
+User ID: 1 | Joke ID: 493 | Content: How do hens stay fit? They always egg-cercise!
+User ID: 1 | Joke ID: 495 | Content: What did the judge say to the dentist? Do you swear to pull the tooth, the whole tooth and nothing but the tooth?
+User ID: 1 | Joke ID: 496 | Content: What do you call a boy who stopped digging holes? Douglas.
+User ID: 1 | Joke ID: 500 | Content: What happens when you anger a brain surgeon? They will give you a piece of your mind.
+User ID: 1 | Joke ID: 501 | Content: A doll was recently found dead in a rice paddy. It's the only known instance of a nick nack paddy wack.
+User ID: 1 | Joke ID: 502 | Content: How many apples grow on a tree? All of them!
+User ID: 1 | Joke ID: 503 | Content: Past, present, and future walked into a bar.... It was tense.
+User ID: 1 | Joke ID: 504 | Content: How do you know if thereâs an elephant under your bed? Your head hits the ceiling!
+User ID: 1 | Joke ID: 505 | Content: When people are sad, I sometimes let them colour in my tattoos. Sometimes all they need is a shoulder to crayon.
+User ID: 1 | Joke ID: 507 | Content: Why do crabs never give to charity? Because theyâre shellfish.
+User ID: 1 | Joke ID: 509 | Content: I tried to milk a cow today, but was unsuccessful. Udder failure.
+User ID: 1 | Joke ID: 510 | Content: What do you call a dictionary on drugs? High definition.
+User ID: 1 | Joke ID: 511 | Content: Why was Santa's little helper feeling depressed? Because he has low elf esteem.
+
+User ID: 1 | Joke ID: 512 | Content: How do you get two whales in a car? Start in England and drive West.
+User ID: 1 | Joke ID: 513 | Content: Two dyslexics walk into a bra.
+User ID: 1 | Joke ID: 514 | Content: How come a man driving a train got struck by lightning? He was a good conductor.
+User ID: 1 | Joke ID: 515 | Content: What did the shy pebble wish for? That she was a little boulder.
+User ID: 1 | Joke ID: 516 | Content: To be Frank, I'd have to change my name.
+User ID: 1 | Joke ID: 517 | Content: Why did the man run around his bed? Because he was trying to catch up on his sleep!
+User ID: 1 | Joke ID: 518 | Content: Have you heard about the owl sanctuary job opening? Itâs all night shifts but theyâre all a hoot over there.
+User ID: 1 | Joke ID: 520 | Content: What did the piece of bread say to the knife? Butter me up.
+User ID: 1 | Joke ID: 522 | Content: A termite walks into a bar and asks âIs the bar tender here?â
+User ID: 1 | Joke ID: 523 | Content: A magician was driving down the street and then he turned into a driveway.
+User ID: 1 | Joke ID: 524 | Content: Did you hear about the runner who was criticized? He just took it in stride
+User ID: 1 | Joke ID: 525 | Content: I burned 2000 calories today, I left my food in the oven for too long.
+User ID: 1 | Joke ID: 526 | Content: What do you get when you cross a rabbit with a water hose? Hare spray.
+User ID: 1 | Joke ID: 527 | Content: I went to the store to pick up eight cans of sprite... when I got home I realized I'd only picked seven up
+User ID: 1 | Joke ID: 528 | Content: Did you hear about the scientist who was lab partners with a pot of boiling water? He had a very esteemed colleague.
+User ID: 1 | Joke ID: 529 | Content: Why did the fireman wear red, white, and blue suspenders? To hold his pants up.
+User ID: 1 | Joke ID: 531 | Content: What do you call a dad that has fallen through the ice? A Popsicle.
+User ID: 1 | Joke ID: 532 | Content: Iâm reading a book on the history of glue â canât put it down.
+User ID: 1 | Joke ID: 533 | Content: My cat was just sick on the carpet, I donât think itâs feline well.
+User ID: 1 | Joke ID: 534 | Content: Where do owls go to buy their baby clothes? The owlet malls.
+User ID: 1 | Joke ID: 536 | Content: What do you call a nervous javelin thrower? Shakespeare.
+User ID: 1 | Joke ID: 537 | Content: Someone asked me to name two structures that hold water. I said "Well dam"
+User ID: 1 | Joke ID: 538 | Content: I've started telling everyone about the benefits of eating dried grapes. It's all about raisin awareness.
+User ID: 1 | Joke ID: 539 | Content: What do you call an alligator in a vest? An in-vest-igator!
+User ID: 1 | Joke ID: 540 | Content: I decided to sell my Hooverâ¦ well it was just collecting dust.
+User ID: 1 | Joke ID: 541 | Content: I was fired from the keyboard factory yesterday.  I wasn't putting in enough shifts.
+User ID: 1 | Joke ID: 543 | Content: What do you call a girl between two posts? Annette.
+User ID: 1 | Joke ID: 544 | Content: A beekeeper was indicted after he confessed to years of stealing at work. They charged him with emBEEzlement
+User ID: 1 | Joke ID: 545 | Content: What did the hat say to the scarf?
+You can hang around. I'll just go on ahead.
+
+User ID: 1 | Joke ID: 547 | Content: Yesterday a clown held a door open for me. I thought it was a nice jester.
+User ID: 1 | Joke ID: 550 | Content: Why was the picture sent to prison? It was framed.
+User ID: 1 | Joke ID: 552 | Content: Every night at 11:11, I make a wish that someone will come fix my broken clock.
+User ID: 1 | Joke ID: 553 | Content: What do you do on a remote island? Try and find the TV island it belongs to.
+User ID: 1 | Joke ID: 554 | Content: As I suspected, someone has been adding soil to my garden. The plot thickens.
+User ID: 1 | Joke ID: 555 | Content: Waking up this morning was an eye-opening experience.
+User ID: 1 | Joke ID: 556 | Content: I used to think I was indecisive, but now I'm not sure.
+User ID: 1 | Joke ID: 557 | Content: Want to hear my pizza joke? Never mind, it's too cheesy.
+User ID: 1 | Joke ID: 558 | Content: Whats a penguins favorite relative? Aunt Arctica.
+User ID: 1 | Joke ID: 559 | Content: Itâs hard to explain puns to kleptomaniacs, because they take everything literally.
+User ID: 1 | Joke ID: 560 | Content: Why was it called the dark ages? Because of all the knights. 
+User ID: 1 | Joke ID: 561 | Content: Did you hear about the cow who jumped over the barbed wire fence? It was udder destruction.
+User ID: 1 | Joke ID: 562 | Content: I don't trust stairs. They're always up to something.
+User ID: 1 | Joke ID: 563 | Content: Why are snake races so exciting? They're always neck and neck.
+User ID: 1 | Joke ID: 564 | Content: What are the strongest days of the week? Saturday and Sunday...the rest are weekdays.
+User ID: 1 | Joke ID: 565 | Content: What did Romans use to cut pizza before the rolling cutter was invented? Lil Caesars
+User ID: 1 | Joke ID: 566 | Content: What do you call an elephant that doesnât matter? An irrelephant.
+User ID: 1 | Joke ID: 569 | Content: What do birds give out on Halloween? Tweets.
+User ID: 1 | Joke ID: 570 | Content: Parallel lines have so much in common. Itâs a shame theyâll never meet.
+User ID: 1 | Joke ID: 571 | Content: How do you tell the difference between a crocodile and an alligator? You will see one later and one in a while.
+User ID: 1 | Joke ID: 572 | Content: Why did the man put his money in the freezer? He wanted cold hard cash!
+User ID: 1 | Joke ID: 573 | Content: Ben & Jerry's really need to improve their operation. The only way to get there is down a rocky road.
+User ID: 1 | Joke ID: 574 | Content: Today a girl said she recognized me from vegetarian club, but Iâm sure Iâve never met herbivore.
+User ID: 1 | Joke ID: 575 | Content: Two fish are in a tank, one turns to the other and says, "how do you drive this thing?"
+User ID: 1 | Joke ID: 577 | Content: I remember when I was a kid, I opened my fridge and noticed one of my vegetables were crying. I guess I have some emotional cabbage.
+User ID: 1 | Joke ID: 578 | Content: What do you call an old snowman? Water.
+User ID: 1 | Joke ID: 582 | Content: No matter how kind you are, German children are kinder.
+User ID: 1 | Joke ID: 584 | Content: Is there a hole in your shoe? Noâ¦ Then howâd you get your foot in it?
+User ID: 1 | Joke ID: 586 | Content: How many kids with ADD does it take to change a lightbulb? Let's go ride bikes!
+User ID: 1 | Joke ID: 587 | Content: What do you call a snake who builds houses? A boa constructor!
+User ID: 1 | Joke ID: 590 | Content: Did you hear that the police have a warrant out on a midget psychic ripping people off? It reads âSmall medium at large.â
+User ID: 1 | Joke ID: 593 | Content: Who did the wizard marry? His ghoul-friend
+User ID: 1 | Joke ID: 594 | Content: Have you heard the rumor going around about butter? Never mind, I shouldn't spread it.
+User ID: 1 | Joke ID: 596 | Content: Why are fish so smart? Because they live in schools!
+User ID: 1 | Joke ID: 597 | Content: I'm tired of following my dreams. I'm just going to ask them where they are going and meet up with them later.
+User ID: 1 | Joke ID: 598 | Content: I tried taking some high resolution photos of local farmland, but they all turned out a bit grainy.
+User ID: 1 | Joke ID: 599 | Content: I hate perforated lines, they're tearable.
+User ID: 1 | Joke ID: 600 | Content: Do I enjoy making courthouse puns? Guilty
+User ID: 1 | Joke ID: 601 | Content: Why can't you use "Beef stew" as a password? Because it's not stroganoff.
+User ID: 1 | Joke ID: 603 | Content: What is a witch's favorite subject in school? Spelling!
+User ID: 1 | Joke ID: 605 | Content: Did you hear about the guy whose whole left side was cut off? He's all right now.
+User ID: 1 | Joke ID: 606 | Content: What do you call someone with no nose? Nobody knows.
+User ID: 1 | Joke ID: 607 | Content: My boss told me to attach two pieces of wood together... I totally nailed it!
+User ID: 1 | Joke ID: 608 | Content: What did the Dorito farmer say to the other Dorito farmer? Cool Ranch!
+User ID: 1 | Joke ID: 609 | Content: I couldn't figure out how the seat belt worked. Then it just clicked.
+User ID: 1 | Joke ID: 610 | Content: Without geometry life is pointless.
+User ID: 1 | Joke ID: 612 | Content: What kind of music do planets listen to? Nep-tunes.
+User ID: 1 | Joke ID: 613 | Content: What is a vampire's favorite fruit? A blood orange.
+User ID: 1 | Joke ID: 614 | Content: Just watched a documentary about beaversâ¦ It was the best damn program Iâve ever seen.
+User ID: 1 | Joke ID: 615 | Content: What do you call a beehive without the b's? An eehive.
+User ID: 1 | Joke ID: 616 | Content: I was wondering why the frisbee was getting bigger, then it hit me.
+User ID: 1 | Joke ID: 617 | Content: I'll tell you what often gets over looked... garden fences.
+User ID: 1 | Joke ID: 618 | Content: I just wrote a book on reverse psychology. Do not read it!
+User ID: 1 | Joke ID: 619 | Content: Why do mathematicians hate the U.S.? Because it's indivisible.
+User ID: 1 | Joke ID: 620 | Content: How do you make holy water? You boil the hell out of it.
+User ID: 1 | Joke ID: 622 | Content: Why do fish live in salt water? Because pepper makes them sneeze!
+User ID: 1 | Joke ID: 623 | Content: My friend said to me: "What rhymes with orange" I said: "no it doesn't"
+User ID: 1 | Joke ID: 624 | Content: I made a belt out of watches once... It was a waist of time.
+User ID: 1 | Joke ID: 625 | Content: I think circles are pointless.
+User ID: 1 | Joke ID: 626 | Content: What's the difference between a guitar and a fish? You can tune a guitar but you can't "tuna" fish!
+User ID: 1 | Joke ID: 628 | Content: What is worse then finding a worm in your Apple? Finding half a worm in your Apple.
+User ID: 1 | Joke ID: 631 | Content: Can February march? No, but April may.
+User ID: 1 | Joke ID: 633 | Content: What do you call a sheep with no legs? A cloud.
+User ID: 1 | Joke ID: 635 | Content: When will the little snake arrive? I don't know but he won't be long...
+User ID: 1 | Joke ID: 636 | Content: What do you call a troublesome Canadian high schooler? A poutine.
+User ID: 1 | Joke ID: 637 | Content: Why can't a bicycle stand on its own? It's two-tired.
+User ID: 1 | Joke ID: 638 | Content: What did the dog say to the two trees? Bark bark.
+User ID: 1 | Joke ID: 639 | Content: What creature is smarter than a talking parrot? A spelling bee.
+User ID: 1 | Joke ID: 640 | Content: What did the father tomato say to the baby tomato whilst on a family walk? Ketchup.
+User ID: 1 | Joke ID: 641 | Content: How do you make a 'one' disappear? You add a 'g' and it's 'gone'
+User ID: 1 | Joke ID: 643 | Content: A man is washing the car with his son. The son asks...... "Dad, canât you just use a sponge?"
+User ID: 1 | Joke ID: 644 | Content: Slept like a log last night â¦ woke up in the fireplace.
+User ID: 1 | Joke ID: 646 | Content: Thanks for explaining the word "many" to me. It means a lot.
+User ID: 1 | Joke ID: 649 | Content: This furniture store keeps emailing me, all I wanted was one night stand!
+User ID: 1 | Joke ID: 651 | Content: Americans can't switch from pounds to kilograms overnight. That would cause mass confusion.
+User ID: 1 | Joke ID: 657 | Content: Leather is great for sneaking around because it's made of hide.
+User ID: 1 | Joke ID: 659 | Content: Where do cats write notes?
+Scratch Paper!
+User ID: 1 | Joke ID: 662 | Content: Why did the worker get fired from the orange juice factory? Lack of concentration.
+User ID: 1 | Joke ID: 663 | Content: What lies at the bottom of the ocean and twitches? A nervous wreck.
+User ID: 1 | Joke ID: 664 | Content: I have the heart of a lion... and a lifetime ban from the San Diego Zoo.
+User ID: 1 | Joke ID: 665 | Content: They tried to make a diamond shaped like a duck. It quacked under the pressure.
+User ID: 1 | Joke ID: 667 | Content: A Skeleton walked into a bar he said I need a beer and a mop
+User ID: 1 | Joke ID: 668 | Content: The invention of the wheel was what got things rolling
+User ID: 1 | Joke ID: 669 | Content: Child: Dad, make me a sandwich. Dad: Poof! You're a sandwich.
+User ID: 1 | Joke ID: 670 | Content: What is a tornado's favorite game to play? Twister!
+User ID: 1 | Joke ID: 675 | Content: What do you call a boomerang that won't come back? A stick.
+User ID: 1 | Joke ID: 676 | Content: What do you call a cow with no legs? Ground beef.
+User ID: 1 | Joke ID: 678 | Content: Why is it always hot in the corner of a room? Because a corner is 90 degrees.
+User ID: 1 | Joke ID: 679 | Content: I am so good at sleeping I can do it with my eyes closed!
+User ID: 1 | Joke ID: 680 | Content: what happens when you cross a sheep with a kangaroo ? A woolly jumper!
+User ID: 1 | Joke ID: 682 | Content: I just read a book about Stockholm syndrome. It was pretty bad at first, but by the end I liked it.
+User ID: 1 | Joke ID: 683 | Content: Wife: Honey Iâm pregnant.
+
+Me: Wellâ¦. what do we do now?
+
+Wife: Well, I guess we should go to a baby doctor.
+
+Me: Hm.. I think Iâd be a lot more comfortable going to an adult doctor.
+User ID: 1 | Joke ID: 684 | Content: Whiteboards ... are remarkable.
+User ID: 1 | Joke ID: 685 | Content: Do you want a brief explanation of what an acorn is? In a nutshell, it's an oak tree.
+User ID: 1 | Joke ID: 687 | Content: What did celery say when he broke up with his girlfriend? She wasn't right for me, so I really don't carrot all.
+User ID: 1 | Joke ID: 688 | Content: Why did the clown have neck pain? - Because he slept funny
+User ID: 1 | Joke ID: 690 | Content: Why does Superman get invited to dinners? Because he is a Supperhero.
+User ID: 1 | Joke ID: 691 | Content: Why did the banana go to the doctor? He was not "peeling" well.
+User ID: 1 | Joke ID: 692 | Content: I tried to write a chemistry joke, but could never get a reaction.
+User ID: 1 | Joke ID: 693 | Content: Iâll tell you something about German sausages, theyâre the wurst
+User ID: 1 | Joke ID: 694 | Content: Did you hear about the two thieves who stole a calendar? They each got six months.
+User ID: 1 | Joke ID: 698 | Content: Two guys walked into a bar, the third one ducked.
+User ID: 1 | Joke ID: 699 | Content: I went to the doctor today and he told me I had type A blood but it was a type O.
+User ID: 1 | Joke ID: 701 | Content: Mahatma Gandhi, as you know, walked barefoot most of the time, which produced an impressive set of calluses on his feet. 
+He also ate very little, which made him rather frail and with his odd diet, he suffered from bad breath. 
+This made him a super calloused fragile mystic hexed by halitosis.
+User ID: 1 | Joke ID: 702 | Content: How does the moon cut his hair? Eclipse it.
+User ID: 1 | Joke ID: 705 | Content: Why is the new Kindle screen textured to look like paper? So you feel write at home.
+User ID: 1 | Joke ID: 708 | Content: A bartender broke up with her boyfriend, but he kept asking her for another shot.
+User ID: 1 | Joke ID: 709 | Content: How many South Americans does it take to change a lightbulb? A Brazilian
+User ID: 1 | Joke ID: 710 | Content: How was the snow globe feeling after the storm? A little shaken.
+User ID: 1 | Joke ID: 714 | Content: To the guy who invented zero... thanks for nothing.
+User ID: 1 | Joke ID: 715 | Content: Iâm only familiar with 25 letters in the English language. I donât know why.
+User ID: 1 | Joke ID: 717 | Content: "Hey, dad, did you get a haircut?" "No, I got them all cut."
+User ID: 1 | Joke ID: 718 | Content: Why did the tree go to the dentist? It needed a root canal.
+User ID: 1 | Joke ID: 720 | Content: Yesterday I confused the words "jacuzzi" and "yakuza". Now I'm in hot water with the Japanese mafia.
+User ID: 1 | Joke ID: 721 | Content: What kind of award did the dentist receive? A little plaque.
+User ID: 1 | Joke ID: 724 | Content: What's large, grey, and doesn't matter?
+An irrelephant.
+
+User ID: 1 | Joke ID: 726 | Content: I knew i shouldnât have ate that seafood. Because now iâm feeling a littleâ¦ Eel
+User ID: 1 | Joke ID: 729 | Content: How come the stadium got hot after the game? Because all of the fans left.
+User ID: 1 | Joke ID: 731 | Content: Whatâs the advantage of living in Switzerland? Well, the flag is a big plus.
+User ID: 1 | Joke ID: 735 | Content: If youâre struggling to think of what to get someone for Christmas. Get them a fridge and watch their face light up when they open it.
+User ID: 1 | Joke ID: 736 | Content: This morning I was wondering where the sun was, but then it dawned on me.
+User ID: 1 | Joke ID: 739 | Content: Why do trees seem suspicious on sunny days? Dunno, they're just a bit shady.
+User ID: 1 | Joke ID: 740 | Content: What's red and bad for your teeth? A Brick.
+User ID: 1 | Joke ID: 742 | Content: Why did the sentence fail the driving test? It never came to a full stop.
+User ID: 1 | Joke ID: 743 | Content: What do you get when you cross a chicken with a skunk? A fowl smell!
+User ID: 1 | Joke ID: 744 | Content: What do prisoners use to call each other? Cell phones.
+User ID: 1 | Joke ID: 745 | Content: At the boxing match, the dad got into the popcorn line and the line for hot dogs, but he wanted to stay out of the punchline.
+User ID: 1 | Joke ID: 747 | Content: Geology rocks, but Geography is where it's at!
+User ID: 1 | Joke ID: 748 | Content: Why does Han Solo like gum? It's chewy!
+User ID: 1 | Joke ID: 749 | Content: Why do valley girls hang out in odd numbered groups? Because they can't even.
+User ID: 1 | Joke ID: 751 | Content: How do you fix a broken pizza? With tomato paste.
+User ID: 1 | Joke ID: 752 | Content: You can't trust a ladder. It will always let you down
+User ID: 1 | Joke ID: 753 | Content: Chances are if you' ve seen one shopping center, you've seen a mall.
+User ID: 1 | Joke ID: 761 | Content: Why don't eggs tell jokes? They'd crack each other up
+User ID: 1 | Joke ID: 764 | Content: How do you teach a kid to climb stairs? There is a step by step guide.
+User ID: 1 | Joke ID: 765 | Content: What is the best way to carve?
+Whittle by whittle.
+User ID: 1 | Joke ID: 767 | Content: What do you call a criminal going down the stairs? Condescending
+User ID: 1 | Joke ID: 770 | Content: This is my step ladder. I never knew my real ladder.
+User ID: 1 | Joke ID: 772 | Content: Why are mummys scared of vacation? They're afraid to unwind.
+User ID: 1 | Joke ID: 773 | Content: What did the ocean say to the beach? Thanks for all the sediment.
+User ID: 1 | Joke ID: 775 | Content: Me and my mates are in a band called Duvet. We're a cover band.
+User ID: 1 | Joke ID: 776 | Content: Why donât seagulls fly over the bay? Because then theyâd be bay-gulls!
+User ID: 1 | Joke ID: 778 | Content: My wife is on a tropical fruit diet, the house is full of stuff. It is enough to make a mango crazy.
+User ID: 1 | Joke ID: 779 | Content: What do you call a group of disorganized cats? A cat-tastrophe.
+User ID: 1 | Joke ID: 780 | Content: Dad, can you put my shoes on? I don't think they'll fit me.
+User ID: 1 | Joke ID: 783 | Content: What is the least spoken language in the world?
+Sign Language
+User ID: 1 | Joke ID: 784 | Content: When my wife told me to stop impersonating a flamingo, I had to put my foot down.
+User ID: 1 | Joke ID: 788 | Content: Why was the strawberry sad? Its parents were in a jam.
+User ID: 1 | Joke ID: 789 | Content: My son is studying to be a surgeon, I just hope he makes the cut.
+User ID: 1 | Joke ID: 792 | Content: Whereâs the bin? Dad: I havenât been anywhere!
+User ID: 1 | Joke ID: 794 | Content: What does an angry pepper do? It gets jalapeÃ±o face.
+User ID: 1 | Joke ID: 798 | Content: I donât play soccer because I enjoy the sport. Iâm just doing it for kicks.
+User ID: 1 | Joke ID: 800 | Content: A ghost walks into a bar and asks for a glass of vodka but the bar tender says, âsorry we donât serve spiritsâ
+User ID: 1 | Joke ID: 803 | Content: Why canât you hear a pterodactyl go to the bathroom? The p is silent.
+User ID: 1 | Joke ID: 806 | Content: What type of music do balloons hate? Pop music!
+User ID: 1 | Joke ID: 808 | Content: What do you call a fat psychic? A four-chin teller.
+User ID: 1 | Joke ID: 809 | Content: Why didn't the number 4 get into the nightclub? Because he is 2 square.
+User ID: 1 | Joke ID: 810 | Content: Did you hear the one about the guy with the broken hearing aid? Neither did he.
+User ID: 1 | Joke ID: 813 | Content: Nurse: Doctor, there's a patient that says he's invisible. Doctor: Well, tell him I can't see him right now!
+User ID: 1 | Joke ID: 817 | Content: I was going to get a brain transplant, but I changed my mind
+User ID: 1 | Joke ID: 818 | Content: My wife told me to rub the herbs on the meat for better flavor. That's sage advice.
+User ID: 1 | Joke ID: 819 | Content: What is this movie about? It is about 2 hours long.
+User ID: 1 | Joke ID: 822 | Content: Archaeology really is a career in ruins.
+User ID: 1 | Joke ID: 826 | Content: How many tickles does it take to tickle an octopus? Ten-tickles!
+User ID: 1 | Joke ID: 829 | Content: Two peanuts were walking down the street. One was a salted.
+User ID: 1 | Joke ID: 830 | Content: What's the best thing about elevator jokes? They work on so many levels.
+User ID: 1 | Joke ID: 835 | Content: I have kleptomania, but when it gets bad, I take something for it.
+User ID: 1 | Joke ID: 836 | Content: I've got a joke about vegetables for you... but it's a bit corny.
+User ID: 1 | Joke ID: 837 | Content: What do you call a magician who has lost their magic? Ian.
+User ID: 1 | Joke ID: 839 | Content: What's the difference between a seal and a sea lion?
+An ion! 
+User ID: 1 | Joke ID: 841 | Content: Why did the knife dress up in a suit? Because it wanted to look sharp
+User ID: 1 | Joke ID: 843 | Content: What do you call a droid that takes the long way around? R2 detour.
+User ID: 1 | Joke ID: 844 | Content: Writing with a broken pencil is pointless.
+User ID: 1 | Joke ID: 846 | Content: The urge to sing the Lion King song is just a whim away.
+User ID: 1 | Joke ID: 848 | Content: A farmer had 297 cows, when he rounded them up, he found he had 300
+User ID: 1 | Joke ID: 849 | Content: Why do wizards clean their teeth three times a day? To prevent bat breath!
+User ID: 1 | Joke ID: 852 | Content: Two silk worms had a race. They ended up in a tie.
+User ID: 1 | Joke ID: 853 | Content: Why don't skeletons ride roller coasters? They don't have the stomach for it.
+User ID: 1 | Joke ID: 856 | Content: How did Darth Vader know what Luke was getting for Christmas? He felt his presents.
+User ID: 1 | Joke ID: 859 | Content: What do you call two guys hanging out by your window? Kurt & Rod.
+User ID: 1 | Joke ID: 860 | Content: I'm glad I know sign language, it's pretty handy.
+User ID: 1 | Joke ID: 862 | Content: Why did the Clydesdale give the pony a glass of water? â¨Because he was a little horse!
+User ID: 1 | Joke ID: 863 | Content: Why are graveyards so noisy? Because of all the coffin.
+User ID: 1 | Joke ID: 864 | Content: It's difficult to say what my wife does, she sells sea shells by the sea shore.
+User ID: 1 | Joke ID: 867 | Content: What did the sea say to the sand? "We have to stop meeting like this."
+User ID: 1 | Joke ID: 868 | Content: I boiled a funny bone last night and had a laughing stock
+User ID: 1 | Joke ID: 869 | Content: Why did the belt go to prison? He held up a pair of pants!
+User ID: 1 | Joke ID: 873 | Content: Rate limit exceeded: 100 per 1 minute
+User ID: 1 | Joke ID: 971 | Content: Did you know that ghosts call their true love their ghoul-friend?
+User ID: 1 | Joke ID: 978 | Content: what do you call a dog that can do magic tricks? a labracadabrador
+User ID: 1 | Joke ID: 982 | Content: People saying 'boo! to their friends has risen by 85% in the last year.... That's a frightening statistic.
+User ID: 1 | Joke ID: 984 | Content: How does a French skeleton say hello? Bone-jour.
+User ID: 1 | Joke ID: 987 | Content: Where do you learn to make banana splits? At sundae school.
+User ID: 1 | Joke ID: 989 | Content: You know that cemetery up the road? People are dying to get in there.
+User ID: 1 | Joke ID: 991 | Content: There's not really any training for garbagemen. They just pick things up as they go.
+User ID: 1 | Joke ID: 995 | Content: Why don't you find hippopotamuses hiding in trees?
+They're really good at it.
+User ID: 1 | Joke ID: 997 | Content: My new thesaurus is terrible. In fact, it's so bad, I'd say it's terrible.
+User ID: 1 | Joke ID: 999 | Content: Why donât skeletons ever go trick or treating? Because they have nobody to go with.
+User ID: 1 | Joke ID: 1004 | Content: Why do bees have sticky hair? Because they use honey combs!
+User ID: 1 | Joke ID: 1005 | Content: Did you know that protons have mass? I didn't even know they were catholic.
+User ID: 1 | Joke ID: 1006 | Content: What do you get when you cross a bee and a sheep? A bah-humbug.
+
+User ID: 1 | Joke ID: 1007 | Content: A man walks into a bar and orders helicopter flavor chips. The barman replies âsorry mate we only do plainâ
+User ID: 1 | Joke ID: 1009 | Content: What biscuit does a short person like? Shortbread. 
+User ID: 1 | Joke ID: 1010 | Content: Dad Iâm hungryâ â¦ âHi hungry Iâm dad
+User ID: 1 | Joke ID: 1011 | Content: Why was ten scared of seven? Because seven ate nine.
+User ID: 1 | Joke ID: 1012 | Content: Doctor: Do you want to hear the good news or the bad news?
+Patient: Good news please.
+Doctor: we're naming a disease after you.
+User ID: 1 | Joke ID: 1013 | Content: How does Darth Vader like his toast? On the dark side.
+User ID: 1 | Joke ID: 1015 | Content: Why did the girl smear peanut butter on the road? To go with the traffic jam.
+User ID: 1 | Joke ID: 1016 | Content: What do you call your friend who stands in a hole? Phil.
+User ID: 1 | Joke ID: 1018 | Content: I made a playlist for hiking. It has music from Peanuts, The Cranberries, and Eminem. I call it my Trail Mix.
+User ID: 1 | Joke ID: 1019 | Content: What do bees do after they are married? They go on a honeymoon.
+User ID: 1 | Joke ID: 1022 | Content: What do you call cheese by itself? Provolone.
+User ID: 1 | Joke ID: 1024 | Content: Why didnât the skeleton cross the road? Because he had no guts.
+User ID: 1 | Joke ID: 1026 | Content: They're making a movie about clocks. It's about time
+User ID: 1 | Joke ID: 1028 | Content: A horse walks into a bar. The bar tender says "Hey." The horse says "Sure."
+User ID: 1 | Joke ID: 1030 | Content: Where did you learn to make ice cream? Sunday school.
+User ID: 1 | Joke ID: 1035 | Content: My wife said I was immature. So I told her to get out of my fort.
+User ID: 1 | Joke ID: 1036 | Content: Which is the fastest growing city in the world? Dublin'
+User ID: 1 | Joke ID: 1037 | Content: I ate a clock yesterday. It was so time consuming.
+User ID: 1 | Joke ID: 1038 | Content: Why did the A go to the bathroom and come out as an E? Because he had a vowel movement.
+User ID: 1 | Joke ID: 1039 | Content: Why did the half blind man fall in the well? Because he couldn't see that well!
+User ID: 1 | Joke ID: 1042 | Content: "Dad, I'm hungry." Hello, Hungry. I'm Dad.
+User ID: 1 | Joke ID: 1044 | Content: What is the hardest part about sky diving? The ground.
+User ID: 1 | Joke ID: 1048 | Content: I heard there was a new store called Moderation. They have everything there
+User ID: 1 | Joke ID: 1058 | Content: It was raining cats and dogs the other day. I almost stepped in a poodle.
+User ID: 1 | Joke ID: 1059 | Content: Remember, the best angle to approach a problem from is the "try" angle.
+User ID: 1 | Joke ID: 1062 | Content: What do you call a careful wolf? Aware wolf.
+User ID: 1 | Joke ID: 1063 | Content: What was a more important invention than the first telephone? The second one.
+User ID: 1 | Joke ID: 1067 | Content: Our wedding was so beautiful, even the cake was in tiers.
+User ID: 1 | Joke ID: 1068 | Content: Why is Peter Pan always flying? Because he Neverlands.
+User ID: 1 | Joke ID: 1170 | Content: What do computers and air conditioners have in common? They both become useless when you open windows.
+User ID: 1 | Joke ID: 1171 | Content: I got an A on my origami assignment when I turned my paper into my teacher
+User ID: 1 | Joke ID: 1172 | Content: Why are giraffes so slow to apologize? Because it takes them a long time to swallow their pride.
+User ID: 1 | Joke ID: 1176 | Content: Don't tell secrets in corn fields. Too many ears around.
+User ID: 1 | Joke ID: 1178 | Content: Why does Waldo only wear stripes? Because he doesn't want to be spotted.
+User ID: 1 | Joke ID: 1179 | Content: What kind of magic do cows believe in? MOODOO.
+User ID: 1 | Joke ID: 1180 | Content: What did one nut say as he chased another nut?  I'm a cashew!
+User ID: 1 | Joke ID: 1181 | Content: Last night me and my girlfriend watched three DVDs back to back. Luckily I was the one facing the TV.
+User ID: 1 | Joke ID: 1184 | Content: How do you find Will Smith in the snow?  Look for fresh prints.
+User ID: 1 | Joke ID: 1192 | Content: Why are basketball players messy eaters? Because they are always dribbling.
+User ID: 1 | Joke ID: 1194 | Content: What kind of dinosaur loves to sleep? A stega-snore-us.
+User ID: 1 | Joke ID: 1196 | Content: How are false teeth like stars? They come out at night!
+User ID: 1 | Joke ID: 1198 | Content: How much does a hipster weigh? An instagram.
+User ID: 1 | Joke ID: 1200 | Content: The other day, my wife asked me to pass her lipstick but I accidentally passed her a glue stick. She still isn't talking to me.
+User ID: 1 | Joke ID: 1202 | Content: What did the Zen Buddist say to the hotdog vendor? Make me one with everything.
+User ID: 1 | Joke ID: 1206 | Content: Whatâs Forest Gumpâs Facebook password? 1forest1
+User ID: 1 | Joke ID: 1209 | Content: What was the pumpkinâs favorite sport?
+
+Squash.
+User ID: 1 | Joke ID: 1216 | Content: I thought my wife was joking when she said she'd leave me if I didn't stop signing "I'm A Believer"... Then I saw her face.
+User ID: 1 | Joke ID: 1218 | Content: What is the difference between ignorance and apathy?
+
+I don't know and I don't care.
+User ID: 1 | Joke ID: 1223 | Content: I was going to learn how to juggle, but I didn't have the balls.
+User ID: 1 | Joke ID: 1225 | Content: I bought shoes from a drug dealer once. I don't know what he laced them with, but I was tripping all day.
+User ID: 1 | Joke ID: 1227 | Content: They say Dodger Stadium can hold up to fifty-six thousand people, but that is just a ballpark figure.
+User ID: 1 | Joke ID: 1228 | Content: What do you give a sick lemon? Lemonaid.
+User ID: 1 | Joke ID: 1230 | Content: What do you get when you cross a snowman with a vampire? Frostbite.
+User ID: 1 | Joke ID: 1231 | Content: Me: If humans lose the ability to hear high frequency volumes as they get older, can my 4 week old son hear a dog whistle?
+
+Doctor: No, humans can never hear that high of a frequency no matter what age they are.
+
+Me: Trick question... dogs can't whistle.
+User ID: 1 | Joke ID: 1232 | Content: I am terrified of elevators. Iâm going to start taking steps to avoid them.
+User ID: 1 | Joke ID: 1236 | Content: My sister bet me $15 that I couldn't build a car out of spaghetti. You should have seen the look on her face as I drove pasta.
+User ID: 1 | Joke ID: 1239 | Content: I adopted my dog from a blacksmith. As soon as we got home he made a bolt for the door.
+User ID: 1 | Joke ID: 1241 | Content: Why do scuba divers fall backwards into the water? Because if they fell forwards theyâd still be in the boat.
+User ID: 1 | Joke ID: 1244 | Content: What did the drummer name her twin daughters? Anna One, Anna Two...
+User ID: 1 | Joke ID: 1249 | Content: Shout out to my grandma, that's the only way she can hear.
+User ID: 1 | Joke ID: 1252 | Content: I met this girl on a dating site and, I don't know, we just clicked.
+User ID: 1 | Joke ID: 1258 | Content: âMy Dog has no nose.â âHow does he smell?â âAwfulâ
+User ID: 1 | Joke ID: 1262 | Content: Today a man knocked on my door and asked for a small donation towards the local swimming pool. I gave him a glass of water.
+User ID: 1 | Joke ID: 1264 | Content: Every machine in the coin factory broke down all of a sudden without explanation. It just doesnât make any cents.
+User ID: 1 | Joke ID: 1268 | Content: Where do you take someone who has been injured in a Peek-a-boo accident? To the I.C.U.
+User ID: 1 | Joke ID: 1269 | Content: How many seconds are in a year?
+12.
+January 2nd, February 2nd, March 2nd, April 2nd.... etc
+User ID: 1 | Joke ID: 1282 | Content: How do you get a baby alien to sleep?  You rocket.
+User ID: 1 | Joke ID: 1283 | Content: I went to the zoo yesterday and saw a baguette in a cage. It was bread in captivity.
+User ID: 1 | Joke ID: 1285 | Content: Recent survey revealed 6 out of 7 dwarf's aren't happy.
+User ID: 1 | Joke ID: 1286 | Content: Q: What did the spaghetti say to the other spaghetti?
+A: Pasta la vista, baby!
+User ID: 1 | Joke ID: 1287 | Content: What's orange and sounds like a parrot? A Carrot.
+User ID: 1 | Joke ID: 1289 | Content: I used to work for a soft drink can crusher. It was soda pressing.
+User ID: 1 | Joke ID: 1291 | Content: I applied to be a doorman but didn't get the job due to lack of experience. That surprised me, I thought it was an entry level position.
+User ID: 1 | Joke ID: 1295 | Content: If you walk into a forest and cut down a tree, but the tree doesn't understand why you cut it down, do you think it's stumped?
+User ID: 1 | Joke ID: 1302 | Content: What do you call a fish wearing a bowtie? Sofishticated.
+User ID: 1 | Joke ID: 1308 | Content: Why do we tell actors to âbreak a leg?â Because every play has a cast.
+User ID: 1 | Joke ID: 1312 | Content: Whenever the cashier at the grocery store asks my dad if he would like the milk in a bag he replies, âNo, just leave it in the carton!â
+User ID: 1 | Joke ID: 1314 | Content: Where do bees go to the bathroom?  The BP station.
+User ID: 1 | Joke ID: 1315 | Content: I needed a password eight characters long so I picked Snow White and the Seven Dwarfs.
+User ID: 1 | Joke ID: 1317 | Content: Why did the cowboy have a weiner dog? Somebody told him to get a long little doggy.
+User ID: 1 | Joke ID: 1323 | Content: Whatâs E.T. short for? Heâs only got little legs.
+User ID: 1 | Joke ID: 1325 | Content: I wear a stethoscope so that in a medical emergency I can teach people a valuable lesson about assumptions.
+User ID: 1 | Joke ID: 1331 | Content: What has three letters and starts with gas? A Car.
+User ID: 1 | Joke ID: 1334 | Content: Where does batman go to the bathroom? The batroom.
+User ID: 1 | Joke ID: 1339 | Content: What do you call an eagle who can play the piano? Talonted!
+User ID: 1 | Joke ID: 1340 | Content: It takes guts to be an organ donor.
+User ID: 1 | Joke ID: 1342 | Content: When does a joke become a dad joke? When it becomes apparent.
+User ID: 1 | Joke ID: 1346 | Content: I thought about going on an all-almond diet. But that's just nuts.
+User ID: 1 | Joke ID: 1348 | Content: If two vegans are having an argument, is it still considered beef?
+User ID: 1 | Joke ID: 1352 | Content: What do you get if you put a duck in a cement mixer? Quacks in the pavement.
+User ID: 1 | Joke ID: 1356 | Content: What's the difference between a hippo and a zippo? One is really heavy, the other is a little lighter.
+User ID: 1 | Joke ID: 1357 | Content: âHold on, I have something in my shoeâ  âIâm pretty sure itâs a footâ
+User ID: 1 | Joke ID: 1364 | Content: Why doesn't the Chimney-Sweep call out sick from work? Because he's used to working with a flue.
+User ID: 1 | Joke ID: 1369 | Content: I used to work in a shoe recycling shop. It was sole destroying.
+User ID: 1 | Joke ID: 1370 | Content: Why didnât the orange win the race? It ran out of juice.
+User ID: 1 | Joke ID: 1371 | Content: A cannibal is someone who is fed up with people.
+User ID: 1 | Joke ID: 1375 | Content: I went to a book store and asked the saleswoman where the Self Help section was, she said if she told me it would defeat the purpose.
+User ID: 1 | Joke ID: 1377 | Content: What does a pirate pay for his corn? A buccaneer!
+User ID: 1 | Joke ID: 1378 | Content: Why did the feline fail the lie detector test? Because he be lion.
+User ID: 1 | Joke ID: 1379 | Content: What does a female snake use for support? A co-Bra!
+User ID: 1 | Joke ID: 1382 | Content: What did the scarf say to the hat? You go on ahead, I am going to hang around a bit longer.
+User ID: 1 | Joke ID: 1398 | Content: Why did the kid throw the clock out the window? He wanted to see time fly!
+User ID: 1 | Joke ID: 1399 | Content: What do you call a guy lying on your doorstep? Matt.
+User ID: 1 | Joke ID: 1400 | Content: I went to a Foo Fighters Concert once... It was Everlong...
+User ID: 1 | Joke ID: 1404 | Content: The biggest knight at King Arthur's round table was Sir Cumference. He acquired his size from eating too much pi.
+User ID: 1 | Joke ID: 1406 | Content: Where do young cows eat lunch? In the calf-ateria.
+User ID: 1 | Joke ID: 1409 | Content: Frankenstein enters a bodybuilding competition and finds he has seriously misunderstood the objective.
+User ID: 1 | Joke ID: 1416 | Content: What's the worst part about being a cross-eyed teacher?
+
+They can't control their pupils.
+User ID: 1 | Joke ID: 1418 | Content: What do you call a group of killer whales playing instruments? An Orca-stra.
+User ID: 1 | Joke ID: 1419 | Content: I used to be addicted to the hokey pokey, but I turned myself around.
+User ID: 1 | Joke ID: 1422 | Content: Have you ever heard of a music group called Cellophane? They mostly wrap.
+User ID: 1 | Joke ID: 1425 | Content: How does a dyslexic poet write? Inverse.
+User ID: 1 | Joke ID: 1430 | Content: Why did the melons plan a big wedding? Because they cantaloupe!
+User ID: 1 | Joke ID: 1440 | Content: I gave my friend 10 puns hoping that one of them would make him laugh. Sadly, no pun in ten did.
+User ID: 1 | Joke ID: 1442 | Content: Hostess: Do you have a preference of where you sit?
+Dad: Down.
+User ID: 1 | Joke ID: 1447 | Content: I started a new business making yachts in my attic this year...the sails are going through the roof
+User ID: 1 | Joke ID: 1448 | Content: What do you call a female snake. misssssssss 
+User ID: 1 | Joke ID: 1449 | Content: I fear for the calendar, its days are numbered.
+
+User ID: 1 | Joke ID: 1450 | Content: How many bones are in the human hand? A handful of them.
+User ID: 1 | Joke ID: 1457 | Content: Egyptians claimed to invent the guitar, but they were such lyres.ï»¿
+User ID: 1 | Joke ID: 1458 | Content: Why do bears have hairy coats? Fur protection.
+User ID: 1 | Joke ID: 1466 | Content: Why is the ocean always blue? Because the shore never waves back.
+User ID: 1 | Joke ID: 1467 | Content: Ever wondered why bees hum? It's because they don't know the words.
+User ID: 1 | Joke ID: 1471 | Content: What did one wall say to the other wall? I'll meet you at the corner!
+User ID: 1 | Joke ID: 1474 | Content: Doctor you've got to help me, I'm addicted to Twitter. Doctor: I don't follow you.
+User ID: 1 | Joke ID: 1476 | Content: Yesterday, I accidentally swallowed some food coloring. The doctor says Iâm okay, but I feel like Iâve dyed a little inside.
+User ID: 1 | Joke ID: 1482 | Content: The other day I was listening to a song about superglue, itâs been stuck in my head ever since.
+User ID: 1 | Joke ID: 1484 | Content: Want to hear a chimney joke? Got stacks of em! First one's on the house
+User ID: 1 | Joke ID: 1485 | Content: âDoctor, Iâve broken my arm in several placesâ Doctor âWell donât go to those places.â
+User ID: 1 | Joke ID: 1486 | Content: I had a dream that I was a muffler last night. I woke up exhausted!
+User ID: 1 | Joke ID: 1487 | Content: Why did the chicken get a penalty? For fowl play.
+User ID: 1 | Joke ID: 1499 | Content: The Swiss must've been pretty confident in their chances of victory if they included a corkscrew in their army knife.
+User ID: 1 | Joke ID: 1504 | Content: What do you get when you cross a pig and a pineapple? A porky pine
+User ID: 1 | Joke ID: 1507 | Content: I always wanted to look into why I procrastinate, but I keep putting it off. 
+User ID: 1 | Joke ID: 1508 | Content: Where did Captain Hook get his hook? From a second hand store.
+User ID: 1 | Joke ID: 1512 | Content: If you want a job in the moisturizer industry, the best advice I can give is to apply daily.
+User ID: 1 | Joke ID: 1513 | Content: What do you call corn that joins the army? Kernel.
+User ID: 1 | Joke ID: 1515 | Content: Did you hear the one about the giant pickle?  He was kind of a big dill.
+User ID: 1 | Joke ID: 1516 | Content: I got a reversible jacket for Christmas, I can't wait to see how it turns out.
+User ID: 1 | Joke ID: 1517 | Content: Doctor you've got you help me, I'm addicted to twitter. Doctor: I don't follow you.
+User ID: 1 | Joke ID: 1522 | Content: What's black and white and read all over? The newspaper.
+User ID: 1 | Joke ID: 1526 | Content: A man got hit in the head with a can of Coke, but he was alright because it was a soft drink.
+User ID: 1 | Joke ID: 1528 | Content: My dentist is the best, he even has a little plaque!
+User ID: 1 | Joke ID: 1529 | Content: Two satellites decided to get married. The wedding wasn't much, but the reception was incredible.
+User ID: 1 | Joke ID: 1530 | Content: What do you call a pig with three eyes? Piiig
+User ID: 1 | Joke ID: 1532 | Content: Why did the kid cross the playground? To get to the other slide.
+User ID: 1 | Joke ID: 1533 | Content: I wouldn't buy anything with velcro. It's a total rip-off.
+User ID: 1 | Joke ID: 1537 | Content: I cut my finger chopping cheese, but I think that I may have grater problems.
+User ID: 1 | Joke ID: 1552 | Content: I was in an 80's band called the prevention. We were better than the cure.
+User ID: 1 | Joke ID: 1558 | Content: Why did the cookie cry? It was feeling crumby.
+User ID: 1 | Joke ID: 1567 | Content: What animal is always at a game of cricket? A bat.
+User ID: 1 | Joke ID: 1569 | Content: Why was the robot angry? Because someone kept pressing his buttons!
+User ID: 1 | Joke ID: 1573 | Content: My sea sickness comes in waves.
+User ID: 1 | Joke ID: 1576 | Content: What do you call a fish with no eyes? A fsh.
+User ID: 1 | Joke ID: 1577 | Content: I used to be a banker, but I lost interest.
+User ID: 1 | Joke ID: 1580 | Content: I once lost a banana at court but then I appealed. 
+User ID: 1 | Joke ID: 1581 | Content: Why did Dracula lie in the wrong coffin? He made a grave mistake.
+User ID: 1 | Joke ID: 1590 | Content: Did you know you should always take an extra pair of pants golfing? Just in case you get a hole in one.
+User ID: 1 | Joke ID: 1591 | Content: So a duck walks into a pharmacy and says âGive me some chap-stickâ¦ and put it on my billâ
+User ID: 1 | Joke ID: 1594 | Content: What did the mountain climber name his son? Cliff.
+User ID: 1 | Joke ID: 1598 | Content: Why are fish easy to weigh? Because they have their own scales.
+User ID: 1 | Joke ID: 1599 | Content: What has ears but cannot hear? A field of corn.
+User ID: 1 | Joke ID: 1600 | Content: What do you get if you cross a turkey with a ghost? A poultry-geist!
+User ID: 1 | Joke ID: 1610 | Content: How can you tell a vampire has a cold? They start coffin.
+User ID: 1 | Joke ID: 1619 | Content: It doesn't matter how much you push the envelope. It will still be stationary.
+User ID: 1 | Joke ID: 1622 | Content: Why is it so windy inside an arena? All those fans.
+User ID: 1 | Joke ID: 1625 | Content: Atheism is a non-prophet organisation.
+User ID: 1 | Joke ID: 1626 | Content: What kind of pants do ghosts wear? Boo jeans.
+User ID: 1 | Joke ID: 1632 | Content: Mountains aren't just funny, they are hill areas
+User ID: 1 | Joke ID: 1640 | Content: R.I.P. boiled water. You will be mist.
+User ID: 1 | Joke ID: 1644 | Content: Man, I really love my furniture... me and my recliner go way back.
+User ID: 1 | Joke ID: 1646 | Content: How do you make a water bed more bouncy. You use Spring Water
+User ID: 1 | Joke ID: 1647 | Content: What kind of tree fits in your hand? A palm tree!
+User ID: 1 | Joke ID: 1655 | Content: My dog used to chase people on a bike a lot. It got so bad I had to take his bike away.
+User ID: 1 | Joke ID: 1657 | Content: Astronomers got tired watching the moon go around the earth for 24 hours. They decided to call it a day.
+User ID: 1 | Joke ID: 1658 | Content: Why was the broom late for the meeting? He overswept.
+User ID: 1 | Joke ID: 1665 | Content: What is bread's favorite number?  Leaven.
+User ID: 1 | Joke ID: 1670 | Content: How do you make a hankie dance? Put a little boogie in it.
+User ID: 1 | Joke ID: 1676 | Content: A man tried to sell me a coffin today. I told him that's the last thing I need.
+User ID: 1 | Joke ID: 1684 | Content: If a child refuses to sleep during nap time, are they guilty of resisting a rest?
+User ID: 1 | Joke ID: 1689 | Content: What do you call a monkey in a mine field? A babooooom!
+
+User ID: 1 | Joke ID: 1690 | Content: An apple a day keeps the bullies away. If you throw it hard enough.
+User ID: 1 | Joke ID: 1691 | Content: What did Yoda say when he saw himself in 4K? "HDMI"
+User ID: 1 | Joke ID: 1698 | Content: What did the Red light say to the Green light? Don't look at me I'm changing!
+User ID: 1 | Joke ID: 1702 | Content: I asked my date to go to the gym the other day. They never showed up. That's when I knew we wouldn't work out.
+User ID: 1 | Joke ID: 1704 | Content: Why are ghosts bad liars? Because you can see right through them!
+User ID: 1 | Joke ID: 1706 | Content: Where does Napoleon keep his armies? In his sleevies.
+User ID: 1 | Joke ID: 1712 | Content: Why did the tomato blush? Because it saw the salad dressing.
+User ID: 1 | Joke ID: 1731 | Content: What do I look like? A JOKE MACHINE!?
+User ID: 1 | Joke ID: 1742 | Content: I wish I could clean mirrors for a living. It's just something I can see myself doing.
+User ID: 1 | Joke ID: 1757 | Content: Where do sheep go to get their hair cut? The baa-baa shop.
+User ID: 1 | Joke ID: 1761 | Content: Why can't your nose be 12 inches long? Because then it'd be a foot!
+User ID: 1 | Joke ID: 1768 | Content: What do you call a fake noodle? An impasta.
+User ID: 1 | Joke ID: 1775 | Content: Why did the opera singer go sailing? They wanted to hit the high Cs.
+User ID: 1 | Joke ID: 1793 | Content: Did you hear about the Mexican train killer? He had loco motives
+User ID: 1 | Joke ID: 1803 | Content: Can a kangaroo jump higher than the Empire State Building? Of course. The Empire State Building can't jump.
+User ID: 1 | Joke ID: 1804 | Content: "I'll call you later." Don't call me later, call me Dad.
+User ID: 1 | Joke ID: 1812 | Content: I had a rough day, and then somebody went and ripped the front and back pages from my dictionary. It just goes from bad to worse.
+User ID: 1 | Joke ID: 1813 | Content: Why did the barber win the race? He took a short cut.
+User ID: 1 | Joke ID: 1817 | Content: What do vegetarian zombies eat? Grrrrrainnnnnssss.
+User ID: 1 | Joke ID: 1819 | Content: A Sandwich walks into a bar, the bartender says âSorry, we donât serve food hereâ
+User ID: 1 | Joke ID: 1826 | Content: A steak pun is a rare medium well done.
+User ID: 1 | Joke ID: 1827 | Content: What did the fish say when it swam into a wall? Damn!
+User ID: 1 | Joke ID: 1834 | Content: Someone broke into my house last night and stole my limbo trophy. How low can you go?
+User ID: 1 | Joke ID: 1844 | Content: Who is the coolest Doctor in the hospital? The hip Doctor!
+User ID: 1 | Joke ID: 1861 | Content: I was thinking about moving to Moscow but there is no point Russian into things.
+User ID: 1 | Joke ID: 1866 | Content: I was at the library and asked if they have any books on "paranoia", the librarian replied, "yes, they are right behind you"
+User ID: 1 | Joke ID: 1868 | Content: I went to the zoo the other day, there was only one dog in it. It was a shitzu.
+User ID: 1 | Joke ID: 1877 | Content: Why do nurses carry around red crayons? Sometimes they need to draw blood.
+User ID: 1 | Joke ID: 1878 | Content: What is the tallest building in the world? The library â itâs got the most stories!
+User ID: 1 | Joke ID: 1879 | Content: Toasters were the first form of pop-up notifications.
+User ID: 1 | Joke ID: 1896 | Content: Did you know crocodiles could grow up to 15 feet? But most just have 4.
+User ID: 1 | Joke ID: 1905 | Content: Whatâs the difference between an African elephant and an Indian elephant? About 5000 miles.
+User ID: 1 | Joke ID: 1906 | Content: Thereâs a new type of broom out, itâs sweeping the nation.
+User ID: 1 | Joke ID: 1923 | Content:  I never wanted to believe that my Dad was stealing from his job as a road worker. But when I got home, all the signs were there.
+
+
+User ID: 1 | Joke ID: 1926 | Content: My New Years resolution is to stop leaving things so late.
+User ID: 1 | Joke ID: 1930 | Content: Sore throats are a pain in the neck!
+User ID: 1 | Joke ID: 1933 | Content: Did you hear about the new restaurant on the moon? The food is great, but thereâs just no atmosphere.
+User ID: 1 | Joke ID: 1937 | Content: Why do ducks make great detectives? They always quack the case.
+User ID: 1 | Joke ID: 1938 | Content: Why did the scarecrow win an award? Because he was outstanding in his field.
+User ID: 1 | Joke ID: 1942 | Content: Dermatologists are always in a hurry. They spend all day making rash decisions. 
+User ID: 1 | Joke ID: 1956 | Content: Did you know Albert Einstein was a real person? All this time, I thought he was just a theoretical physicist!
+User ID: 1 | Joke ID: 1968 | Content: A weasel walks into a bar. The bartender says, "Wow, I've never served a weasel before. What can I get for you?"
+"Pop," goes the weasel.
+User ID: 1 | Joke ID: 1969 | Content: Coffee has a tough time at my house, every morning it gets mugged.
+User ID: 1 | Joke ID: 1977 | Content: I don't trust sushi, there's something fishy about it.
+User ID: 1 | Joke ID: 1980 | Content: How do you fix a damaged jack-o-lantern? You use a pumpkin patch.
+User ID: 1 | Joke ID: 1982 | Content: How many optometrists does it take to change a light bulb? 1 or 2? 1... or 2?
+User ID: 1 | Joke ID: 1992 | Content: A book just fell on my head. I only have my shelf to blame.
+User ID: 1 | Joke ID: 2016 | Content: Why don't sharks eat clowns?  Because they taste funny.
+User ID: 1 | Joke ID: 2040 | Content: I'd like to start a diet, but I've got too much on my plate right now.
+User ID: 1 | Joke ID: 2064 | Content: What did the 0 say to the 8? Nice belt.
+User ID: 1 | Joke ID: 2079 | Content: I've been trying to come up with a dad joke about momentum . . . but I just can't seem to get it going.
+User ID: 1 | Joke ID: 2089 | Content: I finally bought the limited edition Thesaurus that I've always wanted. When I opened it, all the pages were blank.
+I have no words to describe how angry I am.
+User ID: 1 | Joke ID: 2121 | Content: I accidentally drank a bottle of invisible ink. Now Iâm in hospital, waiting to be seen.
+User ID: 1 | Joke ID: 2130 | Content: What kind of music do mummy's like? Rap
+User ID: 1 | Joke ID: 2138 | Content: You can't run through a camp site. You can only ran, because it's past tents.
+User ID: 1 | Joke ID: 2155 | Content: Why is there always a gate around cemeteries? Because people are always dying to get in.
+User ID: 1 | Joke ID: 2165 | Content: What did the doctor say to the gingerbread man who broke his leg? Try icing it.
+User ID: 1 | Joke ID: 2173 | Content: My boss told me to have a good day. So I went home...
+User ID: 1 | Joke ID: 2179 | Content: When you have a bladder infection, urine trouble.
+User ID: 1 | Joke ID: 2200 | Content: Velcroâ¦ What a rip-off.
+User ID: 1 | Joke ID: 2207 | Content: What happens to a frog's car when it breaks down? It gets toad.
+User ID: 1 | Joke ID: 2210 | Content: What musical instrument is found in the bathroom? A tuba toothpaste.
+User ID: 1 | Joke ID: 2227 | Content: Dad died because he couldn't remember his blood type. I will never forget his last words. Be positive.
+User ID: 1 | Joke ID: 2229 | Content: Two peanuts were walking down the street. One was a salted
+User ID: 1 | Joke ID: 2230 | Content: What has a bed that you canât sleep in? A river.
+User ID: 1 | Joke ID: 2235 | Content: Never Trust Someone With Graph Paper...
+
+They're always plotting something.
+User ID: 1 | Joke ID: 2238 | Content: I went on a date last night with a girl from the zoo. It was great. Sheâs a keeper.
+User ID: 1 | Joke ID: 2242 | Content: Donât interrupt someone working intently on a puzzle. Chances are, youâll hear some crosswords.
+User ID: 1 | Joke ID: 2251 | Content: Why did Mozart kill all his chickens?
+Because when he asked them who the best composer was, they'd all say "Bach bach bach!"
+
+User ID: 1 | Joke ID: 2255 | Content: What do you call a pile of cats?  A Meowtain.
+User ID: 1 | Joke ID: 2256 | Content: I considered building the patio by myself. But I didn't have the stones.
+User ID: 1 | Joke ID: 2265 | Content: Where do you take someone whoâs been injured in a peek-a-boo accident? To the I.C.U.
+User ID: 1 | Joke ID: 2289 | Content: What do you call a fashionable lawn statue with an excellent sense of rhythmn? A metro-gnome
+User ID: 1 | Joke ID: 2291 | Content: What's brown and sticky? A stick.
+User ID: 1 | Joke ID: 2303 | Content: Why do you never see elephants hiding in trees? Because they're so good at it.
+User ID: 1 | Joke ID: 2308 | Content: Did you hear the news? FedEx and UPS are merging. Theyâre going to go by the name Fed-Up from now on.
+User ID: 1 | Joke ID: 2317 | Content: Iâve just been reading a book about anti-gravity, itâs impossible to put down!
+User ID: 1 | Joke ID: 2326 | Content: Two parrots are sitting on a perch. One turns to the other and asks, "do you smell fish?"
+User ID: 1 | Joke ID: 2330 | Content: Got a new suit recently made entirely of living plants. I wasnât sure at first, but itâs grown on me
+User ID: 1 | Joke ID: 2332 | Content: Why did the house go to the doctor? It was having window panes.
+User ID: 1 | Joke ID: 2345 | Content: What did the left eye say to the right eye? Between us, something smells!
+User ID: 1 | Joke ID: 2350 | Content: Why was the big cat disqualified from the race? Because it was a cheetah.
+User ID: 1 | Joke ID: 2384 | Content: What did the Buffalo say to his little boy when he dropped him off at school? Bison.
+User ID: 1 | Joke ID: 2399 | Content: Did you hear the joke about the wandering nun? She was a roman catholic.
+User ID: 1 | Joke ID: 2425 | Content: What is red and smells like blue paint?
+Red paint!
+User ID: 1 | Joke ID: 2433 | Content: Why should you never trust a pig with a secret? Because it's bound to squeal.
+User ID: 1 | Joke ID: 2439 | Content: How did the hipster burn the roof of his mouth? He ate the pizza before it was cool.
+User ID: 1 | Joke ID: 2446 | Content: I used to hate facial hair, but then it grew on me.
+User ID: 1 | Joke ID: 2450 | Content: What's the worst thing about ancient history class? The teachers tend to Babylon.
+User ID: 1 | Joke ID: 2464 | Content: You will never guess what Elsa did to the balloon. She let it go.
+User ID: 1 | Joke ID: 2466 | Content: There are two types of people in this world, those who can extrapolate from incomplete data...
+User ID: 1 | Joke ID: 2467 | Content: What did the green grape say to the purple grape?
+BREATH!!
+User ID: 1 | Joke ID: 2474 | Content: What do you call a fly without wings? A walk.
+User ID: 1 | Joke ID: 2480 | Content: My friend told me that pepper is the best seasoning for a roast, but I took it with a grain of salt.
+User ID: 1 | Joke ID: 2514 | Content: I really want to buy one of those supermarket checkout dividers, but the cashier keeps putting it back.
+User ID: 1 | Joke ID: 2518 | Content: Feeling pretty proud of myself. The Sesame Street puzzle I bought said 3-5 years, but I finished it in 18 months.
+User ID: 1 | Joke ID: 2526 | Content: What did the ocean say to the shore? Nothing, it just waved.
+User ID: 1 | Joke ID: 2548 | Content: Guy told me today he did not know what cloning is. I told him, "that makes 2 of us."
+User ID: 1 | Joke ID: 2581 | Content: A red and a blue ship have just collided in the Caribbean. Apparently the survivors are marooned.
+User ID: 1 | Joke ID: 2583 | Content: which flower is most fierce? Dandelion
+User ID: 1 | Joke ID: 2593 | Content: Want to hear a joke about construction? Nah, I'm still working on it.
+User ID: 1 | Joke ID: 2600 | Content: Milk is also the fastest liquid on earth â its pasteurized before you even see it
+User ID: 1 | Joke ID: 2609 | Content: What did the traffic light say to the car as it passed? "Don't look I'm changing!"
+User ID: 1 | Joke ID: 2611 | Content: Did you hear about the cheese factory that exploded in France? There was nothing left but de Brie.
+User ID: 1 | Joke ID: 2634 | Content: The rotation of earth really makes my day.
+User ID: 1 | Joke ID: 2650 | Content: If you think swimming with dolphins is expensive, you should try swimming with sharks--it cost me an arm and a leg!
+User ID: 1 | Joke ID: 2655 | Content: They laughed when I said I wanted to be a comedian â theyâre not laughing now.
+User ID: 1 | Joke ID: 2670 | Content: My first time using an elevator was an uplifting experience. The second time let me down.
+User ID: 1 | Joke ID: 2689 | Content: "I'm sorry." "Hi sorry, I'm dad"
+User ID: 1 | Joke ID: 2705 | Content: A man was caught stealing in a supermarket today while balanced on the shoulders of a couple of vampires. He was charged with shoplifting on two counts. 
+User ID: 1 | Joke ID: 2725 | Content: The word queue is ironic. It's just q with a bunch of silent letters waiting in line.
+User ID: 1 | Joke ID: 2732 | Content: "Why do seagulls fly over the ocean?" "Because if they flew over the bay, we'd call them bagels."
+User ID: 1 | Joke ID: 2754 | Content: If I could name myself after any Egyptian god, I'd be Set.
+User ID: 1 | Joke ID: 2762 | Content: As I get older, I think of all the people I lost along the way. Maybe a career as a tour guide wasn't such a good idea.
+User ID: 1 | Joke ID: 2842 | Content: I been watching a channel on TV that is strictly just about origami â of course it is paper-view.
+User ID: 1 | Joke ID: 2848 | Content: When is a door not a door? When it's ajar.
+User ID: 1 | Joke ID: 2861 | Content: Is the pool safe for diving? It deep ends.
+User ID: 1 | Joke ID: 2960 | Content: Did you hear about the guy who invented Lifesavers? They say he made a mint.
+User ID: 1 | Joke ID: 3004 | Content: I just got fired from a florist, apparently I took too many leaves.
+User ID: 1 | Joke ID: 3062 | Content: What's blue and not very heavy?  Light blue.
+User ID: 1 | Joke ID: 3171 | Content: Some people eat light bulbs. They say it's a nice light snack.
+User ID: 1 | Joke ID: 3189 | Content: Did you hear that David lost his ID in prague? Now we just have to call him Dav.
+User ID: 1 | Joke ID: 3264 | Content: Conjunctivitis.com â now thatâs a site for sore eyes.
+User ID: 1 | Joke ID: 3340 | Content: A quick shoutout to all of the sidewalks out there... Thanks for keeping me off the streets.
+User ID: 1 | Joke ID: 3347 | Content: What is the leading cause of dry skin? Towels
+User ID: 1 | Joke ID: 3351 | Content: What does a clock do when it's hungry? It goes back four seconds!
+User ID: 1 | Joke ID: 3385 | Content: Iâm on a whiskey diet. Iâve lost three days already.
+User ID: 1 | Joke ID: 3395 | Content: Scientists finally did a study on forks. It's about tine!
+User ID: 1 | Joke ID: 3479 | Content: Did you hear about the kidnapping at school? It's ok, he woke up.
+User ID: 1 | Joke ID: 3657 | Content: I used to work at a stationery store.  But, I didn't feel like I was going anywhere.
+
+So, I got a job at a travel agency.  Now, I know I'll be going places.
+User ID: 1 | Joke ID: 4144 | Content: Every morning when I go out, I get hit by bicycle. Every morning!  It's a vicious cycle.
+User ID: 1 | Joke ID: 4260 | Content: Bad at golf? Join the club.
+User ID: 1 | Joke ID: 4309 | Content: The best time on a clock is 6:30--hands down.
+User ID: 1 | Joke ID: 4891 | Content: People are making apocalypse jokes like thereâs no tomorrow.
+User ID: 1 | Joke ID: 5373 | Content: Why is no one friends with Dracula? Because he's a pain in the neck.

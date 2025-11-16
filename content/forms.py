@@ -27,8 +27,8 @@ class JokeForm(forms.ModelForm):
                 'class': 'w-full rounded-lg bg-gray-700 border border-gray-600 py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent'
                 
             }),
-            'bg_music': forms.TextInput(attrs={
-                'placeholder': 'Make em dance',
+            'bg_music': forms.Select(attrs={
                 'class': 'w-full rounded-lg bg-gray-700 border border-gray-600 py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent'
             }),
+
         }

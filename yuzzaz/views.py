@@ -20,6 +20,7 @@ from yuzzaz.forms import UserRegistrationForm, CustomUserForm
 from django.contrib.auth.decorators import login_required
 from yuzzaz.tokens import account_activation_token
 import random
+from content.views import general_context
 from content.models import Joke
 User = get_user_model()
 
@@ -57,7 +58,7 @@ def register(request):
             request.session['email_sent_time'] = now().isoformat()
 
 
-            messages.success(request, f"Dear {user.first_name}, we have sent an activation link to your email. Please check your email to complete registration (Remember to check your spam too, you can't proceed without that email).")
+            messages.success(request, f"Dear {user.username}, we have sent an activation link to your email. Please check your email to complete registration (Remember to check your spam too, you can't proceed without that email).")
             return redirect('activation_sent')
     else:
         form = UserRegistrationForm()
@@ -140,7 +141,7 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        user = User.objects.filter(email=username).first()
+        user = User.objects.filter(username=username).first()
         if user and user.check_password(password):
             if not user.is_active:
                 request.session['inactive_user_email'] = user.email
@@ -148,13 +149,12 @@ def login(request):
                 messages.warning(request, "Your account is not activated. Please check your email or resend the activation link.")
                 return redirect('activation_sent')
 
-            # auth_login(request, user)
             auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             messages.success(request, "You have successfully logged in.")
             if user.is_staff:
-                return redirect('staff_dashboard')
+                return redirect('index')
             else:
-                return redirect('home')  # Standard redirect — adjust to your default user landing page
+                return redirect('index')  # Standard redirect — adjust to your default user landing page
 
         messages.error(request, "Invalid credentials, please try again.")
 
@@ -172,24 +172,22 @@ def profile(request, user_id):
     if request.method == 'POST':
         form = CustomUserForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
-            print("called")
             form.save()
             messages.success(request, "Your profile has been updated!")
-            return redirect('profile')  # Redirect to the same page
+            return redirect('profile', user_id=user.id)  # Redirect to the same page
         else:
             print(form.errors)
 
     else:
         form = CustomUserForm(instance=user)
     jokess = Joke.objects.filter(joke_by=user).order_by('-created_at')
-    jokes = Joke.objects.filter(joke_by=user).order_by('-created_at')[:5]
-
-    return render(request, 'yuzzaz/profile.html', {
+    context = {
         'user': user,
-        'jokes': jokes,
         'jokess': jokess,
         'form': form,
-    })
+    }
+    context.update(general_context(request))
+    return render(request, 'yuzzaz/profile.html', context)
 
 
 def company_profile(request):
@@ -219,4 +217,4 @@ def edit_profile(request):
     
 
 def custom_404_view(request, exception):
-    return render(request, 'yuzzaz/404.html', status=404)
+    return render(request, 'partials/404.html', status=404)

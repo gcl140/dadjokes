@@ -1,4 +1,9 @@
-import random
+import shutil
+import requests, os, random
+from dadjokes import settings
+from ytmusicapi import YTMusic
+import subprocess
+from pydub import AudioSegment
 from django.http import JsonResponse, HttpResponseForbidden
 from django.views.decorators.http import require_POST
 from django.contrib import messages
@@ -6,35 +11,91 @@ from .forms import JokeForm
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from .models import Joke, JokeLike, JokeComment
+from .models import Joke, JokeLike, JokeComment, Notification, JokeMusic
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def index(request):
-    return render(request, 'content/index.html')
+    context = {}
+    context.update(general_context(request))
+    return render(request, 'content/index.html', context)
 
+def ajoke(request, joke_id):
+    joke = get_object_or_404(Joke, id=joke_id)
+    context = {
+        "joke": joke,
+    }
+    context.update(general_context(request))
+    # return render(request, 'content/ajoke.html', context)
 
+    return redirect(f"/?priority={joke_id}")
+
+def joke_detail_api(request, joke_id):
+    joke = get_object_or_404(Joke, id=joke_id)
+    data = {
+        "id": joke.id,
+        "text": joke.content,
+        "bg_color": joke.bg_color,
+        "text_color": joke.text_color,
+        "font_type": joke.font_type,
+        "description": joke.description,
+        # "bg_music": joke.bg_music,
+        "bg_music": (
+                {
+                    "id": joke.bg_music.id,
+                    "name": joke.bg_music.name,
+                    "url": joke.bg_music.file_url.url,
+                }
+                if joke.bg_music else None
+            ),
+        "username": joke.joke_by.username if joke.joke_by else "anonymous",
+        "user_id": joke.joke_by.id if joke.joke_by else None,
+        "user_profile": joke.joke_by.profile_picture.url if joke.joke_by and joke.joke_by.profile_picture else "/static/images/default-profile.jpg",
+        "likes_count": joke.likers.count(),
+        "is_liked_by_user": request.user in joke.likers.all(),
+    }
+    return JsonResponse(data)
 
 def jokes_api(request):
-    jokes = list(Joke.objects.all().prefetch_related('jokelike_set'))  # convert to list for shuffling
-    random.shuffle(jokes)  # shuffle in place
+    chunk_size = int(request.GET.get("size", 30))
+    exclude_raw = request.GET.get("exclude", "")
+    exclude_ids = [int(x) for x in exclude_raw.split(",") if x.isdigit()]
 
-    data = []
-    for j in jokes:
-        data.append({
+    qs = Joke.objects.exclude(id__in=exclude_ids)
+
+    all_ids = list(qs.values_list("id", flat=True))
+
+    random_ids = random.sample(all_ids, min(chunk_size, len(all_ids)))
+    jokes = qs.filter(id__in=random_ids) \
+              .select_related("joke_by") \
+              .prefetch_related("jokelike_set")
+    data = [
+        {
             "id": j.id,
             "text": j.content,
             "bg_color": j.bg_color,
             "text_color": j.text_color,
             "font_type": j.font_type,
-            "bg_music": j.bg_music,
+            # "bg_music": j.bg_music.id if j.bg_music else None,
+            "bg_music": (
+                {
+                    "id": j.bg_music.id,
+                    "name": j.bg_music.name,
+                    "url": j.bg_music.file_url,
+                }
+                if j.bg_music else None
+            ),
+
             "description": j.description,
             "username": j.joke_by.username if j.joke_by else "anonymous",
-            "user_id": j.joke_by.id if j.joke_by else "anonymous",
+            "user_id": j.joke_by.id if j.joke_by else None,
+            "user_profile": j.joke_by.profile_picture.url if j.joke_by and j.joke_by.profile_picture else None,
             "likes_count": j.jokelike_set.count(),
-            "is_liked_by_user": j.jokelike_set.filter(user=request.user).exists(),
-        })
+            "is_liked_by_user": j.jokelike_set.filter(user=request.user).exists() if request.user.is_authenticated else False,
+        }
+        for j in jokes
+    ]
 
     return JsonResponse({"jokes": data})
 
@@ -64,7 +125,9 @@ def delete_joke(request, joke_id):
         try:
             joke = Joke.objects.get(id=joke_id)
             joke.delete()
+            messages.success(request, "Joke deleted successfully!")
             return JsonResponse({"message": "Joke deleted successfully"})
+        
         except Joke.DoesNotExist:
             return JsonResponse({"error": "Joke not found"}, status=404)
     return JsonResponse({"error": "Invalid request method"}, status=400)
@@ -85,29 +148,52 @@ def create_joke(request):
             messages.error(request, "Please fix the errors below.")
     else:
         form = JokeForm()
-    
-    return render(request, "content/joke.html", {"form": form})
+    context = {
+        "form": form,
+    }
+    context.update(general_context(request))
+    return render(request, "content/joke.html", context)
+
+@login_required
+def inbox(request):
+    notifications = Notification.objects.filter(user=request.user).order_by('-created_at')
+
+    context = {
+        'notifications': notifications,
+    }
+    context.update(general_context(request))
+    return render(request, 'content/bobo.html', context)
+
+
 
 @login_required
 def toggle_like(request, joke_id):
     joke = get_object_or_404(Joke, id=joke_id)
     user = request.user
-
-    # Check if like exists
     like, created = JokeLike.objects.get_or_create(user=user, joke=joke)
 
-    if not created:
-        # Already liked → remove it
+    if created:
+        Notification.objects.create(
+            user=joke.joke_by,
+            message=f"{user.username} liked your joke ({joke.content[:10]}...).",
+            message_type='like'
+        )
+        liked = True
+
+    else:
         like.delete()
         liked = False
-    else:
-        # New like created
-        liked = True
+        Notification.objects.filter(
+            user=joke.joke_by,
+            message__startswith=f"{user.username} liked your joke ({joke.content[:10]}...).",
+            message_type="like"
+        ).delete()
 
     return JsonResponse({
         "liked": liked,
         "likes_count": joke.likes_count
     })
+
 
 def fetch_comments(request, joke_id):
     joke = get_object_or_404(Joke, id=joke_id)
@@ -141,6 +227,11 @@ def post_comment(request, joke_id):
         joke=joke,
         comment_text=text
     )
+    Notification.objects.create(
+        user=joke.joke_by,
+        message=f"{request.user.username} commented on your joke ({joke.content[:10]}...): {text[:30]}",
+        message_type='comment'
+    )
 
     return JsonResponse({
         "id": comment.id,
@@ -158,3 +249,119 @@ def delete_comment(request, comment_id):
     
     comment.delete()
     return JsonResponse({"message": "Comment deleted successfully"})
+
+@login_required
+def mark_notification_read(request, notification_id):
+    notification = get_object_or_404(Notification, id=notification_id, user=request.user)
+    notification.is_read = True
+    notification.save()
+    return JsonResponse({"message": "Notification marked as read"})
+
+
+def general_context(request):
+    if request.user.is_authenticated:
+        user = request.user
+        return {
+            'notificates': Notification.objects.filter(user=user, is_read=False).count(),
+        }
+    return {}
+
+
+def fetch_song_segment(songname):
+    ytmusic = YTMusic()
+    query = songname.strip().lower()
+    results = ytmusic.search(query)
+
+    if not results:
+        print("No results found.")
+
+    top = results[0]
+
+    # GUARANTEED video_id extraction:
+    video_id = top.get("videoId") or top.get("id")
+    if not video_id:
+        print("Result has no videoId:", top)
+
+    url = f"https://www.youtube.com/watch?v={video_id}"
+    print(url)
+
+    completed = subprocess.run([
+        "yt-dlp",
+        "-x",
+        "--audio-format", "mp3",
+        "--audio-quality", "0",
+        "--no-warnings",
+        "--print", "after_move:filename",
+        "-o", "%(title)s [%(id)s].%(ext)s",
+        url
+    ], capture_output=True, text=True)
+
+    if completed.returncode != 0:
+        print("yt-dlp failed:", completed.stderr)
+
+    song_filename = completed.stdout.strip()
+
+    if song_filename.endswith(".webm"):
+        mp3_candidate = song_filename[:-5] + ".mp3"
+        if os.path.exists(mp3_candidate):
+            song_filename = mp3_candidate
+        else:
+            # yt-dlp never converted it, so your flags failed
+            raise RuntimeError("yt-dlp produced a .webm and no .mp3 was generated")
+
+    print("Downloaded file:", song_filename)
+
+    # Verify file actually exists
+    if not os.path.exists(song_filename):
+        print("yt-dlp lied. File not found.")
+
+    # Load MP3
+    song = AudioSegment.from_mp3(song_filename)
+    print("Loaded successfully:", song)
+
+
+    f5_seconds = 45 * 1000
+    end_seconds = 75 * 1000
+    first_f5_seconds = song[f5_seconds:end_seconds]
+
+    # first_f5_seconds.export(song_filename, format="mp3")
+
+    # overwrite trimmed file in temp folder
+    first_f5_seconds.export(song_filename, format="mp3")
+
+    # ---------------------------------------------------
+    # MOVE FILE TO MEDIA DIRECTORY (THIS IS THE FIX)
+    # ---------------------------------------------------
+    media_subdir = "music"
+    target_dir = os.path.join(settings.MEDIA_ROOT, media_subdir)
+    os.makedirs(target_dir, exist_ok=True)
+
+    base_name = os.path.basename(song_filename)
+    final_path = os.path.join(target_dir, base_name)
+
+    shutil.move(song_filename, final_path)
+    print("Moved to MEDIA:", final_path)
+    # ---------------------------------------------------
+
+    songcreated = JokeMusic.objects.create(
+        file_url=f"{media_subdir}/{base_name}",
+        name=base_name,
+    )
+    return songcreated
+
+def add_song(request):
+    if request.method == "POST":
+        query = request.POST.get("query", "").strip()
+        if not query:
+            messages.error(request, "You must enter a song name.")
+            return redirect(request.META.get("HTTP_REFERER", "/"))
+
+        try:
+            obj = fetch_song_segment(query)
+            messages.success(request, f"Song added: {obj.name}")
+        except Exception as e:
+            messages.error(request, f"Failed: {e}")
+
+        return redirect(request.META.get("HTTP_REFERER", "/"))
+
+    return redirect("/")

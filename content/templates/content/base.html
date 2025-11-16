@@ -57,12 +57,35 @@
 
 
 
-            <button class="text-white flex flex-col items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                </svg>
-                <span class="text-xs mt-1">Inbox</span>
-            </button>
+        <button 
+            class="relative text-white flex flex-col items-center"
+            onclick="window.location.href='{% url 'inbox' %}'"
+        >
+            <!-- ICON -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 
+                    0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 
+                    .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+
+            <!-- LABEL -->
+            <span class="text-xs mt-1">Inbox</span>
+
+            {% if notificates > 0 %}
+            <!-- BADGE -->
+            <span 
+            id="notification-badge"
+                class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full 
+                    w-4 h-4 flex items-center justify-center text-[10px] font-semibold shadow-lg"
+            >
+            
+                {{ notificates }}
+            </span>
+            {% endif %}
+        </button>
+
 
             <!-- Trigger button -->
             <button  onclick="window.location.href='{% url 'create_joke' %}'" class="text-white flex flex-col items-center">
@@ -76,9 +99,24 @@
 
 
             <button class="text-white flex flex-col items-center" onclick="window.location.href='{% if user.is_authenticated %}{% url 'profile' user.id %}{% else %}{% url 'login' %}{% endif %}'">
+                {% if user.is_authenticated %}
+                    {% if user.profile_picture %}
+                    <img 
+                        src="{{ user.profile_picture.url }}" 
+                        alt="{{ user.username }}'s avatar" 
+                        class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-md"
+                    />
+
+                    {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    {% endif %}
+                {% else %}
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
+                {% endif %}
                 <span class="text-xs mt-1">Profile</span>
             </button>
         </div>
@@ -86,5 +124,22 @@
     </div>
     {% block scripts %}
     {% endblock %}
+    {% for message in messages %}
+    <script>
+        Toastify({
+            text: "{{ message }}",
+            duration: 5000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "{% if message.tags == 'error' %}#FF4C4C{% else %}#000000{% endif %}",
+            stopOnFocus: true,
+        }).showToast();
+    </script>
+    {% endfor %}
+
+    {% comment %} <audio id="joke-audio" autoplay loop hidden></audio> {% endcomment %}
+    <audio id="joke-audio" autoplay="true" hidden="true" loop="true"></audio>
+
 </body>
 </html>

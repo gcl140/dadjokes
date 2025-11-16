@@ -28,23 +28,15 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError("Passwords do not match!")
         return password2
 
-    # def save(self, commit=True):
-    #     user = super().save(commit=False)
-    #     user.set_password(self.cleaned_data["password1"])
-    #     user.username = self.cleaned_data["email"]  # Set the username to email
-    #     if commit:
-    #         user.save()
-    #     return user
-
-
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
 
-        if not user.username:
+        if not user.username or CustomUser.objects.filter(username=user.username).exists():
             username = None
             while not username or CustomUser.objects.filter(username=username).exists():
                 username = generate_username(1)[0]
+            message = f"The username you provided is already taken or invalid. We have assigned you a new username: {username}, a cool one actually!"
             user.username = username
 
         if commit:

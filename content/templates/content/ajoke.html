@@ -1,0 +1,127 @@
+{% extends 'content/base.html' %}
+{% load static %}
+
+{% block content %}
+<body data-username="{{ request.user.username }}" class="bg-black">
+    <!-- Full Screen Joke Container -->
+    <div class="h-screen w-full flex items-center justify-center p-4"
+         style="background-color: {{ joke.bg_color }}; color: {{ joke.text_color }}">
+
+        <!-- Main Content -->
+        <div class="relative w-full h-full flex flex-col justify-center items-center">
+
+            <!-- Joke Text - Centered -->
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold leading-tight max-w-3xl mx-auto">
+                    <span class="p-3 inline-block" 
+                           style="background-color: {% if joke.text_color|lower != '#ffffff' %}white{% else %}black{% endif %}; ; font-family: {{ joke.font_type }};">
+                        {{ joke.content }}
+                    </span>
+                </h2>
+            </div>
+
+            <!-- Action Buttons - Right Side -->
+            <div class="absolute right-6 top-1/2 transform -translate-y-1/2 flex flex-col items-center space-y-8">
+
+                <!-- Like Button -->
+                <div id="like-btn-{{ joke.id }}" class="flex flex-col items-center cursor-pointer like-btn" data-id="{{ joke.id }}">
+                    <div class="rounded-full p-4 flex items-center justify-center bg-opacity-30 backdrop-blur-sm"
+                         style="background-color: {{ joke.text_color }};">
+                        <i class="fa fa-heart text-xl {% if request.user in joke.likers.all %}text-red-500{% else %}text-white{% endif %}"></i>
+                    </div>
+                    <span class="text-sm font-bold mt-2 px-3 py-1 rounded-full border border-gray-600"
+                          style="background-color: {% if joke.text_color|lower != '#ffffff' %}white{% else %}black{% endif %};
+                                 color: {{ joke.bg_color }};">
+                        {{ joke.likers.count }}
+                    </span>
+                </div>
+
+                <!-- Comments Button -->
+                <div id="comments-btn-{{ joke.id }}" class="flex flex-col items-center cursor-pointer comments-btn" data-id="{{ joke.id }}">
+                    <div class="rounded-full p-3 bg-opacity-30 backdrop-blur-sm"
+                         style="background-color: {{ joke.text_color }};">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" 
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                    </div>
+                    <span class="text-sm font-bold mt-2 px-3 py-1 rounded-full border border-gray-600"
+                          style="background-color: {% if joke.text_color|lower != '#ffffff' %}white{% else %}black{% endif %};
+                                 color: {{ joke.bg_color }};">
+                        0
+                    </span>
+                </div>
+
+                <!-- Share Button -->
+                <div class="flex flex-col items-center cursor-pointer share-btn" data-id="{{ joke.id }}">
+                    <div class="rounded-full p-3 bg-opacity-30 backdrop-blur-sm"
+                         style="background-color: {{ joke.text_color }};">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" 
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                        </svg>
+                    </div>
+                    <span class="text-sm font-bold mt-2 px-3 py-1 rounded-full border border-gray-600"
+                          style="background-color: {% if joke.text_color|lower != '#ffffff' %}white{% else %}black{% endif %};
+                                 color: {{ joke.bg_color }};">
+                        Share
+                    </span>
+                </div>
+
+            </div>
+
+            <!-- Author Info - Bottom Left -->
+            <div class="absolute left-6 bottom-6 max-w-md">
+                <!-- Username -->
+                <div class="mb-4">
+                    <h3 class="
+                    text-sm
+                    py-1 px-2 mt-1
+                    " style="width: fit-content; background-color: {% if joke.text_color|lower != '#ffffff' %}white{% else %}black{% endif %};">
+                        <a href="{% url 'profile' joke.joke_by.id %}" class="flex items-center space-x-2 no-underline">
+                            <img src="{% if joke.joke_by.profile_picture %}{{ joke.joke_by.profile_picture.url }}{% else %}{% static 'images/default-avatar.png' %}{% endif %}"
+                                 alt="{{ joke.joke_by.username }}'s avatar"
+                                 class="w-8 h-8 rounded-full object-cover border-2 border-white shadow-md">
+                            <span>@{{ joke.joke_by.username }}</span>
+                        </a>
+                    </h3>
+                </div>
+
+                <!-- Description -->
+                {% if joke.description %}
+                <div class="mb-3">
+                    <p class="
+                    text-sm
+                    py-1 px-2 mt-1
+                    " style="width: fit-content; background-color: {% if joke.text_color|lower != '#ffffff' %}white{% else %}black{% endif %};">
+                        {{ joke.description }}
+                    </p>
+                </div>
+                {% endif %}
+
+                <!-- Background Music -->
+                {% if joke.bg_music %}
+                <div class="flex items-center py-1 px-3 rounded-lg"
+                     style="background-color: {% if joke.text_color|lower != '#ffffff' %}white{% else %}black{% endif %};">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 flex-shrink-0" 
+                         fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/>
+                    </svg>
+                    <span class="text-xs truncate">{{ joke.bg_music }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+
+    {% include 'partial/comments.html' %}
+    
+    {% block scripts %}
+        <script type="module" src="{% static 'js/index.js' %}"></script>
+    {% endblock %}
+</body>
+{% endblock %}
