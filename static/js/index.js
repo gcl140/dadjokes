@@ -109,7 +109,7 @@ function createVideoItem(item, index) {
 
   videoItem.innerHTML = `
         <div class="text-white text-center">
-            <h2 class="text-2xl font-bold mb-4 p-8"
+            <h2 class="text-2xl font-bold mb-4 p-8" 
                 style="color: ${item.textColor}; font-family: ${
     item.fontType
   };">
@@ -123,8 +123,8 @@ function createVideoItem(item, index) {
             </h2>
         </div>
         <div class="absolute right-4 bottom-24 flex flex-col items-center space-y-6">
-            <div class="flex flex-col items-center z-50 like-btn"
-                 id="like-btn-${item.id}"
+            <div class="flex flex-col items-center z-50 like-btn" 
+                 id="like-btn-${item.id}" 
                  data-id="${item.id}">
                 <div class="rounded-full p-3 items-center flex bg-[${
                   item.textColor
@@ -141,12 +141,12 @@ function createVideoItem(item, index) {
                         }"></i>`
                   }
                 </div>
-                <span class="text-[${item.bgColor}] likes-count
+                <span class="text-[${item.bgColor}] likes-count 
                 ${
                   item.textColor.toLowerCase() !== "#ffffff"
                     ? "bg-white"
                     : "bg-black"
-                }
+                }  
                 px-2 text-xs mt-1">
                     ${item.likes_count}
                 </span>
@@ -158,22 +158,22 @@ function createVideoItem(item, index) {
                 <div class="bg-[${
                   item.textColor
                 }] bg-opacity-30 rounded-full p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6 text-white"
-                        fill="none" viewBox="0 0 24 24"
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                        class="h-6 w-6 text-white" 
+                        fill="none" viewBox="0 0 24 24" 
                         stroke="currentColor">
-                        <path stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
+                        <path stroke-linecap="round" 
+                              stroke-linejoin="round" 
+                              stroke-width="2" 
                               d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
                 </div>
-                <span class="text-[${item.bgColor}]
+                <span class="text-[${item.bgColor}] 
                         ${
                           item.textColor.toLowerCase() !== "#ffffff"
                             ? "bg-white"
                             : "bg-black"
-                        }
+                        }  
                 px-2 text-xs mt-1">0</span>
             </div>
 
@@ -187,12 +187,12 @@ function createVideoItem(item, index) {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                     </svg>
                 </div>
-                <span class="text-[${item.bgColor}]
+                <span class="text-[${item.bgColor}] 
                 ${
                   item.textColor.toLowerCase() !== "#ffffff"
                     ? "bg-white"
                     : "bg-black"
-                }
+                }  
                 px-2 text-xs mt-1">Share</span>
             </div>
         </div>
@@ -202,18 +202,18 @@ function createVideoItem(item, index) {
                   item.textColor.toLowerCase() !== "#ffffff"
                     ? "bg-white"
                     : "bg-black"
-                }
+                } 
                 hover:underline py-1 px-2 cursor-pointer" style="width: fit-content">
-                    <a href="javascript:void(0);"
+                    <a href="javascript:void(0);" 
                       onclick="window.location.href='/accounts/profile/${
                         item.userId
-                      }'"
+                      }'" 
                       style="text-decoration: none">
-                        <img
-                            src="${item.userProfile}"
+                        <img 
+                            src="${item.userProfile}" 
                             alt="${
                               item.username
-                            }'s avatar"
+                            }'s avatar"                         
                             class="w-6 h-6 rounded-full object-cover border-2 border-white shadow-md inline-block mr-1"
                         />
                         @${item.username}
@@ -223,7 +223,7 @@ function createVideoItem(item, index) {
                   item.textColor.toLowerCase() !== "#ffffff"
                     ? "bg-white"
                     : "bg-black"
-                }
+                } 
                 py-1 px-2 mt-1" style="width: fit-content">${
                   item.description
                 }</p>
@@ -231,7 +231,7 @@ function createVideoItem(item, index) {
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/>
                     </svg>
-                    <span class="text-xs truncate overflow-hidden text-ellipsis max-w-[200px] block
+                    <span class="text-xs truncate overflow-hidden text-ellipsis max-w-[200px] block 
                     ${
                       item.textColor.toLowerCase() !== "#ffffff"
                         ? "bg-white"
@@ -656,9 +656,9 @@ function openCommentsModal(jokeId) {
                 }</span>
                 ${
                   c.user === currentUser
-                    ? `<button class="delete-btn opacity-0 group-hover:opacity-100 transition-all duration-200
-                          text-red-500 hover:text-red-700 hover:bg-red-50
-                          p-1.5 rounded-lg text-xs font-medium"
+                    ? `<button class="delete-btn opacity-0 group-hover:opacity-100 transition-all duration-200 
+                          text-red-500 hover:text-red-700 hover:bg-red-50 
+                          p-1.5 rounded-lg text-xs font-medium" 
                           data-id="${c.id}">
                       <i class="fas fa-trash mr-1"></i>
                   </button>`
@@ -733,9 +733,9 @@ if (sendCommentBtn && commentInput) {
               }</span>
               ${
                 data.user === currentUser
-                  ? `<button class="delete-btn opacity-0 group-hover:opacity-100 transition-all duration-200
-                        text-red-500 hover:text-red-700 hover:bg-red-50
-                        p-1.5 rounded-lg text-xs font-medium"
+                  ? `<button class="delete-btn opacity-0 group-hover:opacity-100 transition-all duration-200 
+                        text-red-500 hover:text-red-700 hover:bg-red-50 
+                        p-1.5 rounded-lg text-xs font-medium" 
                         data-id="${data.id}">
                     <i class="fas fa-trash mr-1"></i>
                 </button>`

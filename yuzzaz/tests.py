@@ -31,29 +31,29 @@ while True:
         response = requests.get("https://icanhazdadjoke.com/", headers={"Accept": "text/plain"})
         user = User.objects.get(username="gftinity")
         font_types = [ ('Arial', 'Arial'),
-                    ('Times New Roman', 'Times New Roman'),
-                    ('Courier New', 'Courier New'),
-                    ('Georgia', 'Georgia'),
+                    ('Times New Roman', 'Times New Roman'), 
+                    ('Courier New', 'Courier New'), 
+                    ('Georgia', 'Georgia'), 
                     ('Verdana', 'Verdana'),
                     ('Comic Sans MS', 'Comic Sans MS'),
                         ('Trebuchet MS', 'Trebuchet MS'),
                         ('Impact', 'Impact'),
                         ('Lucida Console', 'Lucida Console'),
                         ('Palatino Linotype', 'Palatino Linotype')
-
+                        
                     ]
-
+        
         joke = Joke.objects.create(
             joke_by = user,
             content=response.text,
             bg_color=random_hex_color(),
             text_color=random_hex_color(),
             font_type=random.choice(font_types)[0],
-            # description=f"Description for joke {i+1}",
+            description=f"Description for joke {i+1}",
 
         )
         print(f"Created joke with ID: {joke.id}")
-
+    
 
 
 

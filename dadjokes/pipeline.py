@@ -80,3 +80,4 @@ def prevent_duplicate_social_auth(strategy, backend, uid, user=None, *args, **kw
             messages.error(request, "An account with this email already exists but is not linked to Google. Please login normally and link your account from your profile settings.")
             return redirect('login')  
     return {}
+
