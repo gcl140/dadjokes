@@ -12,8 +12,17 @@ function getCookie(name) {
   }
   return cookieValue;
 }
+
 let contentItems = [];
 let seen = new Set();
+let currentIndex = 0;
+let isScrolling = false;
+let scrollTimeout;
+let currentAudio = null;
+
+const scrollContainer = document.getElementById("scrollContainer");
+const currentUser = document.body.dataset.username;
+const currentUserId = document.body.dataset.id;
 
 // On page load
 const urlParams = new URLSearchParams(window.location.search);
@@ -73,7 +82,6 @@ async function loadJokes() {
       username: j.username,
       userId: j.user_id,
       bgMusicName: j.bg_musicName,
-      // bgMusicURL: j.bg_music?.url || null,
       bgMusicURL: j.bg_musicURL,
       description: j.description || "",
       likes_count: j.likes_count,
@@ -89,24 +97,19 @@ async function loadJokes() {
 // Refresh every 3 mins
 setInterval(loadJokes, 3 * 60 * 1000);
 
-const scrollContainer = document.getElementById("scrollContainer");
-let currentIndex = 0;
-let isScrolling = false;
-let scrollTimeout;
-
 // Function to create a video item
 function createVideoItem(item, index) {
   const videoItem = document.createElement("div");
   videoItem.className =
-    "h-screen w-full flex items-center justify-center snap-start relative bg-gradient-to-b from-black/60 via-black/40 to-black/60";
+    "h-screen w-full flex items-center justify-center snap-start relative bg-gradient-to-b from-black/60 via-black/40 to-black/60 scroll-item";
   videoItem.style.backgroundColor = item.bgColor;
-  // videoItem.querySelector(".share-btn").onclick = () => shareJoke(item.id);
   videoItem.dataset.index = index;
   videoItem.dataset.bgMusicUrl = item.bgMusicURL || null;
+  videoItem.dataset.jokeId = item.id;
 
   videoItem.innerHTML = `
         <div class="text-white text-center">
-            <h2 class="text-2xl font-bold mb-4 p-8" 
+            <h2 class="text-2xl font-bold mb-4 p-8"
                 style="color: ${item.textColor}; font-family: ${
     item.fontType
   };">
@@ -117,72 +120,62 @@ function createVideoItem(item, index) {
                 } p-1" style="line-height: 2;">
                 ${item.text}
               </span>
-
             </h2>
-
         </div>
         <div class="absolute right-4 bottom-24 flex flex-col items-center space-y-6">
-<div class="flex flex-col items-center z-50 like-btn" 
-     id="like-btn-${item.id}" 
-     data-id="${item.id}"
-     >
+            <div class="flex flex-col items-center z-50 like-btn"
+                 id="like-btn-${item.id}"
+                 data-id="${item.id}">
+                <div class="rounded-full p-3 items-center flex bg-[${
+                  item.textColor
+                }] bg-opacity-30 cursor-pointer">
+                  ${
+                    !currentUser
+                      ? `<a href="/accounts/login/">
+                       <i class="fa fa-heart ${
+                         item.is_liked_by_user ? "text-red-500" : "text-white"
+                       }"></i>
+                     </a>`
+                      : `<i class="fa fa-heart ${
+                          item.is_liked_by_user ? "text-red-500" : "text-white"
+                        }"></i>`
+                  }
+                </div>
+                <span class="text-[${item.bgColor}] likes-count
+                ${
+                  item.textColor.toLowerCase() !== "#ffffff"
+                    ? "bg-white"
+                    : "bg-black"
+                }
+                px-2 text-xs mt-1">
+                    ${item.likes_count}
+                </span>
+            </div>
 
-<div class="rounded-full p-3 items-center flex bg-[${
-    item.textColor
-  }] bg-opacity-30 cursor-pointer">
-  ${
-    !currentUser
-      ? `<a href="/accounts/login/">
-         <i class="fa fa-heart ${
-           item.is_liked_by_user ? "text-red-500" : "text-white"
-         }"></i>
-       </a>
-       `
-      : `<i class="fa fa-heart ${
-          item.is_liked_by_user ? "text-red-500" : "text-white"
-        }"></i>`
-  }
-</div>
-
-
-            <span class="text-[${item.bgColor}] likes-count 
-            ${
-              item.textColor.toLowerCase() !== "#ffffff"
-                ? "bg-white"
-                : "bg-[${item.textColor}]"
-            }  
-            px-2
-            text-xs mt-1" >
-                ${item.likes_count}
-            </span>
-        </div>
-
-          <div id="comments-btn-${
-            item.id
-          }" class="flex flex-col items-center z-50 cursor-pointer comments-container">
-              <div class="bg-[${
-                item.textColor
-              }] bg-opacity-30 rounded-full p-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" 
-                      class="h-6 w-6 text-white" 
-                      fill="none" viewBox="0 0 24 24" 
-                      stroke="currentColor">
-                      <path stroke-linecap="round" 
-                            stroke-linejoin="round" 
-                            stroke-width="2" 
-                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-              </div>
-              <span class="text-[${item.bgColor}] 
-                      ${
-                        item.textColor.toLowerCase() !== "#ffffff"
-                          ? "bg-white"
-                          : "bg-[${item.textColor}]"
-                      }  
-              px-2
-              text-xs mt-1">0</span>
-          </div>
-
+            <div id="comments-btn-${
+              item.id
+            }" class="flex flex-col items-center z-50 cursor-pointer comments-container">
+                <div class="bg-[${
+                  item.textColor
+                }] bg-opacity-30 rounded-full p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 text-white"
+                        fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                </div>
+                <span class="text-[${item.bgColor}]
+                        ${
+                          item.textColor.toLowerCase() !== "#ffffff"
+                            ? "bg-white"
+                            : "bg-black"
+                        }
+                px-2 text-xs mt-1">0</span>
+            </div>
 
             <div class="flex flex-col items-center share-btn z-50" data-id="${
               item.id
@@ -194,15 +187,13 @@ function createVideoItem(item, index) {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                     </svg>
                 </div>
-                <span class="text-[${item.bgColor}] 
-            ${
-              item.textColor.toLowerCase() !== "#ffffff"
-                ? "bg-white"
-                : "bg-[${item.textColor}]"
-            }  
-            px-2
-                
-                text-xs mt-1">Share</span>
+                <span class="text-[${item.bgColor}]
+                ${
+                  item.textColor.toLowerCase() !== "#ffffff"
+                    ? "bg-white"
+                    : "bg-black"
+                }
+                px-2 text-xs mt-1">Share</span>
             </div>
         </div>
         <div class="absolute bottom-24 left-4">
@@ -211,59 +202,47 @@ function createVideoItem(item, index) {
                   item.textColor.toLowerCase() !== "#ffffff"
                     ? "bg-white"
                     : "bg-black"
-                } 
-                hover:underline py-1 px-2 cursor-pointer
-                " style="width: fit-content">
-                
-                <a href="javascript:void(0);" 
-                  onclick="window.location.href='/accounts/profile/${
-                    item.userId
-                  }'" 
-                  style="text-decoration: none">
-
-
-                  <img 
-                    src="${item.userProfile}" 
-                    alt="${item.username}'s avatar"                         
-                    class="w-6 h-6 rounded-full object-cover border-2 border-white shadow-md inline-block mr-1"
-                  />
-
-
-                  @${item.username}
-                </a>
-
-                
+                }
+                hover:underline py-1 px-2 cursor-pointer" style="width: fit-content">
+                    <a href="javascript:void(0);"
+                      onclick="window.location.href='/accounts/profile/${
+                        item.userId
+                      }'"
+                      style="text-decoration: none">
+                        <img
+                            src="${item.userProfile}"
+                            alt="${
+                              item.username
+                            }'s avatar"
+                            class="w-6 h-6 rounded-full object-cover border-2 border-white shadow-md inline-block mr-1"
+                        />
+                        @${item.username}
+                    </a>
                 </h3>
-                <p class="text-sm
-                ${
+                <p class="text-sm ${
                   item.textColor.toLowerCase() !== "#ffffff"
                     ? "bg-white"
                     : "bg-black"
-                } 
-                py-1 px-2 mt-1
-                " style="width: fit-content">${item.description}</p>
-                    <div class="flex items-center mt-2">
+                }
+                py-1 px-2 mt-1" style="width: fit-content">${
+                  item.description
+                }</p>
+                <div class="flex items-center mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/>
                     </svg>
-                    <span class="text-xs truncate overflow-hidden text-ellipsis max-w-[200px] block 
-                    
+                    <span class="text-xs truncate overflow-hidden text-ellipsis max-w-[200px] block
                     ${
                       item.textColor.toLowerCase() !== "#ffffff"
                         ? "bg-white"
                         : "bg-black"
-                    } 
-                    ">
+                    }">
                         ${item.bgMusicName}
                     </span>
-
-                    </div>
-
+                </div>
             </div>
         </div>
     `;
-
-
 
   // Select the comments container
   const commentsContainer = videoItem.querySelector(
@@ -280,6 +259,7 @@ function createVideoItem(item, index) {
   share.onclick = () => shareJoke(item.id, item.textColor, item.bgColor);
 
   const likeBtn = videoItem.querySelector(".like-btn");
+
   // Reusable toggle-like function
   async function toggleLike(item, likeBtn, videoItem) {
     const csrftoken = getCookie("csrftoken");
@@ -308,73 +288,228 @@ function createVideoItem(item, index) {
   return videoItem;
 }
 
-
 function initializeContent() {
   scrollContainer.innerHTML = ""; // clear old content if needed
 
   contentItems.forEach((item, i) => {
     const el = createVideoItem(item, i);
     scrollContainer.appendChild(el);
-    observer.observe(el); // <- now each element is being observed
+    observer.observe(el);
   });
 }
 
-
-// Load more content when nearing the end
-function loadMoreContent() {
-  const lastItemIndex = parseInt(scrollContainer.lastChild.dataset.index);
-
-  for (let i = 1; i <= 2; i++) {
-    const newIndex = lastItemIndex + i;
-    const item = contentItems[newIndex % contentItems.length];
-    scrollContainer.appendChild(createVideoItem(item, newIndex));
-  }
-}
-
-// Handle scroll events
+// Improved scroll handling
 function handleScroll() {
   if (isScrolling) return;
 
   isScrolling = true;
   clearTimeout(scrollTimeout);
 
-  // Calculate which item is currently in view
   const scrollTop = scrollContainer.scrollTop;
   const windowHeight = window.innerHeight;
-  currentIndex = Math.round(scrollTop / windowHeight);
+  const newIndex = Math.round(scrollTop / windowHeight);
 
-  // Snap to the nearest item
-  scrollContainer.scrollTo({
-    top: currentIndex * windowHeight,
-    behavior: "smooth",
-  });
+  // Only update if index actually changed
+  if (newIndex !== currentIndex) {
+    currentIndex = newIndex;
 
-  // Load more content if we're near the end
-  const totalItems = scrollContainer.children.length;
-  if (currentIndex >= totalItems - 2) {
-    loadMoreContent();
+    // Snap to the nearest item with improved behavior
+    requestAnimationFrame(() => {
+      scrollContainer.scrollTo({
+        top: currentIndex * windowHeight,
+        behavior: "smooth",
+      });
+    });
+
+    // Load more content if we're near the end
+    const totalItems = scrollContainer.children.length;
+    if (currentIndex >= totalItems - 3) {
+      loadMoreContent();
+    }
   }
 
   scrollTimeout = setTimeout(() => {
     isScrolling = false;
-  }, 100);
+  }, 150);
 }
 
-// Initialize
-initializeContent();
+function loadMoreContent() {
+  const lastItemIndex = parseInt(scrollContainer.lastChild.dataset.index);
+  const currentTotal = contentItems.length;
 
-// Add scroll event listener
-scrollContainer.addEventListener("scroll", handleScroll);
+  for (let i = 1; i <= 2; i++) {
+    const newIndex = lastItemIndex + i;
+    if (newIndex < currentTotal) {
+      const item = contentItems[newIndex];
+      const newElement = createVideoItem(item, newIndex);
+      scrollContainer.appendChild(newElement);
+      observer.observe(newElement);
+    }
+  }
+}
 
-// Also handle touch end for mobile
-scrollContainer.addEventListener("touchend", function () {
-  setTimeout(() => {
+// Improved scroll event listener with throttling
+let scrollThrottleTimeout;
+scrollContainer.addEventListener("scroll", () => {
+  if (scrollThrottleTimeout) return;
+
+  scrollThrottleTimeout = setTimeout(() => {
     handleScroll();
+    scrollThrottleTimeout = null;
   }, 100);
 });
 
+// Improved touch handling
+let touchStartY = 0;
+let touchEndY = 0;
+
+scrollContainer.addEventListener("touchstart", (e) => {
+  touchStartY = e.changedTouches[0].screenY;
+});
+
+scrollContainer.addEventListener("touchend", (e) => {
+  touchEndY = e.changedTouches[0].screenY;
+  handleTouchSwipe();
+});
+
+function handleTouchSwipe() {
+  const swipeThreshold = 50;
+  const swipeDistance = touchStartY - touchEndY;
+
+  if (Math.abs(swipeDistance) < swipeThreshold) return;
+
+  const totalItems = scrollContainer.children.length;
+
+  if (swipeDistance > swipeThreshold && currentIndex < totalItems - 1) {
+    // Swipe up - next item
+    currentIndex++;
+  } else if (swipeDistance < -swipeThreshold && currentIndex > 0) {
+    // Swipe down - previous item
+    currentIndex--;
+  }
+
+  scrollContainer.scrollTo({
+    top: currentIndex * window.innerHeight,
+    behavior: "smooth",
+  });
+}
+
+// Improved keyboard navigation
+document.addEventListener("keydown", (e) => {
+  if (isScrolling) return;
+
+  const totalItems = scrollContainer.children.length;
+  let newIndex = currentIndex;
+
+  if (e.key === "ArrowDown" || e.key === "PageDown") {
+    if (currentIndex < totalItems - 1) {
+      newIndex = currentIndex + 1;
+    }
+  } else if (e.key === "ArrowUp" || e.key === "PageUp") {
+    if (currentIndex > 0) {
+      newIndex = currentIndex - 1;
+    }
+  } else {
+    return;
+  }
+
+  if (newIndex !== currentIndex) {
+    currentIndex = newIndex;
+    isScrolling = true;
+
+    scrollContainer.scrollTo({
+      top: currentIndex * window.innerHeight,
+      behavior: "smooth",
+    });
+
+    setTimeout(() => {
+      isScrolling = false;
+    }, 300);
+  }
+});
+
+// Improved audio handling
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.7) {
+        const musicUrl = entry.target.dataset.bgMusicUrl;
+        if (musicUrl) playJokeMusic(musicUrl);
+      }
+    });
+  },
+  {
+    threshold: [0.7],
+    rootMargin: "0px",
+  }
+);
+
+function playJokeMusic(url) {
+  if (!url) return;
+
+  if (!currentAudio) {
+    currentAudio = new Audio();
+    currentAudio.loop = true;
+    currentAudio.autoplay = true;
+    currentAudio.muted = false;
+  }
+
+  if (currentAudio.src === url) return;
+
+  currentAudio.src = url;
+  currentAudio.play().catch((e) => {
+    console.log("Autoplay blocked, waiting for user interaction");
+    const playOnInteraction = () => {
+      currentAudio.play();
+      document.removeEventListener("click", playOnInteraction);
+      document.removeEventListener("touchstart", playOnInteraction);
+    };
+    document.addEventListener("click", playOnInteraction, { once: true });
+    document.addEventListener("touchstart", playOnInteraction, { once: true });
+  });
+}
+
+// Improved scroll buttons
+const scrollUpBtn = document.getElementById("scrollUp");
+const scrollDownBtn = document.getElementById("scrollDown");
+
+if (scrollUpBtn && scrollDownBtn) {
+  scrollUpBtn.addEventListener("click", () => {
+    if (isScrolling || currentIndex === 0) return;
+
+    currentIndex--;
+    isScrolling = true;
+
+    scrollContainer.scrollTo({
+      top: currentIndex * window.innerHeight,
+      behavior: "smooth",
+    });
+
+    setTimeout(() => {
+      isScrolling = false;
+    }, 300);
+  });
+
+  scrollDownBtn.addEventListener("click", () => {
+    const totalItems = scrollContainer.children.length;
+    if (isScrolling || currentIndex >= totalItems - 1) return;
+
+    currentIndex++;
+    isScrolling = true;
+
+    scrollContainer.scrollTo({
+      top: currentIndex * window.innerHeight,
+      behavior: "smooth",
+    });
+
+    setTimeout(() => {
+      isScrolling = false;
+    }, 300);
+  });
+}
+
+// Share function
 async function shareJoke(jokeId, textColor, bgColor) {
-  // const url = `${window.location.origin}/joke/${jokeId}`;
   const url = `${window.location.origin}/joke/${jokeId}`;
 
   if (navigator.share) {
@@ -396,7 +531,6 @@ async function shareJoke(jokeId, textColor, bgColor) {
       gravity: "top",
       position: "right",
       close: true,
-      //   backgroundColor: bgColor || "#10b981",
       style: {
         background: bgColor || "#10b981",
         color: textColor || "#ffffff",
@@ -405,12 +539,11 @@ async function shareJoke(jokeId, textColor, bgColor) {
   }
 }
 
+// Search functionality
 const searchInput = document.getElementById("floatingSearch");
 const suggestionsBox = document.getElementById("searchSuggestions");
+let allItems = [];
 
-let allItems = []; // Populate this with your items, e.g., fetched from Django
-
-// Example: Fetch jokes from API
 async function fetchItems() {
   const res = await fetch("/api/jokes/");
   const data = await res.json();
@@ -420,59 +553,59 @@ async function fetchItems() {
 fetchItems();
 
 // Handle input
-searchInput.addEventListener("input", () => {
-  const query = searchInput.value.trim().toLowerCase();
-  suggestionsBox.innerHTML = "";
+if (searchInput && suggestionsBox) {
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.trim().toLowerCase();
+    suggestionsBox.innerHTML = "";
 
-  if (!query) {
-    suggestionsBox.classList.add("hidden");
-    return;
-  }
-
-  const matches = allItems.filter((item) =>
-    item.text.toLowerCase().includes(query)
-  );
-
-  if (matches.length === 0) {
-    suggestionsBox.classList.add("hidden");
-    return;
-  }
-
-  matches.forEach((item) => {
-    const div = document.createElement("div");
-    div.className =
-      "px-4 py-2 hover:bg-gray-200 cursor-pointer text-gray-900 hover:bg-gray-400";
-    div.textContent = item.text;
-    div.onclick = () => {
-      searchInput.value = item.text;
+    if (!query) {
       suggestionsBox.classList.add("hidden");
-      // Optionally: navigate or trigger other actions
-      window.location.href = `/joke/${item.id}`;
-    };
-    suggestionsBox.appendChild(div);
+      return;
+    }
+
+    const matches = allItems.filter((item) =>
+      item.text.toLowerCase().includes(query)
+    );
+
+    if (matches.length === 0) {
+      suggestionsBox.classList.add("hidden");
+      return;
+    }
+
+    matches.forEach((item) => {
+      const div = document.createElement("div");
+      div.className =
+        "px-4 py-2 hover:bg-gray-200 cursor-pointer text-gray-900 hover:bg-gray-400";
+      div.textContent = item.text;
+      div.onclick = () => {
+        searchInput.value = item.text;
+        suggestionsBox.classList.add("hidden");
+        window.location.href = `/joke/${item.id}`;
+      };
+      suggestionsBox.appendChild(div);
+    });
+
+    suggestionsBox.classList.remove("hidden");
   });
 
-  suggestionsBox.classList.remove("hidden");
-});
+  // Hide suggestions if clicked outside
+  document.addEventListener("click", (e) => {
+    if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+      suggestionsBox.classList.add("hidden");
+    }
+  });
+}
 
-// Hide suggestions if clicked outside
-document.addEventListener("click", (e) => {
-  if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
-    suggestionsBox.classList.add("hidden");
-  }
-});
-
-// ---- 1. STATIC MODAL ELEMENTS ----
+// Comments functionality
 const commentsModal = document.getElementById("comments-modal");
 const commentsList = document.getElementById("comments-list");
-const closeComments = document.getElementById(
-  "close-comments-full",
-  "close-comments-top"
-);
-const currentUser = document.body.dataset.username;
-const currentUserId = document.body.dataset.id;
+const closeComments =
+  document.getElementById("close-comments-full") ||
+  document.getElementById("close-comments-top");
+const commentInput = document.getElementById("comment-input");
+const sendCommentBtn = document.getElementById("send-comment");
 
-// ---- 2. GLOBAL CLICK LISTENER FOR ALL FUTURE COMMENT BUTTONS ----
+// Global click listener for comment buttons
 document.addEventListener("click", (e) => {
   const btn = e.target.closest("[id^='comments-btn-']");
   if (!btn) return;
@@ -484,13 +617,13 @@ document.addEventListener("click", (e) => {
 async function fetchComments(jokeId) {
   const res = await fetch(`/fetch-comments/${jokeId}/`);
   const data = await res.json();
-  return data.comments; // Assuming the API returns { comments: [...] }
+  return data.comments;
 }
 
-// ---- 4. CLOSE BUTTON ----
-
 function openCommentsModal(jokeId) {
-  commentInput.dataset.jokeId = jokeId; // attach joke ID to input
+  if (!commentInput) return;
+
+  commentInput.dataset.jokeId = jokeId;
 
   commentsList.innerHTML = `<div class="p-3 bg-gray-100 rounded-lg">Loading comments...</div>`;
   commentsModal.classList.remove("hidden");
@@ -505,39 +638,37 @@ function openCommentsModal(jokeId) {
     commentsList.innerHTML = comments
       .map(
         (c) => `
-                <div class="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 group">
-                    <div class="flex justify-between items-start mb-2">
-                        <div class="flex items-center gap-2">
-                            <span class="font-bold text-gray-900 text-sm bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-                                @${c.user}
-                            </span>
-                            ${
-                              c.user === currentUser
-                                ? `<span class="px-1.5 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full font-medium">You</span>`
-                                : ""
-                            }
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs text-gray-500 font-medium">${
-                              c.created_at
-                            }</span>
-                            ${
-                              c.user === currentUser
-                                ? `<button class="delete-btn opacity-0 group-hover:opacity-100 transition-all duration-200 
-                                        text-red-500 hover:text-red-700 hover:bg-red-50 
-                                        p-1.5 rounded-lg text-xs font-medium" 
-                                        data-id="${c.id}">
-                                    <i class="fas fa-trash mr-1"></i>
-                                </button>`
-                                : ""
-                            }
-                        </div>
-                    </div>
-                    <p class="text-gray-800 text-sm leading-relaxed pl-1">${
-                      c.text
-                    }</p>
-                </div>
-                `
+          <div class="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 group">
+            <div class="flex justify-between items-start mb-2">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-gray-900 text-sm bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+                  @${c.user}
+                </span>
+                ${
+                  c.user === currentUser
+                    ? `<span class="px-1.5 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full font-medium">You</span>`
+                    : ""
+                }
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-gray-500 font-medium">${
+                  c.created_at
+                }</span>
+                ${
+                  c.user === currentUser
+                    ? `<button class="delete-btn opacity-0 group-hover:opacity-100 transition-all duration-200
+                          text-red-500 hover:text-red-700 hover:bg-red-50
+                          p-1.5 rounded-lg text-xs font-medium"
+                          data-id="${c.id}">
+                      <i class="fas fa-trash mr-1"></i>
+                  </button>`
+                    : ""
+                }
+              </div>
+            </div>
+            <p class="text-gray-800 text-sm leading-relaxed pl-1">${c.text}</p>
+          </div>
+        `
       )
       .join("");
 
@@ -545,105 +676,100 @@ function openCommentsModal(jokeId) {
   });
 }
 
-closeComments.addEventListener("click", () => {
-  commentsModal.classList.add("hidden");
-  commentsModal.classList.remove("flex");
-});
-
-// ---- 5. CLICK OUTSIDE MODAL TO CLOSE ----
-commentsModal.addEventListener("click", (e) => {
-  if (e.target === commentsModal) {
+if (closeComments) {
+  closeComments.addEventListener("click", () => {
     commentsModal.classList.add("hidden");
     commentsModal.classList.remove("flex");
-  }
-});
+  });
+}
 
-const commentInput = document.getElementById("comment-input");
-const sendCommentBtn = document.getElementById("send-comment");
-const csrftoken = getCookie("csrftoken");
+if (commentsModal) {
+  commentsModal.addEventListener("click", (e) => {
+    if (e.target === commentsModal) {
+      commentsModal.classList.add("hidden");
+      commentsModal.classList.remove("flex");
+    }
+  });
+}
 
-sendCommentBtn.addEventListener("click", async () => {
-  const text = commentInput.value.trim();
-  if (!text) return;
+if (sendCommentBtn && commentInput) {
+  sendCommentBtn.addEventListener("click", async () => {
+    const text = commentInput.value.trim();
+    if (!text) return;
 
-  // Assume jokeId is set when modal opens
-  const jokeId = commentInput.dataset.jokeId;
+    const jokeId = commentInput.dataset.jokeId;
+    const csrftoken = getCookie("csrftoken");
 
-  try {
-    const res = await fetch(`/post-comment/${jokeId}/`, {
-      method: "POST",
-      headers: {
-        "X-CSRFToken": csrftoken,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({ comment_text: text }),
-    });
+    try {
+      const res = await fetch(`/post-comment/${jokeId}/`, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrftoken,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({ comment_text: text }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (!res.ok) throw new Error(data.error || "Failed to post comment");
+      if (!res.ok) throw new Error(data.error || "Failed to post comment");
 
-    // Prepend new comment to the list
-    commentsList.innerHTML =
-      `
-                      <div class="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 group">
-                    <div class="flex justify-between items-start mb-2">
-                        <div class="flex items-center gap-2">
-                            <span class="font-bold  bg-clip-text text-black">
-                                @${data.user}
-                            </span>
-                            ${
-                              data.user === currentUser
-                                ? `<span class="px-1.5 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full font-medium">You</span>`
-                                : ""
-                            }
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs text-gray-500 font-medium">${
-                              data.created_at
-                            }</span>
-                            ${
-                              data.user === currentUser
-                                ? `<button class="delete-btn opacity-0 group-hover:opacity-100 transition-all duration-200 
-                                        text-red-500 hover:text-red-700 hover:bg-red-50 
-                                        p-1.5 rounded-lg text-xs font-medium" 
-                                        data-id="${data.id}">
-                                    <i class="fas fa-trash mr-1"></i>
-                                </button>`
-                                : ""
-                            }
-                        </div>
-                    </div>
-                    <p class="text-gray-800 text-sm leading-relaxed pl-1">${
-                      data.text
-                    }</p>
-                </div>
-                
-      ` + commentsList.innerHTML;
+      commentsList.innerHTML =
+        `<div class="bg-white rounded-xl p-4 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 group">
+          <div class="flex justify-between items-start mb-2">
+            <div class="flex items-center gap-2">
+              <span class="font-bold bg-clip-text text-black">
+                @${data.user}
+              </span>
+              ${
+                data.user === currentUser
+                  ? `<span class="px-1.5 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full font-medium">You</span>`
+                  : ""
+              }
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-gray-500 font-medium">${
+                data.created_at
+              }</span>
+              ${
+                data.user === currentUser
+                  ? `<button class="delete-btn opacity-0 group-hover:opacity-100 transition-all duration-200
+                        text-red-500 hover:text-red-700 hover:bg-red-50
+                        p-1.5 rounded-lg text-xs font-medium"
+                        data-id="${data.id}">
+                    <i class="fas fa-trash mr-1"></i>
+                </button>`
+                  : ""
+              }
+            </div>
+          </div>
+          <p class="text-gray-800 text-sm leading-relaxed pl-1">${data.text}</p>
+        </div>` + commentsList.innerHTML;
 
-    commentInput.value = ""; // clear input
-    commentInput.focus();
-    fetchComments(jokeId).then((comments) => {
-      const commentCount = comments.length;
-      const commentsContainer = document.querySelector(
-        `#comments-btn-${jokeId} span`
-      );
-      commentsContainer.textContent = commentCount;
-    });
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
-});
+      commentInput.value = "";
+      commentInput.focus();
 
-// ---------- DELETE COMMENT ----------
+      fetchComments(jokeId).then((comments) => {
+        const commentCount = comments.length;
+        const commentsContainer = document.querySelector(
+          `#comments-btn-${jokeId} span`
+        );
+        if (commentsContainer) commentsContainer.textContent = commentCount;
+      });
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
+  });
+}
+
 function attachDeleteEvents() {
   const deleteBtns = document.querySelectorAll(".delete-btn");
   deleteBtns.forEach((btn) => {
     btn.onclick = async () => {
       const commentId = btn.dataset.id;
-      // Find jokeId from the modal input dataset
       const jokeId = commentInput.dataset.jokeId;
+      const csrftoken = getCookie("csrftoken");
 
       try {
         const res = await fetch(`/delete-comment/${commentId}/`, {
@@ -653,13 +779,11 @@ function attachDeleteEvents() {
         const data = await res.json();
 
         if (res.ok) {
-          // Remove the **entire comment card** instead of just nearest div
           const commentCard = btn.closest(
             ".bg-white.rounded-xl.p-4.border.shadow-sm"
           );
           if (commentCard) commentCard.remove();
 
-          // Update comment count
           fetchComments(jokeId).then((comments) => {
             const commentCount = comments.length;
             const commentsContainer = document.querySelector(
@@ -677,77 +801,7 @@ function attachDeleteEvents() {
   });
 }
 
-// Listen for keyboard events
-document.addEventListener("keydown", (e) => {
-  const windowHeight = window.innerHeight;
-  const totalItems = scrollContainer.children.length;
-
-  if (isScrolling) return;
-
-  if (e.key === "ArrowDown") {
-    // Move to next joke
-    if (currentIndex < totalItems - 1) {
-      currentIndex++;
-    }
-  } else if (e.key === "ArrowUp") {
-    // Move to previous joke
-    if (currentIndex > 0) {
-      currentIndex--;
-    }
-  } else {
-    return; // ignore other keys
-  }
-
-  isScrolling = true;
-
-  scrollContainer.scrollTo({
-    top: currentIndex * windowHeight,
-    behavior: "smooth",
-  });
-
-  scrollTimeout = setTimeout(() => {
-    isScrolling = false;
-  }, 200); // small debounce to prevent rapid key presses
-});
-
-let currentAudio = null;
-
-
-function playJokeMusic(url) {
-  if (!url) return;
-
-  if (!currentAudio) {
-    // Create audio element once
-    currentAudio = new Audio();
-    currentAudio.loop = true;
-    currentAudio.autoplay = true;
-    currentAudio.muted = false;
-  }
-
-  // If same URL, keep playing
-  if (currentAudio.src === url) return;
-
-  currentAudio.src = url;
-  currentAudio.play().catch(() => {
-    // Browser blocked autoplay → wait for first human interaction
-    document.addEventListener("click", () => currentAudio.play(), {
-      once: true,
-    });
-  });
-}
-
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const item = entry.target.dataset.bgMusicUrl;
-        if (item) playJokeMusic(item);
-      }
-    });
-  },
-  { threshold: 0.7 } // Adjust: 70% visible triggers playback
-);
-
-document.querySelectorAll(".snap-start").forEach((el) => {
-  observer.observe(el);
+// Initialize on load
+document.addEventListener("DOMContentLoaded", function () {
+  initializeContent();
 });
