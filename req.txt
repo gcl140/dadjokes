@@ -1,5 +1,5 @@
 asgiref==3.9.1
-audioop-lts
+audioop-lts==0.2.2
 certifi==2025.8.3
 cffi==1.17.1
 charset-normalizer==3.4.3
@@ -26,5 +26,6 @@ social-auth-app-django==5.5.1
 social-auth-core==4.7.0
 sqlparse==0.5.3
 urllib3==2.5.0
+whitenoise==6.11.0
 yt-dlp==2025.11.12
 ytmusicapi==1.11.1

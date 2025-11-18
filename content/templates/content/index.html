@@ -1,7 +1,7 @@
 {% extends 'content/base.html' %}
 {% load static %}
 {% block content %}
-<body data-username="{{ request.user.username }}" data-id="{{ request.user.id }}">
+<body data-username="{{ request.user.username }}" data-id="{{ request.user.id }}">     
 <div class="fixed top-24 left-4 flex flex-col space-y-2 z-50">
   <button id="scrollUp" class="p-2 w-8 h-8 items-center flex bg-white rounded-full shadow">▲</button>
   <button id="scrollDown" class="p-2 w-8 h-8 bg-white items-center flex rounded-full shadow">▼</button>
