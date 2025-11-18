@@ -4,7 +4,8 @@ from dadjokes import settings
 from ytmusicapi import YTMusic
 import subprocess
 from pydub import AudioSegment
-from django.http import JsonResponse, HttpResponseForbidden
+from django.http import JsonResponse, HttpResponseForbidden, HttpResponse
+
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from .forms import JokeForm
@@ -21,22 +22,20 @@ def index(request):
     context.update(general_context(request))
     return render(request, 'content/index.html', context)
 
-def ajoke(request, joke_id):
-    joke = get_object_or_404(Joke, id=joke_id)
-    context = {
-        "joke": joke,
-    }
-    context.update(general_context(request))
-    # return render(request, 'content/ajoke.html', context)
-
-    return redirect(f"/?priority={joke_id}")
-    # return redirect(f"https://www.gcloo.live/?priority={joke_id}")
-
 # def ajoke(request, joke_id):
-#     # return HttpResponse("VIEW RAN")
-#     return render(request, 'content/index.html')
+#     # joke = get_object_or_404(Joke, id=joke_id)
+#     # context = {
+#     #     "joke": joke,
+#     # }
+#     # context.update(general_context(request))
+#     # # return render(request, 'content/ajoke.html', context)
 
+#     # return redirect(f"/?priority={joke_id}")
+#     return render(request, 'content/free.html')
 
+def ajoke(request, joke_id):
+    print("AJOKE called with ID:", joke_id)
+    return HttpResponse("OK")
 
 
 def joke_detail_api(request, joke_id):
@@ -48,18 +47,8 @@ def joke_detail_api(request, joke_id):
         "text_color": joke.text_color,
         "font_type": joke.font_type,
         "description": joke.description,
-        # "bg_music": joke.bg_music,
-        # "bg_music": (
-        #         {
-        #             "id": joke.bg_music.id,
-        #             "name": joke.bg_music.name,
-        #             "url": joke.bg_music.file_url.url,
-        #         }
-        #         if joke.bg_music else None
-        #     ),
         "bg_musicName": joke.bg_music.name if joke.bg_music else "Original Sound",
         "bg_musicURL": joke.bg_music.file_url.url if joke.bg_music else "/static/audio/silent.mp3",  # <--- serialize the URL
-
         "username": joke.joke_by.username if joke.joke_by else "anonymous",
         "user_id": joke.joke_by.id if joke.joke_by else None,
         "user_profile": joke.joke_by.profile_picture.url if joke.joke_by and joke.joke_by.profile_picture else "/static/images/default-profile.jpg",
@@ -88,19 +77,8 @@ def jokes_api(request):
             "bg_color": j.bg_color,
             "text_color": j.text_color,
             "font_type": j.font_type,
-            # "bg_music": j.bg_music.id if j.bg_music else None,
-            # "bg_music": (
-            #     {
-            #         "id": j.bg_music.id,
-            #         "name": j.bg_music.name,
-            #         "url": j.bg_music.file_url,
-            #     }
-            #     if j.bg_music else None
-            # ),
             "bg_musicName": j.bg_music.name if j.bg_music else "Original Sound",
             "bg_musicURL": j.bg_music.file_url.url if j.bg_music else "/static/audio/silent.mp3",  # <--- serialize the URL
-
-
             "description": j.description,
             "username": j.joke_by.username if j.joke_by else "anonymous",
             "user_id": j.joke_by.id if j.joke_by else None,
@@ -281,89 +259,6 @@ def general_context(request):
     return {}
 
 
-# def fetch_song_segment(songname):
-#     ytmusic = YTMusic()
-#     query = songname.strip().lower()
-#     results = ytmusic.search(query)
-
-#     if not results:
-#         print("No results found.")
-
-#     top = results[0]
-
-#     # GUARANTEED video_id extraction:
-#     video_id = top.get("videoId") or top.get("id")
-#     if not video_id:
-#         print("Result has no videoId:", top)
-
-#     url = f"https://www.youtube.com/watch?v={video_id}"
-#     print(url)
-
-#     completed = subprocess.run([
-#         "yt-dlp",
-#         "-x",
-#         "--audio-format", "mp3",
-#         "--audio-quality", "0",
-#         "--no-warnings",
-#         "--print", "after_move:filename",
-#         "-o", "%(title)s [%(id)s].%(ext)s",
-#         url
-#     ], capture_output=True, text=True)
-
-#     if completed.returncode != 0:
-#         print("yt-dlp failed:", completed.stderr)
-
-#     song_filename = completed.stdout.strip()
-
-#     if song_filename.endswith(".webm"):
-#         mp3_candidate = song_filename[:-5] + ".mp3"
-#         if os.path.exists(mp3_candidate):
-#             song_filename = mp3_candidate
-#         else:
-#             # yt-dlp never converted it, so your flags failed
-#             raise RuntimeError("yt-dlp produced a .webm and no .mp3 was generated")
-
-#     print("Downloaded file:", song_filename)
-
-#     # Verify file actually exists
-#     if not os.path.exists(song_filename):
-#         print("yt-dlp lied. File not found.")
-
-#     # Load MP3
-#     song = AudioSegment.from_mp3(song_filename)
-#     print("Loaded successfully:", song)
-
-
-#     f5_seconds = 45 * 1000
-#     end_seconds = 75 * 1000
-#     first_f5_seconds = song[f5_seconds:end_seconds]
-
-#     # first_f5_seconds.export(song_filename, format="mp3")
-
-#     # overwrite trimmed file in temp folder
-#     first_f5_seconds.export(song_filename, format="mp3")
-
-#     # ---------------------------------------------------
-#     # MOVE FILE TO MEDIA DIRECTORY (THIS IS THE FIX)
-#     # ---------------------------------------------------
-#     media_subdir = "music"
-#     target_dir = os.path.join(settings.MEDIA_ROOT, media_subdir)
-#     os.makedirs(target_dir, exist_ok=True)
-
-#     base_name = os.path.basename(song_filename)
-#     final_path = os.path.join(target_dir, base_name)
-
-#     shutil.move(song_filename, final_path)
-#     print("Moved to MEDIA:", final_path)
-#     # ---------------------------------------------------
-
-#     songcreated = JokeMusic.objects.create(
-#         file_url=f"{media_subdir}/{base_name}",
-#         name=base_name,
-#     )
-#     return songcreated
-
-
 def fetch_song_segment(songname):
     ytmusic = YTMusic()
     query = songname.strip().lower()
@@ -422,149 +317,6 @@ def fetch_song_segment(songname):
         name=os.path.basename(final_path),
     )
     return songcreated
-
-
-# def fetch_song_segment(songname):
-#     print("\n--- fetch_song_segment START ---")
-#     print("Song query:", songname)
-
-#     ytmusic = YTMusic()
-#     query = songname.strip().lower()
-#     print("YTMusic search query:", query)
-
-#     results = ytmusic.search(query)
-#     print("Search results:", results[:1])
-
-#     if not results:
-#         print("ERROR: No results found.")
-#         return None
-
-#     top = results[0]
-#     print("Top result:", top)
-
-#     # GUARANTEED video_id extraction:
-#     video_id = top.get("videoId") or top.get("id")
-#     print("Extracted video ID:", video_id)
-
-#     if not video_id:
-#         print("ERROR: Result has no videoId:", top)
-#         return None
-
-#     url = f"https://www.youtube.com/watch?v={video_id}"
-#     print("Using URL:", url)
-
-#     # ---- DOWNLOAD WITH YT-DLP ----
-#     completed = subprocess.run([
-#         "yt-dlp",
-#         "-x",
-#         "--audio-format", "mp3",
-#         "--audio-quality", "0",
-#         "--no-warnings",
-#         "--print", "after_move:filename",
-#         "-o", "%(title)s [%(id)s].%(ext)s",
-#         url
-#     ], capture_output=True, text=True)
-
-#     print("yt-dlp return code:", completed.returncode)
-#     print("yt-dlp stdout:", completed.stdout)
-#     print("yt-dlp stderr:", completed.stderr)
-
-#     if completed.returncode != 0:
-#         print("ERROR: yt-dlp failed:", completed.stderr)
-#         return None
-
-#     song_filename = completed.stdout.strip()
-#     print("Raw downloaded filename:", song_filename)
-
-#     # ---- Fix weird .webm output ----
-#     if song_filename.endswith(".webm"):
-#         mp3_candidate = song_filename[:-5] + ".mp3"
-#         print("Checking mp3 candidate:", mp3_candidate)
-
-#         if os.path.exists(mp3_candidate):
-#             song_filename = mp3_candidate
-#             print("Using mp3 candidate:", song_filename)
-#         else:
-#             raise RuntimeError("yt-dlp produced .webm but no .mp3")
-
-#     print("Final downloaded filename:", song_filename)
-
-#     # ---- VERIFY FILE EXISTS ----
-#     if not os.path.exists(song_filename):
-#         print("ERROR: File does NOT exist:", song_filename)
-#         return None
-
-#     print("Loading MP3 now...")
-
-#     # ---- LOAD AUDIO ----
-#     try:
-#         song = AudioSegment.from_mp3(song_filename)
-#         print("Audio loaded OK. Duration:", len(song), "ms")
-#     except Exception as e:
-#         print("ERROR loading MP3:", e)
-#         return None
-
-#     # ---- CUT SEGMENT ----
-#     f5_seconds = 45 * 1000
-#     end_seconds = 75 * 1000
-#     print("Extracting segment:", f5_seconds, "to", end_seconds)
-
-#     first_f5_seconds = song[f5_seconds:end_seconds]
-
-#     print("Exporting trimmed file back to:", song_filename)
-#     try:
-#         first_f5_seconds.export(song_filename, format="mp3")
-#         print("Trim export successful.")
-#     except Exception as e:
-#         print("ERROR exporting trimmed segment:", e)
-#         return None
-
-#     # =======================================================
-#     # MOVE FILE TO MEDIA DIRECTORY
-#     # =======================================================
-
-#     media_subdir = "music"
-#     target_dir = os.path.join(settings.MEDIA_ROOT, media_subdir)
-#     print("Target MEDIA directory:", target_dir)
-
-#     try:
-#         os.makedirs(target_dir, exist_ok=True)
-#         print("MEDIA directory exists or created.")
-#     except Exception as e:
-#         print("ERROR creating media dir:", e)
-#         return None
-
-#     base_name = os.path.basename(song_filename)
-#     final_path = os.path.join(target_dir, base_name)
-
-#     print("Moving file:")
-#     print("FROM:", song_filename)
-#     print("TO:", final_path)
-
-#     try:
-#         shutil.move(song_filename, final_path)
-#         print("Move OK.")
-#     except Exception as e:
-#         print("MOVE FAILED:", e)
-#         print("Current working directory:", os.getcwd())
-#         print("MEDIA_ROOT:", settings.MEDIA_ROOT)
-#         return None
-
-#     print("File moved successfully:", final_path)
-
-#     # ---- SAVE TO DB ----
-#     try:
-#         songcreated = JokeMusic.objects.create(
-#             file_url=f"{media_subdir}/{base_name}",
-#             name=base_name,
-#         )
-#         print("DB record created:", songcreated)
-#     except Exception as e:
-#         print("DB CREATE FAILED:", e)
-#         return None
-
-#     print("--- fetch_song_segment END ---\n")
-#     return songcreated
 
 
 def add_song(request):
