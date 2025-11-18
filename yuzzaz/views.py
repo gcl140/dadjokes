@@ -182,7 +182,8 @@ def profile(request, user_id):
         form = CustomUserForm(instance=user)
     jokess = Joke.objects.filter(joke_by=user).order_by('-created_at')
     context = {
-        'user': user,
+        'logged_in_user': request.user,
+        'looking_at': user,
         'jokess': jokess,
         'form': form,
     }
@@ -191,7 +192,7 @@ def profile(request, user_id):
 
 
 def company_profile(request):
-    context = {        
+    context = {
     }
     return render(request, 'yuzzaz/company_profile.html', context)
 
@@ -213,8 +214,8 @@ def edit_profile(request):
         form = CustomUserForm(instance=request.user)
 
     return render(request, 'yuzzaz/partials/edit_profile_modal.html', {'form': form, 'viewing_user': request.user})
-    
-    
+
+
 
 def custom_404_view(request, exception):
     return render(request, 'partials/404.html', status=404)
