@@ -8,17 +8,17 @@
 
   <!-- Scrollable container with snap -->
   <div id="scrollContainer" class="relative z-10 h-screen overflow-y-scroll scroll-snap-y scroll-smooth">
-    
+
     <!-- Profile Section -->
     <section class="h-screen flex flex-col items-center justify-center px-4 snap-start">
       <div class="max-w-md w-full text-center">
         <div class="relative mb-6 mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-white">
-          <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'images/default-profile.jpg' %}{% endif %}" 
+          <img src="{% if looking_at.profile_picture %}{{ looking_at.profile_picture.url }}{% else %}{% static 'images/default-profile.jpg' %}{% endif %}"
                alt="Profile" class="w-full h-full object-cover">
         </div>
-        <p class="text-gray-400 mb-3">@{{ user.username }}</p>
-        {% if user.about %}
-        <p class="text-gray-400 text-sm mb-6">{{ user.about }}</p>
+        <p class="text-gray-400 mb-3">@{{ looking_at.username }}</p>
+        {% if looking_at.about %}
+        <p class="text-gray-400 text-sm mb-6">{{ looking_at.about }}</p>
         {% endif %}
         <!-- Stats -->
         <div class="flex justify-center space-x-8 mb-8">
@@ -28,14 +28,19 @@
         </div>
 
         <div class="flex space-x-3 mb-6">
+          {% if looking_at == logged_in_user %}
           <button id="toggleUpdate" class="flex-1 bg-white text-black hover:bg-gray-200 py-3 px-4 rounded-lg font-medium transition-colors">Edit Profile</button>
+          {% endif %}
           <button id="scroll" class="flex-1 bg-white text-black hover:bg-gray-200 py-3 px-4 rounded-lg font-medium transition-colors">
             <a href="#postsSection">Posts</a>
           </button>
+
+          {% if looking_at == logged_in_user %}
           <form method="POST" action="{% url 'logout' %}" class="flex-1">
             {% csrf_token %}
             <button type="submit" class="w-full bg-gray-800 hover:bg-gray-700 py-3 px-4 rounded-lg font-medium transition-colors">Log Out</button>
           </form>
+          {% endif %}
         </div>
       </div>
     </section>
@@ -55,11 +60,13 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 15c1.333 2 6.667 2 8 0"/>
               </svg>
               <p class="text-sm text-gray-300 break-words"><a href="/joke/{{ joke.id }}">{{ joke.id }} - {{ joke.content }}</a></p>
+              {% if logged_in_user == joke.joke_by %}
               <i class="fa fa-trash text-white hover:text-gray-300 cursor-pointer ml-auto transition-colors" onclick="deleteJoke({{ joke.id }})"></i>
+              {% endif %}
             </div>
             {% empty %}
             <p class="text-gray-400">No posts yet.</p>
-            {% endfor %} 
+            {% endfor %}
           </div>
         </div>
 
@@ -85,7 +92,9 @@
           </button>
         </div>
 
-        <form method="POST" enctype="multipart/form-data" class="space-y-5" action="{% url 'profile' user.id %}">
+
+        {% if looking_at == logged_in_user %}
+        <form method="POST" enctype="multipart/form-data" class="space-y-5" action="{% url 'profile' looking_at.id %}">
           {% csrf_token %}
           <div class="flex flex-col items-center space-y-4">
             <div class="w-full">
@@ -109,6 +118,7 @@
 
           <button type="submit" class="w-full bg-white text-black hover:bg-gray-200 py-3 rounded-lg font-semibold transition-colors">Save Changes</button>
         </form>
+        {% endif %}
       </div>
     </section>
   </div>

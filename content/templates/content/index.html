@@ -1,13 +1,31 @@
 {% extends 'content/base.html' %}
 {% load static %}
 {% block content %}
-<body data-username="{{ request.user.username }}" data-id="{{ request.user.id }}">     
-    <div id="scrollContainer" class="h-screen overflow-y-scroll no-scrollbar snap-y">
-        <!-- Video items will be added here dynamically -->
-    </div>
+<body data-username="{{ request.user.username }}" data-id="{{ request.user.id }}">
+<div class="fixed top-24 left-4 flex flex-col space-y-2 z-50">
+  <button id="scrollUp" class="p-2 w-8 h-8 items-center flex bg-white rounded-full shadow">▲</button>
+  <button id="scrollDown" class="p-2 w-8 h-8 bg-white items-center flex rounded-full shadow">▼</button>
+</div>
+
+<div id="scrollContainer" class="h-screen overflow-y-auto snap-y snap-mandatory touch-pan-y">
+  <!-- Video items will be appended with `scroll-item` class -->
+</div>
+
+<style>
+  .scroll-item {
+    scroll-snap-align: start;
+    min-height: 100vh;
+  }
+  #scrollContainer {
+    -webkit-overflow-scrolling: touch;
+  }
+</style>
+
     {% include 'partial/comments.html' %}
     {% block scripts %}
         <script type="module" src="{% static 'js/index.js' %}"></script>
     {% endblock %}
+
+
 </body>
 {% endblock %}
