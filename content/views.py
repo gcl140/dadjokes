@@ -22,20 +22,16 @@ def index(request):
     context.update(general_context(request))
     return render(request, 'content/index.html', context)
 
-# def ajoke(request, joke_id):
-#     # joke = get_object_or_404(Joke, id=joke_id)
-#     # context = {
-#     #     "joke": joke,
-#     # }
-#     # context.update(general_context(request))
-#     # # return render(request, 'content/ajoke.html', context)
-
-#     # return redirect(f"/?priority={joke_id}")
-#     return render(request, 'content/free.html')
-
 def ajoke(request, joke_id):
-    print("AJOKE called with ID:", joke_id)
-    return HttpResponse("OK")
+    print("AJOKE FUNCTION CALLED WITH ID:", joke_id)
+    joke = get_object_or_404(Joke, id=joke_id)
+    context = {
+        "joke": joke,
+    }
+    context.update(general_context(request))
+
+    return redirect(f"/?priority={joke_id}")
+
 
 
 def joke_detail_api(request, joke_id):
@@ -149,7 +145,6 @@ def create_joke(request):
 @login_required
 def inbox(request):
     notifications = Notification.objects.filter(user=request.user).order_by('is_read', '-created_at')
-
     context = {
         'notifications': notifications,
         }
@@ -343,8 +338,10 @@ def add_song(request):
                 print(url)
 
                 completed = subprocess.run([
-                    "/home/tansafapply/venv/bin/yt-dlp",
-                    "--cookies", "/home/tansafapply/cookies/youtube.txt",
+                    # "/home/tansafapply/venv/bin/yt-dlp",
+                    # "--cookies", "/home/tansafapply/cookies/youtube.txt",
+                    "yt-dlp",
+                    "--cookies", "/Users/giftchristian/Documents/programmin/dadjokess/cookies/youtube_cookies.txt",
                     "-x",
                     "--audio-format", "mp3",
                     "--audio-quality", "0",
