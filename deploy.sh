@@ -14,6 +14,10 @@ git pull
 echo "==> Installing dependencies"
 source venv/bin/activate
 pip install -r req.txt
+npm install
+
+echo "==> Building CSS"
+npm run build:css
 
 echo "==> Applying migrations"
 python manage.py migrate
