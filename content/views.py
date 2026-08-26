@@ -1,4 +1,5 @@
 import shutil
+import sys
 import requests, os, random, threading
 from dadjokes import settings
 from ytmusicapi import YTMusic
@@ -427,6 +428,18 @@ def general_context(request):
     return {}
 
 
+def _yt_dlp_path():
+    """Resolve the yt-dlp binary without depending on PATH. It's installed
+    into venv/bin alongside this interpreter (see req.txt), but the
+    production systemd unit execs Daphne's venv path directly rather than
+    running through an activated shell, so venv/bin never makes it onto
+    PATH and a bare "yt-dlp" lookup fails with FileNotFoundError."""
+    venv_candidate = os.path.join(os.path.dirname(sys.executable), "yt-dlp")
+    if os.path.exists(venv_candidate):
+        return venv_candidate
+    return shutil.which("yt-dlp") or "yt-dlp"
+
+
 def fetch_song_segment(songname):
     ytmusic = YTMusic()
     query = songname.strip().lower()
@@ -454,7 +467,7 @@ def fetch_song_segment(songname):
     cookies_path = os.path.join(settings.BASE_DIR, "cookies", "youtube_cookies.txt")
 
     completed = subprocess.run([
-        "yt-dlp",
+        _yt_dlp_path(),
         "--cookies", cookies_path,
         "-x",
         "--audio-format", "mp3",
