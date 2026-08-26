@@ -1,0 +1,161 @@
+{% extends "content/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-canvas text-ink relative">
+
+  <!-- Profile Header - its own full-height section, so "Your Posts" lives
+       below the fold as a distinct place you scroll/slide to, rather than
+       immediately blending into view under the buttons. -->
+  <section class="min-h-[100dvh] flex flex-col items-center justify-center px-4 pt-28 pb-8">
+    <div class="max-w-md w-full text-center">
+      <div class="relative mb-6 mx-auto w-28 h-28 rounded-full overflow-hidden border-4 border-hairline-strong">
+        <img id="previewImage" src="{% if looking_at.profile_picture %}{{ looking_at.profile_picture.url }}{% else %}{% static 'images/default-profile.jpg' %}{% endif %}"
+             alt="Profile" onerror="this.onerror=null; this.src='{% static 'images/default-profile.jpg' %}';" class="w-full h-full object-cover">
+      </div>
+      <p class="text-ink-muted mb-3">@{{ looking_at.username }}</p>
+      {% if looking_at.about %}
+      <p class="text-ink-muted text-sm mb-6">{{ looking_at.about }}</p>
+      {% endif %}
+
+      <div class="flex justify-center space-x-8 mb-8">
+        <div class="text-center"><p class="text-xl font-bold text-ink">{{ jokes_count }}</p><p class="text-xs text-ink-faint">Posts</p></div>
+        <div class="text-center"><p class="text-xl font-bold text-ink">{{ total_likes }}</p><p class="text-xs text-ink-faint">Likes</p></div>
+      </div>
+
+      <div class="flex space-x-3">
+        {% if looking_at == logged_in_user %}
+        <button id="toggleUpdate" class="flex-1 bg-accent-400 hover:bg-accent-500 text-accent-ink py-3 px-4 rounded-xl font-medium transition-colors tap-scale">Edit Profile</button>
+        {% endif %}
+        <button type="button"
+                onclick="document.getElementById('postsSection').scrollIntoView({behavior: 'smooth'})"
+                class="flex-1 bg-surface-2 border border-hairline hover:bg-hairline text-ink py-3 px-4 rounded-xl font-medium transition-colors tap-scale">
+          Posts
+        </button>
+        {% if looking_at == logged_in_user %}
+        <form method="POST" action="{% url 'logout' %}" class="flex-1">
+          {% csrf_token %}
+          <button type="submit" class="w-full bg-accent-400 hover:bg-accent-500 text-accent-ink py-3 px-4 rounded-xl font-medium transition-colors tap-scale">Log Out</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Posts - a distinct section below the fold, scrolled into view when
+       the Posts button is clicked. pt-28 matches the header's own top
+       clearance so scrollIntoView (which aligns this section's top edge to
+       the viewport top) doesn't land the heading behind the fixed search bar. -->
+  <section id="postsSection" class="flex flex-col items-center px-4 pt-28 pb-40">
+    <div class="max-w-md w-full">
+      <h2 class="text-xl font-bold text-ink mb-4">
+        {% if looking_at == logged_in_user %}Your Posts{% else %}Posts{% endif %}
+      </h2>
+
+      <div class="max-h-[420px] overflow-y-auto thin-scrollbar pr-1 -mr-1 mb-4">
+        <div id="posts-list"
+             class="space-y-2"
+             data-user-id="{{ looking_at.id }}"
+             data-page="1"
+             data-has-next="{{ jokess.has_next|yesno:'true,false' }}"
+             data-can-edit="{% if looking_at == logged_in_user %}true{% else %}false{% endif %}">
+          {% for joke in jokess %}
+          <div class="post-row bg-surface rounded-xl overflow-hidden border border-hairline flex items-center p-3 hover:border-hairline-strong transition cursor-pointer"
+               data-id="{{ joke.id }}"
+               data-content="{{ joke.content }}"
+               data-description="{{ joke.description|default:'' }}"
+               data-bg-color="{{ joke.bg_color }}"
+               data-text-color="{{ joke.text_color }}"
+               data-font-type="{{ joke.font_type }}"
+               data-bg-music-id="{{ joke.bg_music_id|default:'' }}"
+               data-bg-music-name="{{ joke.bg_music.name|default:'' }}"
+               data-likes="{{ joke.likes_count }}"
+               data-comments="{{ joke.comments_count }}">
+            <div class="post-row-swatch w-10 h-10 rounded-lg flex-shrink-0 mr-3 flex items-center justify-center text-xs font-bold"
+                 style="background-color: {{ joke.bg_color }}; color: {{ joke.text_color }};">Aa</div>
+            <div class="flex-1 min-w-0 text-left">
+              <p class="post-row-text text-sm text-ink truncate">{{ joke.content }}</p>
+              <p class="text-xs text-ink-faint mt-0.5">
+                <i class="fas fa-heart mr-1"></i>{{ joke.likes_count }}
+                <i class="fas fa-comment ml-2 mr-1"></i>{{ joke.comments_count }}
+              </p>
+            </div>
+            <i class="fas fa-chevron-right text-ink-faint ml-2 flex-shrink-0"></i>
+          </div>
+          {% empty %}
+          <p class="text-ink-faint text-center py-8">No posts yet.</p>
+          {% endfor %}
+        </div>
+
+        {% if jokess.has_next %}
+        <button id="load-more-posts"
+                class="tap-scale w-full flex items-center justify-center gap-2 text-sm font-medium text-ink hover:text-accent-500 transition-colors py-2 mt-2">
+            <span>Load more</span>
+            <i class="fas fa-chevron-down text-xs"></i>
+        </button>
+        {% endif %}
+      </div>
+
+      {% if looking_at == logged_in_user %}
+      <button class="w-full bg-accent-400 hover:bg-accent-500 text-accent-ink py-3 rounded-xl font-semibold flex items-center justify-center space-x-2 transition-colors tap-scale"
+      onclick="window.location.href='{% url 'create_joke' %}'">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+        <span>Create New Post</span>
+      </button>
+      {% endif %}
+    </div>
+  </section>
+
+  {% if looking_at == logged_in_user %}
+  <!-- Edit Profile Modal -->
+  <div id="updateFormSection" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[9999] p-4">
+    <div class="bg-canvas-raised border border-hairline w-full max-w-md rounded-2xl p-6 max-h-[90vh] overflow-y-auto thin-scrollbar shadow-2xl">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-ink">Update Profile</h3>
+        <button id="closeUpdate" class="text-ink-faint hover:text-ink transition p-2 rounded-full border border-hairline hover:bg-surface-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <form method="POST" enctype="multipart/form-data" class="space-y-5" action="{% url 'profile' looking_at.id %}">
+        {% csrf_token %}
+        <div class="w-full">
+          <label for="{{ form.profile_picture.id_for_label }}" class="block text-ink-muted font-medium mb-1 text-sm">Profile Picture</label>
+          {{ form.profile_picture|add_class:"w-full text-sm text-ink-muted file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-accent-400 file:text-accent-ink hover:file:bg-accent-500" }}
+        </div>
+
+        <div>
+          <label class="block text-ink-muted mb-1 text-sm">Username</label>
+          {{ form.username|add_class:"w-full rounded-xl bg-surface-2 border border-hairline py-3 px-4 text-ink focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent" }}
+          <p id="username-check-status" class="text-xs mt-1"></p>
+        </div>
+        <div>
+          <label class="block text-ink-muted mb-1 text-sm">Email</label>
+          {{ form.email|add_class:"w-full rounded-xl bg-surface-2 border border-hairline py-3 px-4 text-ink focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent" }}
+        </div>
+        <div>
+          <label class="block text-ink-muted mb-1 text-sm">About You</label>
+          {{ form.about|add_class:"w-full rounded-xl bg-surface-2 border border-hairline py-3 px-4 text-ink focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent resize-none" }}
+        </div>
+
+        <button type="submit" id="save-profile-btn" class="w-full bg-accent-400 hover:bg-accent-500 text-accent-ink py-3 rounded-xl font-semibold transition-colors tap-scale disabled:opacity-50 disabled:cursor-not-allowed">Save Changes</button>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+{% include 'partial/post_modal.html' %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/profile.js' %}"></script>
+<script src="{% static 'js/music-combobox.js' %}"></script>
+<script src="{% static 'js/posts.js' %}"></script>
+{% endblock %}

@@ -81,8 +81,9 @@
                     py-1 px-2 mt-1
                     " style="width: fit-content; background-color: {% if joke.text_color|lower != '#ffffff' %}white{% else %}black{% endif %};">
                         <a href="{% url 'profile' joke.joke_by.id %}" class="flex items-center space-x-2 no-underline">
-                            <img src="{% if joke.joke_by.profile_picture %}{{ joke.joke_by.profile_picture.url }}{% else %}{% static 'images/default-avatar.png' %}{% endif %}"
+                            <img src="{% if joke.joke_by.profile_picture %}{{ joke.joke_by.profile_picture.url }}{% else %}{% static 'images/default-profile.jpg' %}{% endif %}"
                                  alt="{{ joke.joke_by.username }}'s avatar"
+                                 onerror="this.onerror=null; this.src='{% static 'images/default-profile.jpg' %}';"
                                  class="w-8 h-8 rounded-full object-cover border-2 border-white shadow-md">
                             <span>@{{ joke.joke_by.username }}</span>
                         </a>
@@ -119,9 +120,9 @@
     </div>
 
     {% include 'partial/comments.html' %}
-    
-    {% block scripts %}
-        <script type="module" src="{% static 'js/index.js' %}"></script>
-    {% endblock %}
 </body>
+{% endblock %}
+
+{% block scripts %}
+    <script type="module" src="{% static 'js/index.js' %}"></script>
 {% endblock %}

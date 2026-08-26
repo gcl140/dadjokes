@@ -23,30 +23,58 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-nn#mfz(%&u7rx#rb3%^&ktl=enatt2jlml#x%7&qwx&8#&%4u*'
+# Falls back to a dev-only key so local setup doesn't require a .env entry,
+# but SECRET_KEY must be set in .env for any real deployment.
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-nn#mfz(%&u7rx#rb3%^&ktl=enatt2jlml#x%7&qwx&8#&%4u*')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = False
+# Set DEBUG=False in .env for any real deployment.
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-# ALLOWED_HOSTS = ['tansafapply.pythonanywhere.com']
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]', 'jayjokes.giftchristian.dev']
+
+# Behind Cloudflare Tunnel, the tunnel talks plain HTTP to Daphne even
+# though the original request was HTTPS - without this, Django thinks
+# every request is insecure (breaks secure cookies and CSRF's
+# scheme check on POSTs).
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_TRUSTED_ORIGINS = ['https://jayjokes.giftchristian.dev']
+
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',  # must come before django.contrib.staticfiles - gives `runserver` ASGI/WebSocket support
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'yuzzaz',
+    'accounts.apps.AccountsConfig',
     'social_django',
     'content',
     'django_browser_reload',
     'widget_tweaks',
 ]
+
+ASGI_APPLICATION = 'dadjokes.asgi.application'
+
+# In-memory channel layer: fine for a single-process deployment (e.g. one
+# Daphne worker). If you scale to multiple processes/machines, swap this for
+# channels_redis.core.RedisChannelLayer pointed at a shared Redis instance,
+# otherwise notifications broadcast on one worker won't reach a socket
+# connected to another.
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,7 +84,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # MUST be here
 ]
 
 ROOT_URLCONF = 'dadjokes.urls'
@@ -82,26 +109,32 @@ WSGI_APPLICATION = 'dadjokes.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Set DB_ENGINE=mysql (plus DB_NAME/DB_USER/DB_PASSWORD/DB_HOST/DB_PORT) in
+# .env to point at your MySQL server. With nothing set, falls back to the
+# local sqlite3 file used for development.
+if os.getenv('DB_ENGINE') == 'mysql':
+    import pymysql
+    pymysql.install_as_MySQLdb()
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST', 'localhost'),
+            'PORT': os.getenv('DB_PORT', '3306'),
+            'OPTIONS': {
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
+        }
     }
-}
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'tansafapply$default',  # full database name from PythonAnywhere
-#         'USER': 'tansafapply',          # your username
-#         'PASSWORD': 'Lukoonge14@0',  # the password you set
-#         'HOST': 'tansafapply.mysql.pythonanywhere-services.com',  # host from PA
-#         'PORT': '3306',                  # default MySQL port
-#         'OPTIONS': {
-#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-#         },
-#     }
-# }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -149,6 +182,9 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# 'yuzzaz' here is the app_label (see accounts/apps.py), not a package name -
+# the app itself now lives in accounts/. Kept as 'yuzzaz' so the existing
+# yuzzaz_customuser table and migration history don't need touching.
 AUTH_USER_MODEL = 'yuzzaz.CustomUser'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -165,7 +201,12 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
+    # AllowAllUsersModelBackend (not the default ModelBackend) so an inactive
+    # user's login attempt reaches LoginForm.confirm_login_allowed() and gets
+    # the "please activate your account" message, instead of a silent
+    # "invalid credentials" (ModelBackend rejects inactive users earlier,
+    # before that hook ever runs).
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
 )
 
 # Optional (to handle missing email cases)
@@ -180,7 +221,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# Plain Django static file storage (no whitenoise). In DEBUG mode,
+# django.contrib.staticfiles serves straight from STATICFILES_DIRS on every
+# request - no collectstatic/build step, no manifest, no stale caching.
+# For a real deployment (DEBUG=False), point your web server (nginx etc.)
+# at STATIC_ROOT directly after running `collectstatic` once.
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'login'

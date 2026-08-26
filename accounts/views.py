@@ -1,34 +1,32 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render, redirect
+from django.http import JsonResponse
+from django.core.paginator import Paginator
+from django.db.models import Count
 from django.urls import reverse
-from django.contrib.auth import logout as auth_logout
-from django.contrib.auth import authenticate, login as auth_login
-from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model, login as auth_login, logout as auth_logout
+from django.contrib.auth import get_user_model, logout as auth_logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
-from django.contrib.sites.shortcuts import get_current_site
-from .tokens import account_activation_token
-from .forms import UserRegistrationForm
-from django.utils import timezone
 from django.utils.timezone import now
 from django.contrib.sites.shortcuts import get_current_site
 from datetime import timedelta, datetime
-from yuzzaz.forms import UserRegistrationForm, CustomUserForm
-from django.contrib.auth.decorators import login_required
-from yuzzaz.tokens import account_activation_token
 import random
+
+from .tokens import account_activation_token
+from .forms import UserRegistrationForm, CustomUserForm
 from content.views import general_context
 from content.models import Joke
+
 User = get_user_model()
 
 def landing(request):
     context = {
         'year': datetime.now().year,
     }
-    return render(request, 'yuzzaz/land.html', context)
+    return render(request, 'accounts/land.html', context)
 
 def register(request):
     if request.method == "POST":
@@ -38,9 +36,13 @@ def register(request):
             user.is_active = False
             user.save()
 
+            assigned_message = getattr(user, 'username_assigned_message', None)
+            if assigned_message:
+                messages.info(request, assigned_message)
+
             # Send activation email
             current_site = get_current_site(request)
-            message = render_to_string("yuzzaz/activate_account.html", {
+            message = render_to_string("accounts/activate_account.html", {
                 'user': user,
                 'domain': current_site.domain,
                 'protocol': 'https' if request.is_secure() else 'http',
@@ -63,7 +65,7 @@ def register(request):
     else:
         form = UserRegistrationForm()
 
-    return render(request, 'yuzzaz/register.html', {'form': form})
+    return render(request, 'accounts/register.html', {'form': form})
 
 def activate(request, uidb64, token):
     try:
@@ -98,7 +100,7 @@ def activation_sent(request):
     if not request.session.get('email_sent_time'):
         request.session['email_sent_time'] = now().isoformat()
 
-    return render(request, 'yuzzaz/activation_sent.html', {
+    return render(request, 'accounts/activation_sent.html', {
         'email': email,
         'can_resend_at': now() + timedelta(seconds=90),
     })
@@ -116,7 +118,7 @@ def resend_activation_email(request):
     user = User.objects.filter(email=email, is_active=False).first()
     if user:
         current_site = get_current_site(request)
-        message = render_to_string("yuzzaz/activate_account.html", {
+        message = render_to_string("accounts/activate_account.html", {
             'user': user,
             'domain': current_site.domain,
             'protocol': 'https' if request.is_secure() else 'http',
@@ -136,34 +138,21 @@ def resend_activation_email(request):
     return redirect('activation_sent')
 
 
-def login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+def check_username_api(request):
+    """Backs the async availability check on the profile edit form (and
+    could back the register form too). Excludes the requesting user's own
+    row so re-saving your current username doesn't falsely flag as taken."""
+    username = (request.GET.get('username') or '').strip()
+    if not username:
+        return JsonResponse({'available': False, 'reason': 'Username cannot be blank.'})
+    if len(username) > 150:
+        return JsonResponse({'available': False, 'reason': 'Username is too long.'})
 
-        user = User.objects.filter(username=username).first()
-        if user and user.check_password(password):
-            if not user.is_active:
-                request.session['inactive_user_email'] = user.email
-                request.session['email_sent_time'] = now().isoformat()
-                messages.warning(request, "Your account is not activated. Please check your email or resend the activation link.")
-                return redirect('activation_sent')
+    qs = User.objects.filter(username=username)
+    if request.user.is_authenticated:
+        qs = qs.exclude(pk=request.user.pk)
 
-            auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            messages.success(request, "You have successfully logged in.")
-            if user.is_staff:
-                return redirect('index')
-            else:
-                return redirect('index')  # Standard redirect — adjust to your default user landing page
-
-        messages.error(request, "Invalid credentials, please try again.")
-
-    return render(request, 'yuzzaz/login.html')
-
-def logout(request):
-    auth_logout(request)
-    messages.success(request, "You have successfully logged out.")
-    return redirect('login')
+    return JsonResponse({'available': not qs.exists()})
 
 
 @login_required
@@ -180,21 +169,26 @@ def profile(request, user_id):
 
     else:
         form = CustomUserForm(instance=user)
-    jokess = Joke.objects.filter(joke_by=user).order_by('-created_at')
+    jokess_qs = Joke.objects.filter(joke_by=user).order_by('-created_at')
+    jokes_count = jokess_qs.count()
+    total_likes = jokess_qs.aggregate(total=Count('jokelike'))['total'] or 0
+    jokess = Paginator(jokess_qs, 5).get_page(1)
     context = {
         'logged_in_user': request.user,
         'looking_at': user,
         'jokess': jokess,
+        'jokes_count': jokes_count,
+        'total_likes': total_likes,
         'form': form,
     }
     context.update(general_context(request))
-    return render(request, 'yuzzaz/profile.html', context)
+    return render(request, 'accounts/profile.html', context)
 
 
 def company_profile(request):
     context = {        
     }
-    return render(request, 'yuzzaz/company_profile.html', context)
+    return render(request, 'accounts/company_profile.html', context)
 
 def logout_and_login(request):
     auth_logout(request)
@@ -213,7 +207,7 @@ def edit_profile(request):
     else:
         form = CustomUserForm(instance=request.user)
 
-    return render(request, 'yuzzaz/partials/edit_profile_modal.html', {'form': form, 'viewing_user': request.user})
+    return render(request, 'accounts/partials/edit_profile_modal.html', {'form': form, 'viewing_user': request.user})
     
     
 

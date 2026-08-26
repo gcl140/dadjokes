@@ -4,113 +4,114 @@
 {% block title %}Bobo{% endblock %}
 {% block content %}
 
-<section class="min-h-screen flex flex-col items-center justify-center px-4 py-12 bg-black relative overflow-hidden">
+<section class="min-h-screen flex flex-col items-center px-4 pt-28 pb-40 bg-canvas relative">
     <div class="w-full max-w-lg z-10">
 
-    <!-- Form Container -->
-    <div class="bg-black rounded-2xl shadow-2xl p-8  max-h-[75vh] overflow-y-auto mt-8 mx-4">
-        <!-- Header with Icon -->
-        <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-20 h-20 bg-gray-800 rounded-2xl mb-4 border border-gray-600">
-              {% if notifications %}
-                <i class="fas fa-bell text-white text-3xl"></i>
-              {% else %}
-                <i class="fas fa-bell-slash text-gray-500 text-3xl"></i>
-              {% endif %}
-
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6 px-1">
+        <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-surface-2 border border-hairline flex items-center justify-center flex-shrink-0">
+                {% if notifications %}
+                    <i class="fas fa-bell text-ink"></i>
+                {% else %}
+                    <i class="fas fa-bell-slash text-ink-faint"></i>
+                {% endif %}
             </div>
-            <h3 class="text-4xl text-white tracking-tight">
-                Bobo
-            </h3>
-            <p class="text-gray-400 mt-3 text-lg">Know what's up</p>
+            <div>
+                <h1 class="text-2xl font-black text-ink tracking-tight leading-none">Bobo</h1>
+                <p class="text-ink-faint text-sm mt-1">Know what's up</p>
+            </div>
         </div>
+        {% if notificates > 0 %}
+        <span id="bobo-new-badge" data-count="{{ notificates }}" class="bg-accent-400 text-accent-ink text-xs font-bold px-2.5 py-1 rounded-full flex-shrink-0">
+            {{ notificates }} new
+        </span>
+        {% endif %}
+    </div>
 
-        <!-- Notifications List -->
-        <div class="space-y-4">
+    {% if notificates > 0 %}
+    <div class="flex justify-end mb-2 px-1">
+        <button id="mark-all-read-btn" type="button"
+                class="tap-scale text-sm font-medium text-ink-muted hover:text-accent-500 transition-colors flex items-center gap-1.5">
+            <i class="fas fa-check-double text-xs"></i>
+            <span>Mark all as read</span>
+        </button>
+    </div>
+    {% endif %}
+
+    <!-- Notifications Container -->
+    <div class="bg-surface border border-hairline rounded-2xl shadow-2xl p-4 sm:p-5"
+         data-page="{{ notifications.number|default:1 }}"
+         data-has-next="{{ notifications.has_next|yesno:'true,false' }}">
+        <div id="notifications-list" class="space-y-2">
         {% for note in notifications %}
-            <div class="group p-5 bg-black border border-gray-600 rounded-xl hover:bg-gray-700 transition-all duration-300 flex items-start gap-4">
-                
-                <!-- Icon Container -->
-                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gray-700 flex items-center justify-center border border-gray-600">
-                    <i class="fas fa-{% if note.message_type == 'info' %}info-circle
-                        {% elif note.message_type == 'warning' %}exclamation-triangle
-                        {% elif note.message_type == 'error' %}times-circle
-                        {% elif note.message_type == 'success' %}check-circle
-                        {% elif note.message_type == 'like' %}heart
-                        {% elif note.message_type == 'comment' %}comments
-                        {% else %}bell
-                        {% endif %} 
-                        text-white text-sm">
-                    </i>
+            <div class="group p-4 rounded-xl border-l-2 flex items-start gap-4 transition-colors
+                {% if not note.is_read %}bg-accent-400/5 border-l-accent-400{% else %}bg-surface-2 border-l-transparent{% endif %}
+                {% if not note.is_read %}animate-fade-up{% endif %}">
+
+                <!-- Icon -->
+                <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-surface flex items-center justify-center border border-hairline">
+                    {% if note.message_type == 'like' %}
+                        <i class="fas fa-heart text-accent-500 text-sm"></i>
+                    {% elif note.message_type == 'comment' %}
+                        <i class="fas fa-comments text-ink-muted text-sm"></i>
+                    {% elif note.message_type == 'success' %}
+                        <i class="fas fa-check-circle text-success text-sm"></i>
+                    {% elif note.message_type == 'warning' %}
+                        <i class="fas fa-exclamation-triangle text-danger text-sm"></i>
+                    {% elif note.message_type == 'error' %}
+                        <i class="fas fa-times-circle text-danger text-sm"></i>
+                    {% else %}
+                        <i class="fas fa-info-circle text-ink-muted text-sm"></i>
+                    {% endif %}
                 </div>
 
-                <!-- Message Content -->
+                <!-- Message -->
                 <div class="flex-1 min-w-0">
-                    <p class="text-white font-medium leading-relaxed text-[15px]">{{ note.message }}</p>
-                    <p class="text-gray-400 text-xs font-medium mt-2 flex items-center gap-1">
-                        <i class="fas fa-clock text-gray-500"></i>
+                    <p class="text-ink font-medium leading-relaxed text-[15px]">{{ note.message }}</p>
+                    <p class="text-ink-faint text-xs font-medium mt-1.5 flex items-center gap-1.5">
+                        <i class="fas fa-clock"></i>
                         {{ note.created_at }}
                     </p>
                 </div>
 
-                <!-- Read Status -->
-                <div class="flex-shrink-0">
+                <!-- Read status -->
+                <div class="flex-shrink-0 pt-1">
                     {% if note.is_read %}
-                    <i class="fas fa-check text-gray-400 mt-1"></i>
+                    <i class="fas fa-check-double text-ink-faint text-sm"></i>
                     {% else %}
                     <button onclick="markNotificationRead({{ note.id }})"
                             id="read-btn-{{ note.id }}"
-                            class="text-white hover:text-gray-300">
-                        <i class="fas fa-circle" id="notification-item-{{ note.id }}"></i>
+                            aria-label="Mark as read"
+                            class="text-accent-400 hover:text-accent-500 tap-scale">
+                        <i class="fas fa-circle text-[10px]" id="notification-item-{{ note.id }}"></i>
                     </button>
                     {% endif %}
                 </div>
             </div>
         {% empty %}
             <!-- Empty State -->
-            <div class="text-center py-12">
-
-                <p class="text-gray-400 font-medium text-lg">No notifications yet</p>
-                <p class="text-gray-500 text-sm mt-2">Nothing's cooking, bro!</p>
+            <div class="text-center py-14">
+                <p class="text-ink-muted font-medium text-lg">No notifications yet</p>
+                <p class="text-ink-faint text-sm mt-2">You'll be notified here when something happens.</p>
             </div>
         {% endfor %}
         </div>
-    </div>
 
-    <!-- Preview Note -->
-    <div class="mt-6 text-center">
-      <p class="text-gray-500 text-sm flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        You'll be notified here when something happens
-      </p>
+        {% if notifications.has_next %}
+        <div class="mt-4 pt-4 border-t border-hairline">
+            <button id="load-more-notifications"
+                    class="tap-scale w-full flex items-center justify-center gap-2 text-sm font-medium text-ink hover:text-accent-500 transition-colors py-2">
+                <span>Load more</span>
+                <i class="fas fa-chevron-down text-xs"></i>
+            </button>
+        </div>
+        {% endif %}
     </div>
   </div>
 </section>
-
-<style>
-  /* Custom scrollbar */
-  .overflow-y-auto::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .overflow-y-auto::-webkit-scrollbar-track {
-    background: #374151;
-    border-radius: 3px;
-  }
-  
-  .overflow-y-auto::-webkit-scrollbar-thumb {
-    background: #6B7280;
-    border-radius: 3px;
-  }
-  
-  .overflow-y-auto::-webkit-scrollbar-thumb:hover {
-    background: #9CA3AF;
-  }
-</style>
+{% endblock %}
 
 {% block scripts %}
     <script type="module" src="{% static 'js/bobo.js' %}"></script>
-{% endblock %}
 {% endblock %}

@@ -1,7 +1,30 @@
 import re
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
+from django.utils.timezone import now
 from .models import CustomUser
 from random_username.generate import generate_username
+
+
+class LoginForm(AuthenticationForm):
+    """Stock AuthenticationForm, with one addition: an inactive account
+    (pending email activation) gets a helpful inline message instead of
+    Django's generic "invalid login" - and primes the session so the
+    "resend activation email" view (see accounts/views.py) knows who to
+    resend to. Requires AllowAllUsersModelBackend in AUTHENTICATION_BACKENDS
+    so authenticate() doesn't reject the inactive user before we get here.
+    """
+
+    def confirm_login_allowed(self, user):
+        if not user.is_active:
+            if self.request is not None:
+                self.request.session['inactive_user_email'] = user.email
+                self.request.session['email_sent_time'] = now().isoformat()
+            raise forms.ValidationError(
+                "Your account is not activated yet. Please check your email, "
+                "or use the resend link on the activation page.",
+                code='inactive',
+            )
 
 class UserRegistrationForm(forms.ModelForm):
     password1 = forms.CharField(
@@ -17,7 +40,7 @@ class UserRegistrationForm(forms.ModelForm):
         model = CustomUser
         fields = ['username', 'email',]
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}),
+            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username (optional - we\'ll pick one for you if left blank)'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
         }
 
@@ -36,7 +59,9 @@ class UserRegistrationForm(forms.ModelForm):
             username = None
             while not username or CustomUser.objects.filter(username=username).exists():
                 username = generate_username(1)[0]
-            message = f"The username you provided is already taken or invalid. We have assigned you a new username: {username}, a cool one actually!"
+            # Surfaced by the register view as a flash message - stashed on
+            # the instance since this form has no request/messages access.
+            user.username_assigned_message = f"The username you provided is already taken or invalid. We picked a new one for you: {username}, a cool one actually!"
             user.username = username
 
         if commit:

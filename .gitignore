@@ -16,3 +16,7 @@ dist/
 build/
 staticfiles/
 media/
+cookies/
+.gstack/
+.claude/
+.agents/

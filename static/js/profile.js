@@ -1,68 +1,96 @@
-function getCookie(name) {
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== "") {
-    const cookies = document.cookie.split(";");
-    for (let cookie of cookies) {
-      cookie = cookie.trim();
-      if (cookie.startsWith(name + "=")) {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
-      }
+// Edit Profile modal
+const updateFormSection = document.getElementById("updateFormSection");
+const toggleUpdateBtn = document.getElementById("toggleUpdate");
+const closeUpdateBtn = document.getElementById("closeUpdate");
+
+if (toggleUpdateBtn && updateFormSection) {
+  toggleUpdateBtn.addEventListener("click", () => {
+    updateFormSection.classList.remove("hidden");
+    updateFormSection.classList.add("flex");
+  });
+}
+
+if (closeUpdateBtn && updateFormSection) {
+  closeUpdateBtn.addEventListener("click", () => {
+    updateFormSection.classList.add("hidden");
+    updateFormSection.classList.remove("flex");
+  });
+}
+
+if (updateFormSection) {
+  updateFormSection.addEventListener("click", (e) => {
+    if (e.target === updateFormSection) {
+      updateFormSection.classList.add("hidden");
+      updateFormSection.classList.remove("flex");
     }
+  });
+}
+
+// Async username availability check - blocks Save until a changed username
+// is confirmed free (or reverted back to what it already was).
+const usernameInput = document.getElementById("id_username");
+const usernameStatus = document.getElementById("username-check-status");
+const saveProfileBtn = document.getElementById("save-profile-btn");
+
+if (usernameInput && usernameStatus && saveProfileBtn) {
+  const originalUsername = usernameInput.value.trim();
+  let debounceTimer = null;
+  let requestId = 0;
+  let usernameOk = true; // unchanged value is always fine to submit
+
+  function setUsernameStatus(text, colorClass) {
+    usernameStatus.textContent = text;
+    usernameStatus.className = "text-xs mt-1" + (colorClass ? " " + colorClass : "");
   }
-  return cookieValue;
+
+  function updateSaveState() {
+    saveProfileBtn.disabled = !usernameOk;
+  }
+
+  usernameInput.addEventListener("input", () => {
+    const value = usernameInput.value.trim();
+    clearTimeout(debounceTimer);
+
+    if (value === originalUsername) {
+      usernameOk = true;
+      setUsernameStatus("");
+      updateSaveState();
+      return;
+    }
+
+    if (!value) {
+      usernameOk = false;
+      setUsernameStatus("Username cannot be blank.", "text-danger");
+      updateSaveState();
+      return;
+    }
+
+    usernameOk = false;
+    updateSaveState();
+    setUsernameStatus("Checking availability…", "text-ink-faint");
+
+    const thisRequest = ++requestId;
+    debounceTimer = setTimeout(() => {
+      fetch(`/accounts/api/check-username/?username=${encodeURIComponent(value)}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (thisRequest !== requestId) return;
+          usernameOk = !!data.available;
+          setUsernameStatus(
+            data.available ? "Username is available." : data.reason || "That username is already taken.",
+            data.available ? "text-success" : "text-danger"
+          );
+          updateSaveState();
+        })
+        .catch(() => {
+          if (thisRequest !== requestId) return;
+          usernameOk = false;
+          setUsernameStatus("Couldn't check availability, try again.", "text-danger");
+          updateSaveState();
+        });
+    }, 400);
+  });
 }
-
-function deleteJoke(jokeId) {
-  if (!confirm("Are you sure you want to delete this joke?")) return;
-
-  fetch(`/delete-joke/${jokeId}/`, {
-    method: "DELETE",
-    headers: {
-      "X-CSRFToken": getCookie("csrftoken"),
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.message) {
-        Toastify({
-          text: data.message,
-          duration: 3000,
-          gravity: "top",
-          position: "right",
-          close: true,
-          style: { background: "#10b981", color: "#fff" },
-        }).showToast();
-        location.reload();
-      } else {
-        Toastify({
-          text: data.error,
-          duration: 3000,
-          gravity: "top",
-          position: "right",
-          close: true,
-          style: { background: "#ef4444", color: "#fff" },
-        }).showToast();
-      }
-    });
-}
-
-// Show update form
-document.getElementById("toggleUpdate").addEventListener("click", () => {
-  const formSection = document.getElementById("updateFormSection");
-  formSection.classList.remove("hidden");
-  formSection.scrollIntoView({ behavior: "smooth" });
-});
-
-// Close update form
-document.getElementById("closeUpdate").addEventListener("click", () => {
-  const formSection = document.getElementById("updateFormSection");
-  formSection.classList.add("hidden");
-  document
-    .getElementById("scrollContainer")
-    .scrollTo({ top: 0, behavior: "smooth" });
-});
 
 // Profile picture preview
 const profileInput = document.getElementById("id_profile_picture");

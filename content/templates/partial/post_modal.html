@@ -1,0 +1,96 @@
+<!-- Post preview / edit modal - used on the profile page's posts list -->
+<div id="post-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[9999] p-4">
+  <div class="bg-canvas-raised border border-hairline w-full max-w-lg rounded-2xl shadow-2xl max-h-[90vh] flex flex-col overflow-hidden">
+    <div class="flex justify-between items-center px-6 py-4 border-b border-hairline flex-shrink-0">
+      <h2 class="text-xl font-bold text-ink">Post</h2>
+      <button id="post-modal-close" class="text-ink-faint hover:text-ink transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="overflow-y-auto thin-scrollbar p-6">
+      <!-- VIEW mode -->
+      <div id="post-view-mode">
+        <div id="post-preview-plate" class="rounded-2xl p-6 text-center font-bold text-lg min-h-[120px] flex items-center justify-center mb-4"></div>
+        <p id="post-preview-description" class="text-ink-muted text-sm mb-4"></p>
+        <p class="text-ink-faint text-xs flex items-center gap-4 mb-6">
+          <span><i class="fas fa-heart mr-1"></i><span id="post-preview-likes"></span></span>
+          <span><i class="fas fa-comment mr-1"></i><span id="post-preview-comments"></span></span>
+        </p>
+        <div class="flex flex-col sm:flex-row gap-2">
+          <a id="post-view-link" href="#" class="w-full sm:flex-1 bg-surface-2 border border-hairline hover:bg-hairline text-ink py-2.5 rounded-xl font-medium text-center tap-scale flex items-center justify-center gap-2">
+            <i class="fas fa-play text-xs"></i> View in feed
+          </a>
+          <button id="post-edit-btn" type="button" class="w-full sm:flex-1 bg-accent-400 hover:bg-accent-500 text-accent-ink py-2.5 rounded-xl font-medium tap-scale flex items-center justify-center gap-2">
+            <i class="fas fa-pen text-xs"></i> Edit
+          </button>
+          <button id="post-delete-btn" type="button" aria-label="Delete post" class="w-full sm:w-auto bg-danger/10 text-danger hover:bg-danger/20 py-2.5 sm:px-4 rounded-xl font-medium tap-scale flex items-center justify-center gap-2">
+            <i class="fas fa-trash text-xs"></i> <span class="sm:hidden">Delete</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- EDIT mode -->
+      <form id="post-edit-form" class="hidden space-y-4">
+        <div>
+          <label class="block text-ink-muted text-sm font-medium mb-1.5">Joke Content</label>
+          <textarea id="edit-content" rows="3" required class="w-full rounded-xl bg-surface-2 border border-hairline py-2.5 px-3 text-ink focus:outline-none focus:ring-2 focus:ring-accent-400 resize-none"></textarea>
+        </div>
+        <div>
+          <label class="block text-ink-muted text-sm font-medium mb-1.5">Description</label>
+          <textarea id="edit-description" rows="2" class="w-full rounded-xl bg-surface-2 border border-hairline py-2.5 px-3 text-ink focus:outline-none focus:ring-2 focus:ring-accent-400 resize-none"></textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-ink-muted text-sm font-medium mb-1.5">Background</label>
+            <input id="edit-bg-color" type="color" class="w-full h-10 rounded-lg border border-hairline-strong cursor-pointer">
+          </div>
+          <div>
+            <label class="block text-ink-muted text-sm font-medium mb-1.5">Text Color</label>
+            <input id="edit-text-color" type="color" class="w-full h-10 rounded-lg border border-hairline-strong cursor-pointer">
+          </div>
+        </div>
+        <div>
+          <label class="block text-ink-muted text-sm font-medium mb-1.5">Font</label>
+          <select id="edit-font-type" class="w-full rounded-xl bg-canvas-raised border border-hairline py-2.5 px-3 text-ink focus:outline-none focus:ring-2 focus:ring-accent-400">
+            <option value="Arial">Arial</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Comic Sans MS">Comic Sans MS</option>
+            <option value="Trebuchet MS">Trebuchet MS</option>
+            <option value="Impact">Impact</option>
+            <option value="Lucida Console">Lucida Console</option>
+            <option value="Palatino Linotype">Palatino Linotype</option>
+          </select>
+        </div>
+        <div>
+          <label for="edit-bg-music-search" class="block text-ink-muted text-sm font-medium mb-1.5">Background Music</label>
+          <div class="relative">
+            <input type="hidden" id="edit-bg-music-id">
+            <div class="relative">
+              <input type="text" id="edit-bg-music-search" autocomplete="off"
+                     placeholder="Search added songs… (leave blank for original sound)"
+                     class="w-full truncate rounded-xl bg-surface-2 border border-hairline py-2.5 pl-3 pr-11 text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent">
+              <button type="button" id="edit-bg-music-clear" aria-label="Clear selection"
+                      class="hidden absolute right-3 top-1/2 -translate-y-1/2 p-1 text-ink-faint hover:text-ink transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div id="edit-bg-music-dropdown"
+                 class="hidden absolute z-20 mt-1 w-full max-h-60 overflow-y-auto rounded-xl border border-hairline bg-canvas-raised shadow-xl thin-scrollbar"></div>
+          </div>
+        </div>
+        <div class="flex gap-2 pt-2">
+          <button type="button" id="post-cancel-edit-btn" class="flex-1 bg-surface-2 border border-hairline hover:bg-hairline text-ink py-2.5 rounded-xl font-medium tap-scale">Cancel</button>
+          <button type="submit" class="flex-1 bg-accent-400 hover:bg-accent-500 text-accent-ink py-2.5 rounded-xl font-medium tap-scale">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

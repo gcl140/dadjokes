@@ -1,0 +1,27 @@
+{
+  "name": "dadjokess",
+  "version": "1.0.0",
+  "description": "A Django-based web application for sharing and enjoying dad jokes! This platform allows users to create, share, like, and comment on dad jokes with customizable styling and social authentication.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "tailwindcss -i ./static_src/input.css -o ./static/css/app.css --minify",
+    "watch:css": "tailwindcss -i ./static_src/input.css -o ./static/css/app.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gcl140/dadjokes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/gcl140/dadjokes/issues"
+  },
+  "homepage": "https://github.com/gcl140/dadjokes#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

@@ -1,19 +1,25 @@
 {% extends 'content/base.html' %}
 {% load static %}
 {% block content %}
-<body data-username="{{ request.user.username }}" data-id="{{ request.user.id }}">     
-<div class="fixed top-24 left-4 flex flex-col space-y-2 z-50">
-  <button id="scrollUp" class="p-2 w-8 h-8 items-center flex bg-white rounded-full shadow">▲</button>
-  <button id="scrollDown" class="p-2 w-8 h-8 bg-white items-center flex rounded-full shadow">▼</button>
+<body data-username="{{ request.user.username }}" data-id="{{ request.user.id }}">
+<div class="fixed top-24 right-4 flex flex-col gap-2 z-40">
+  <button id="scrollUp" aria-label="Previous joke" class="tap-scale w-9 h-9 items-center justify-center flex glass-pill rounded-full shadow text-white">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7" /></svg>
+  </button>
+  <button id="scrollDown" aria-label="Next joke" class="tap-scale w-9 h-9 items-center justify-center flex glass-pill rounded-full shadow text-white">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" /></svg>
+  </button>
 </div>
 
-<div id="scrollContainer" class="h-screen overflow-y-auto snap-y snap-mandatory touch-pan-y">
-  <!-- Video items will be appended with `scroll-item` class -->
+<div id="scrollContainer" class="h-screen overflow-y-auto snap-y snap-mandatory touch-pan-y no-scrollbar">
+  <!-- Joke items will be appended with `scroll-item` class -->
+  <div class="h-screen w-full flex items-center justify-center">
+    <div class="skeleton w-48 h-8 rounded-full"></div>
+  </div>
 </div>
 
 <style>
   .scroll-item {
-    scroll-snap-align: start;
     min-height: 100vh;
   }
   #scrollContainer {
@@ -22,10 +28,9 @@
 </style>
 
     {% include 'partial/comments.html' %}
-    {% block scripts %}
-        <script type="module" src="{% static 'js/index.js' %}"></script>
-    {% endblock %}
-
-
 </body>
+{% endblock %}
+
+{% block scripts %}
+    <script type="module" src="{% static 'js/index.js' %}"></script>
 {% endblock %}

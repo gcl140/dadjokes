@@ -4,40 +4,62 @@
 {% block title %}Create Joke{% endblock %}
 {% block content %}
 
-<section class="min-h-screen flex flex-col items-center justify-center px-4 py-12 bg-black relative overflow-hidden">
-    <div class="w-full max-w-lg z-10">
-        
+<section class="min-h-screen flex flex-col items-center justify-center px-4 pt-24 pb-40 bg-canvas relative">
+    <div class="w-full max-w-lg z-10 animate-fade-up">
+
     <!-- Form Container -->
-    <div class="bg-black rounded-2xl shadow-2xl p-8  max-h-[75vh] overflow-y-auto mt-8">
+    <div class="relative bg-surface border border-hairline rounded-2xl shadow-2xl p-8 mt-8">
+        <button type="button" aria-label="Back"
+                onclick="window.history.length > 1 ? window.history.back() : window.location.href='{% url 'index' %}'"
+                class="tap-scale absolute top-4 left-4 text-ink-faint hover:text-ink transition p-2 rounded-full border border-hairline hover:bg-surface-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+        </button>
         <!-- Header with Icon -->
         <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-800 rounded-full mb-4 border border-gray-600">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-surface-2 rounded-full mb-4 border border-hairline">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
         </div>
-        <h3 class="text-3xl font-bold text-white">
+        <h3 class="text-3xl font-bold text-ink">
             Create a Joke
         </h3>
-        <p class="text-gray-400 mt-2">Make them laugh with your creativity</p>
+        <p class="text-ink-muted mt-2">Break 'em ribs</p>
         </div>
 
         <form method="POST" action="{% url 'create_joke' %}" class="space-y-6">
 
-
             {% csrf_token %}
+
+            <!-- Live Preview -->
+            <div class="space-y-2">
+                <span class="flex items-center text-ink-muted font-medium text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-ink-faint" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    Preview
+                </span>
+                <div id="joke-preview" class="rounded-2xl min-h-[140px] flex items-center justify-center p-6 border border-hairline transition-colors duration-300" style="background-color: #F2B134;">
+                    <span id="preview-plate" class="info-plate text-center font-bold text-lg px-4 py-3 max-w-full break-words" style="line-height: 1.5; border-radius: 20px;">
+                        Your joke will appear here
+                    </span>
+                </div>
+            </div>
 
             <!-- Content -->
             <div class="space-y-2">
-            <label for="{{ form.content.id_for_label }}" class="flex items-center text-gray-200 font-medium">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <label for="{{ form.content.id_for_label }}" class="flex items-center text-ink-muted font-medium text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-ink-faint" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                 </svg>
                 Joke Content
             </label>
             {{ form.content }}
             {% if form.content.errors %}
-                <p class="text-red-400 text-sm mt-1 flex items-center">
+                <p class="text-danger text-sm mt-1 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -48,15 +70,15 @@
 
             <!-- Description -->
             <div class="space-y-2">
-            <label for="{{ form.description.id_for_label }}" class="flex items-center text-gray-200 font-medium">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <label for="{{ form.description.id_for_label }}" class="flex items-center text-ink-muted font-medium text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-ink-faint" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Description (Optional)
             </label>
             {{ form.description }}
             {% if form.description.errors %}
-                <p class="text-red-400 text-sm mt-1 flex items-center">
+                <p class="text-danger text-sm mt-1 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -66,88 +88,84 @@
             </div>
 
             <!-- Style Settings Section -->
-            <div class="bg-gray-800 rounded-xl p-4 border border-gray-700">
-            <h4 class="text-lg font-semibold text-gray-200 mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="bg-surface-2 rounded-xl p-4 border border-hairline">
+            <h4 class="text-base font-semibold text-ink mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-ink-faint" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
                 </svg>
                 Style Settings
             </h4>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Background Color -->
                 <div class="space-y-2">
-                <label for="{{ form.bg_color.id_for_label }}" class="text-gray-300 text-sm font-medium">Background Color</label>
-                <div class="relative">
-                    {{ form.bg_color }}
-                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-                    </svg>
-                    </div>
-                </div>
+                <label for="{{ form.bg_color.id_for_label }}" class="text-ink-muted text-sm font-medium">Background Color</label>
+                {{ form.bg_color }}
+                <div id="bg-swatches" class="flex flex-wrap gap-2 pt-1"></div>
                 {% if form.bg_color.errors %}
-                    <p class="text-red-400 text-sm mt-1">{{ form.bg_color.errors.0 }}</p>
+                    <p class="text-danger text-sm mt-1">{{ form.bg_color.errors.0 }}</p>
                 {% endif %}
                 </div>
 
                 <!-- Text Color -->
                 <div class="space-y-2">
-                <label for="{{ form.text_color.id_for_label }}" class="text-gray-300 text-sm font-medium">Text Color</label>
-                <div class="relative">
-                    {{ form.text_color }}
-                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-                    </svg>
-                    </div>
+                <label for="{{ form.text_color.id_for_label }}" class="text-ink-muted text-sm font-medium">Text Color</label>
+                {{ form.text_color }}
+                <div class="flex gap-2 pt-1">
+                    <button type="button" data-text-preset="#000000" class="tap-scale flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg border border-hairline-strong bg-surface text-ink text-xs font-medium hover:bg-hairline transition-colors">
+                        <span class="w-3 h-3 rounded-full bg-black border border-hairline-strong"></span> Dark
+                    </button>
+                    <button type="button" data-text-preset="#FFFFFF" class="tap-scale flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg border border-hairline-strong bg-surface text-ink text-xs font-medium hover:bg-hairline transition-colors">
+                        <span class="w-3 h-3 rounded-full bg-white border border-hairline-strong"></span> Light
+                    </button>
                 </div>
                 {% if form.text_color.errors %}
-                    <p class="text-red-400 text-sm mt-1">{{ form.text_color.errors.0 }}</p>
+                    <p class="text-danger text-sm mt-1">{{ form.text_color.errors.0 }}</p>
                 {% endif %}
                 </div>
 
                 <!-- Font Type -->
                 <div class="space-y-2">
-                <label for="{{ form.font_type.id_for_label }}" class="text-gray-300 text-sm font-medium">Font Style</label>
-                <div class="relative">
-                    {{ form.font_type }}
-                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9h14V7H3v2zm0 4h14v-2H3v2zm0 4h14v-2H3v2z" />
-                    </svg>
-                    </div>
-                </div>
+                <label for="{{ form.font_type.id_for_label }}" class="text-ink-muted text-sm font-medium">Font Style</label>
+                {{ form.font_type }}
                 {% if form.font_type.errors %}
-                    <p class="text-red-400 text-sm mt-1">{{ form.font_type.errors.0 }}</p>
-                {% endif %}
-                </div>
-
-                <!-- Background Music -->
-                <div class="space-y-2">
-                <label for="{{ form.bg_music.id_for_label }}" class="text-gray-300 text-sm font-medium">Background Music</label>
-                <br>
-                <div class="relative">
-                    {{ form.bg_music }}
-                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                    </svg>
-                    </div>
-                </div>
-                {% if form.bg_music.errors %}
-                    <p class="text-red-400 text-sm mt-1">{{ form.bg_music.errors.0 }}</p>
+                    <p class="text-danger text-sm mt-1">{{ form.font_type.errors.0 }}</p>
                 {% endif %}
                 </div>
               </div>
-              <button id="search-music" onclick="openSongsModal()" type="button" class="w-full mt-4 bg-black text-white hover:bg-gray-500 py-3 rounded-xl font-bold transition-colors flex items-center justify-center space-x-2 group">
+
+              <!-- Background Music - its own row, async search combobox -->
+              <div class="space-y-2 mt-4">
+                <label for="bg-music-search" class="text-ink-muted text-sm font-medium">Background Music</label>
+                <div class="relative">
+                    {{ form.bg_music }}
+                    <div class="relative">
+                        <input type="text" id="bg-music-search" autocomplete="off"
+                               placeholder="Search added songs… (leave blank for original sound)"
+                               class="w-full truncate rounded-xl bg-surface border border-hairline py-3 pl-4 pr-11 text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent">
+                        <button type="button" id="bg-music-clear" aria-label="Clear selection"
+                                class="hidden absolute right-3 top-1/2 -translate-y-1/2 p-1 text-ink-faint hover:text-ink transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="bg-music-dropdown"
+                         class="hidden absolute z-20 mt-1 w-full max-h-60 overflow-y-auto rounded-xl border border-hairline bg-canvas-raised shadow-xl thin-scrollbar"></div>
+                </div>
+                {% if form.bg_music.errors %}
+                    <p class="text-danger text-sm mt-1">{{ form.bg_music.errors.0 }}</p>
+                {% endif %}
+              </div>
+
+              <button id="search-music" onclick="openSongsModal()" type="button" class="w-full mt-4 bg-surface border border-hairline text-ink hover:bg-hairline py-3 rounded-xl font-bold transition-colors flex items-center justify-center space-x-2 group tap-scale">
                 <i class="fas fa-music text-lg group-hover:scale-110 transition-transform"></i>
                 <span>Search Music</span>
               </button>
               </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="w-full bg-white text-black hover:bg-gray-200 py-3 rounded-xl font-bold transition-colors flex items-center justify-center space-x-2 group">
+            <button type="submit" class="w-full bg-accent-400 hover:bg-accent-500 text-accent-ink py-3 rounded-xl font-bold transition-colors flex items-center justify-center space-x-2 group tap-scale">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
@@ -158,7 +176,7 @@
 
     <!-- Preview Note -->
     <div class="mt-6 text-center">
-      <p class="text-gray-500 text-sm flex items-center justify-center">
+      <p class="text-ink-faint text-sm flex items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
@@ -170,51 +188,152 @@
 
 {% include 'partial/add_song.html' %}
 <style>
-  /* Custom styles for color inputs */
-  input[type="color"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    height: 40px !important;
-  }
-  
-  input[type="color"]::-webkit-color-swatch {
-    border-radius: 8px;
-    border: 2px solid #4B5563;
-  }
-  
-  input[type="color"]::-moz-color-swatch {
-    border-radius: 8px;
-    border: 2px solid #4B5563;
-  }
-  
   /* Custom scrollbar for textareas */
   textarea::-webkit-scrollbar {
     width: 6px;
   }
-  
+
   textarea::-webkit-scrollbar-track {
-    background: #374151;
-    border-radius: 3px;
+    background: transparent;
   }
-  
+
   textarea::-webkit-scrollbar-thumb {
-    background: #6B7280;
+    background: var(--tw-hairline-strong);
     border-radius: 3px;
-  }
-  
-  textarea::-webkit-scrollbar-thumb:hover {
-    background: #9CA3AF;
   }
 </style>
 
+<script src="{% static 'js/music-combobox.js' %}"></script>
 <script>
   function openSongsModal() {
     document.getElementById('songs-modal').classList.remove('hidden');
   }
 
+  (function () {
+    var form = document.getElementById('add-song-form');
+    if (!form) return;
+
+    var input = document.getElementById('songs-input');
+    var modal = document.getElementById('songs-modal');
+
+    function toast(text, isError) {
+      if (!window.Toastify) return;
+      Toastify({
+        text: text,
+        duration: isError ? 5000 : 4500,
+        gravity: 'top',
+        position: 'right',
+        close: true,
+        style: isError ? { background: '#dc2626', color: '#fef2f2' } : { background: '#000000', color: '#ffffff' },
+      }).showToast();
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var query = input.value.trim();
+      if (!query) return;
+
+      // Snapshot the form data before clearing the input below - FormData
+      // reads live from the DOM at construction time, so building it after
+      // the clear would submit an empty query.
+      var formData = new FormData(form);
+
+      // Close the modal immediately instead of leaving the user staring at
+      // it while the search runs server-side - the real outcome (found /
+      // not found) arrives separately as a toast + notification via the
+      // websocket once it finishes. The top-right spinner (bg-jobs.js)
+      // covers the "still working" gap in between.
+      modal.classList.add('hidden');
+      input.value = '';
+      toast('Searching for “' + query + '”… you’ll get a notification when it’s done.');
+      if (window.__ydBgJob) window.__ydBgJob.start('Searching for “' + query + '”…');
+
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+      })
+        .then(function (res) {
+          if (!res.ok) return res.json().then(function (data) { throw new Error(data.error || 'Search failed.'); });
+        })
+        .catch(function (err) {
+          if (window.__ydBgJob) window.__ydBgJob.clear();
+          toast(err.message, true);
+        });
+    });
+  })();
+
+  initMusicCombobox({
+    searchInputId: 'bg-music-search',
+    hiddenInputId: '{{ form.bg_music.id_for_label }}',
+    dropdownId: 'bg-music-dropdown',
+    clearBtnId: 'bg-music-clear',
+    searchUrl: '{% url "music_search_api" %}',
+  });
+
+  (function () {
+    var contentInput = document.getElementById('{{ form.content.id_for_label }}');
+    var bgColorInput = document.getElementById('{{ form.bg_color.id_for_label }}');
+    var textColorInput = document.getElementById('{{ form.text_color.id_for_label }}');
+    var fontInput = document.getElementById('{{ form.font_type.id_for_label }}');
+    var preview = document.getElementById('joke-preview');
+    var previewPlate = document.getElementById('preview-plate');
+
+    // A small curated palette, one click sets the native color input (and
+    // fires 'input' so the preview + swatch stay in sync either way).
+    var BG_PRESETS = ['#F2B134', '#2E86AB', '#A23B72', '#3B7A57', '#D64550', '#6B4E71', '#1B998B', '#E8871E'];
+
+    var swatchContainer = document.getElementById('bg-swatches');
+    BG_PRESETS.forEach(function (hex) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'tap-scale w-7 h-7 rounded-full border border-hairline-strong';
+      btn.style.backgroundColor = hex;
+      btn.setAttribute('aria-label', 'Use ' + hex);
+      btn.addEventListener('click', function () {
+        bgColorInput.value = hex;
+        bgColorInput.dispatchEvent(new Event('input'));
+      });
+      swatchContainer.appendChild(btn);
+    });
+
+    document.querySelectorAll('[data-text-preset]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        textColorInput.value = btn.dataset.textPreset;
+        textColorInput.dispatchEvent(new Event('input'));
+      });
+    });
+
+    // Show each font choice rendered in its own font, so picking one is
+    // "see it, don't guess it" instead of reading font names blind.
+    if (fontInput) {
+      Array.from(fontInput.options).forEach(function (opt) {
+        opt.style.fontFamily = opt.value;
+      });
+    }
+
+    function updatePreview() {
+      var text = (contentInput.value || '').trim() || 'Your joke will appear here';
+      var bg = bgColorInput.value || '#F2B134';
+      var textColor = textColorInput.value || '#000000';
+      var font = fontInput ? fontInput.value : 'Arial';
+
+      preview.style.backgroundColor = bg;
+      previewPlate.textContent = text;
+      previewPlate.style.color = textColor;
+      previewPlate.style.fontFamily = font;
+
+      // Same legibility rule the feed uses: a light text color gets a dark
+      // glass plate, anything else gets a light glass plate.
+      var plateIsDark = textColor.toLowerCase() === '#ffffff';
+      previewPlate.style.backgroundColor = plateIsDark ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.95)';
+    }
+
+    [contentInput, bgColorInput, textColorInput, fontInput].forEach(function (el) {
+      if (el) el.addEventListener('input', updatePreview);
+    });
+
+    updatePreview();
+  })();
 </script>
 {% endblock %}

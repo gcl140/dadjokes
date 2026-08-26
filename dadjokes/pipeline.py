@@ -20,8 +20,6 @@ from django.shortcuts import redirect
 from social_django.models import UserSocialAuth
 from random_username.generate import generate_username
 
-
-from yuzzaz.models import CustomUser
 User = get_user_model()
 
 def save_user_details(backend, user, response, request=None, *args, **kwargs):
