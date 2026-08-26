@@ -87,6 +87,15 @@ class Command(BaseCommand):
             action="store_true",
             help="Parse and report counts without writing to the database.",
         )
+        parser.add_argument(
+            "--limit",
+            type=int,
+            default=None,
+            help="Seed at most this many new jokes (a random subset of what's eligible). "
+                 "Useful with a small JokeMusic library so background music doesn't get "
+                 "reused across hundreds of jokes at once - seed a batch, add more songs, "
+                 "run again for the next batch. Already-seeded content is never re-picked.",
+        )
 
     def handle(self, *args, **options):
         path = Path(options["file"])
@@ -99,12 +108,20 @@ class Command(BaseCommand):
             return
 
         existing = set(Joke.objects.values_list("content", flat=True))
-        to_create = [text for text in parsed if text not in existing]
-        skipped = len(parsed) - len(to_create)
+        eligible = [text for text in parsed if text not in existing]
+        skipped = len(parsed) - len(eligible)
+
+        limit = options["limit"]
+        if limit is not None and limit < len(eligible):
+            to_create = random.sample(eligible, limit)
+        else:
+            to_create = eligible
 
         self.stdout.write(f"Parsed {len(parsed)} jokes from {path}")
         self.stdout.write(f"Already in database (skipped): {skipped}")
-        self.stdout.write(f"New jokes to create: {len(to_create)}")
+        self.stdout.write(f"New jokes eligible: {len(eligible)}")
+        if limit is not None:
+            self.stdout.write(f"Limited to: {len(to_create)}")
 
         if options["dry_run"]:
             self.stdout.write(self.style.WARNING("--dry-run set, not writing anything."))
