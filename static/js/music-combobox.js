@@ -17,6 +17,7 @@ function initMusicCombobox(opts) {
   var highlightedIndex = -1;
   var hasMore = false;
   var loadingMore = false;
+  var lastQuery = "";
 
   function escapeHtml(s) {
     return s.replace(/[&<>"']/g, function (c) {
@@ -26,7 +27,18 @@ function initMusicCombobox(opts) {
 
   function renderResults() {
     if (!results.length) {
-      dropdown.innerHTML = '<div class="p-3 text-sm text-ink-faint">No songs found.</div>';
+      // No match for a real query the user typed - offer to open the song
+      // search/download modal pre-filled with it, instead of a dead end.
+      // (The empty-query "focus" state, when the whole library is empty,
+      // has nothing meaningful to prefill, so it skips the CTA.)
+      if (lastQuery && window.openSongsModal) {
+        dropdown.innerHTML =
+          '<div class="p-3 text-sm text-ink-faint">No songs found for &ldquo;' + escapeHtml(lastQuery) + '&rdquo;.</div>' +
+          '<button type="button" class="bg-music-add-song w-full text-left px-3 py-2 text-sm font-medium text-accent-400 hover:bg-surface-2 transition-colors border-t border-hairline flex items-center gap-2">' +
+          '<i class="fas fa-plus text-xs"></i> Add &ldquo;' + escapeHtml(lastQuery) + '&rdquo;</button>';
+      } else {
+        dropdown.innerHTML = '<div class="p-3 text-sm text-ink-faint">No songs found.</div>';
+      }
       dropdown.classList.remove("hidden");
       return;
     }
@@ -73,6 +85,7 @@ function initMusicCombobox(opts) {
   }
 
   function fetchResults(query, append) {
+    lastQuery = query;
     var url = searchUrl + "?q=" + encodeURIComponent(query);
     if (append) {
       url += "&offset=" + results.length;
@@ -112,6 +125,11 @@ function initMusicCombobox(opts) {
   dropdown.addEventListener("click", function (e) {
     if (e.target.closest(".bg-music-load-more")) {
       if (!loadingMore) fetchResults(searchInput.value.trim(), true);
+      return;
+    }
+    if (e.target.closest(".bg-music-add-song")) {
+      closeDropdown();
+      if (window.openSongsModal) window.openSongsModal(lastQuery);
       return;
     }
     var btn = e.target.closest(".bg-music-option");
