@@ -69,8 +69,13 @@ class JokeComment(models.Model):
 
 
 class JokeMusic(models.Model):
-    name = models.CharField(max_length=100)
-    file_url = models.FileField(upload_to='music/')
+    # Holds the downloaded filename (video title + "[id].mp3"), which for a
+    # real YouTube title routinely exceeds 100 chars. SQLite never enforces
+    # this at the schema level so it went unnoticed locally; MySQL does.
+    name = models.CharField(max_length=255)
+    # FileField defaults to max_length=100 on its underlying column too -
+    # same "music/<video title> [id].mp3" value goes here, same problem.
+    file_url = models.FileField(upload_to='music/', max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
