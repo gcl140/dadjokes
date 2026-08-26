@@ -298,6 +298,44 @@ const feedObserver = new IntersectionObserver(
   { threshold: [0.6] }
 );
 
+// Browsers block audio.play() with sound until the page has had a real
+// user gesture (click/tap). When that happens we still quietly resume on
+// the next click anywhere (below), but also surface an explicit prompt so
+// people know sound is off and can turn it on directly instead of
+// stumbling into it by accident.
+let audioUnlocked = false;
+let audioPromptEl = null;
+
+function showAudioPermissionPrompt() {
+  if (audioPromptEl || audioUnlocked) return;
+
+  audioPromptEl = document.createElement("div");
+  audioPromptEl.className =
+    "fixed bottom-28 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 bg-canvas-raised border border-hairline rounded-full pl-4 pr-2 py-2 shadow-2xl animate-fade-up";
+  audioPromptEl.innerHTML = `
+    <span class="text-sm text-ink-muted flex items-center gap-2">
+      <i class="fas fa-volume-xmark text-ink-faint"></i>
+      Sound is off
+    </span>
+    <button type="button" id="enable-audio-btn" class="tap-scale bg-accent-400 hover:bg-accent-500 text-accent-ink text-sm font-medium px-4 py-2 rounded-full">
+      Turn on sound
+    </button>
+  `;
+  document.body.appendChild(audioPromptEl);
+
+  document.getElementById("enable-audio-btn").addEventListener("click", () => {
+    audioUnlocked = true;
+    if (currentAudio) currentAudio.play().catch(() => {});
+    hideAudioPermissionPrompt();
+  });
+}
+
+function hideAudioPermissionPrompt() {
+  if (!audioPromptEl) return;
+  audioPromptEl.remove();
+  audioPromptEl = null;
+}
+
 function playJokeMusic(url) {
   if (!url) return;
 
@@ -309,15 +347,29 @@ function playJokeMusic(url) {
   if (currentAudio.src === url) return;
 
   currentAudio.src = url;
-  currentAudio.play().catch(() => {
-    const playOnInteraction = () => {
-      currentAudio.play();
-      document.removeEventListener("click", playOnInteraction);
-      document.removeEventListener("touchstart", playOnInteraction);
-    };
-    document.addEventListener("click", playOnInteraction, { once: true });
-    document.addEventListener("touchstart", playOnInteraction, { once: true });
-  });
+  currentAudio
+    .play()
+    .then(() => {
+      audioUnlocked = true;
+      hideAudioPermissionPrompt();
+    })
+    .catch(() => {
+      showAudioPermissionPrompt();
+
+      const playOnInteraction = () => {
+        currentAudio
+          .play()
+          .then(() => {
+            audioUnlocked = true;
+            hideAudioPermissionPrompt();
+          })
+          .catch(() => {});
+        document.removeEventListener("click", playOnInteraction);
+        document.removeEventListener("touchstart", playOnInteraction);
+      };
+      document.addEventListener("click", playOnInteraction, { once: true });
+      document.addEventListener("touchstart", playOnInteraction, { once: true });
+    });
 }
 
 // Scroll/keyboard navigation - native smooth-scroll to the target item,
