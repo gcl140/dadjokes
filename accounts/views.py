@@ -212,4 +212,4 @@ def edit_profile(request):
     
 
 def custom_404_view(request, exception):
-    return render(request, 'partials/404.html', status=404)
+    return render(request, 'accounts/404.html', status=404)
